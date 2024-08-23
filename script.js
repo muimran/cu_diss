@@ -72,41 +72,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-    function updateMap(data) {
-        console.log('Updating map with new data:', data);
-
-        // Clear existing markers
-        markers.forEach(marker => marker.remove());
-        markers = [];
-        console.log('Cleared existing markers.');
-
-        // Add new markers
-        for (const [location, frequency] of Object.entries(data)) {
-            const locData = locationData.get(location);
-
-            if (locData) {
-                const radius = getCircleRadius(frequency);
-                console.log(`Adding marker for ${location} with frequency ${frequency} and radius ${radius}`);
-
-                const el = document.createElement('div');
-                el.style.backgroundColor = '#1434A4';
-                el.style.borderRadius = '50%';
-                el.style.opacity = '0.85';
-                el.style.width = `${radius * 2}px`;
-                el.style.height = `${radius * 2}px`;
-
-                const marker = new mapboxgl.Marker(el)
-                    .setLngLat([locData.long, locData.lat])
-                    .setPopup(new mapboxgl.Popup({ offset: 25 })
-                    .setHTML(`<strong>${location}</strong><br>Frequency: ${frequency}`))
-                    .addTo(map);
-
-                markers.push(marker); // Store the marker to remove it later
-            } else {
-                console.log(`Location data not found for ${location}`);
+        function updateMap(data) {
+            console.log('Updating map with new data:', data);
+        
+            // Clear existing markers
+            markers.forEach(marker => marker.remove());
+            markers = [];
+            console.log('Cleared existing markers.');
+        
+            // Add new markers
+            for (const [location, frequency] of Object.entries(data)) {
+                const locData = locationData.get(location);
+        
+                if (locData) {
+                    const radius = getCircleRadius(frequency);
+                    console.log(`Adding marker for ${location} with frequency ${frequency} and radius ${radius}`);
+        
+                    const el = document.createElement('div');
+                    el.className = 'pulse-marker'; // Add this class for CSS animation
+                    el.style.width = `${radius * 2}px`;
+                    el.style.height = `${radius * 2}px`;
+        
+                    const marker = new mapboxgl.Marker(el)
+                        .setLngLat([locData.long, locData.lat])
+                        .setPopup(new mapboxgl.Popup({ offset: 25 })
+                        .setHTML(`<strong>${location}</strong><br>Frequency: ${frequency}`))
+                        .addTo(map);
+        
+                    markers.push(marker); // Store the marker to remove it later
+                } else {
+                    console.log(`Location data not found for ${location}`);
+                }
             }
         }
-    }
+        
 
     function getCircleRadius(frequencyCount) {
         const baseRadius = 1.5; // Base radius in pixels
