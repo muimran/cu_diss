@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const publications = document.querySelectorAll('.publication');
     const locationData = new Map();
+    let markers = [];
 
     // Fetch and parse location data from the CSV file
     fetch('location.csv')
@@ -75,12 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Updating map with new data:', data);
 
         // Clear existing markers
-        map.eachLayer(layer => {
-            if (layer.type === 'symbol') {
-                map.removeLayer(layer.id);
-                map.removeSource(layer.id);
-            }
-        });
+        markers.forEach(marker => marker.remove());
+        markers = [];
         console.log('Cleared existing markers.');
 
         // Add new markers
@@ -98,11 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.style.width = `${radius * 2}px`;
                 el.style.height = `${radius * 2}px`;
 
-                new mapboxgl.Marker(el)
+                const marker = new mapboxgl.Marker(el)
                     .setLngLat([locData.long, locData.lat])
                     .setPopup(new mapboxgl.Popup({ offset: 25 })
                     .setHTML(`<strong>${location}</strong><br>Frequency: ${frequency}`))
                     .addTo(map);
+
+                markers.push(marker); // Store the marker to remove it later
             } else {
                 console.log(`Location data not found for ${location}`);
             }
