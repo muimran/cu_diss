@@ -26,7 +26,29 @@ body {
 
 #map {
     width: 100%; /* Make map width 100% of its container */
-    height: 600px;
+    height: 650px;
     border: none; /* Remove any borders to ensure full width */
 }
 
+
+.intro-text {
+    font-family: 'IBM Plex Sans', sans-serif; /* Apply IBM Plex Sans font */
+    font-weight: 500; /* Set font weight to light (300) */
+    display: flex;                  /* Enables flexbox */
+    flex-direction: column;         /* Stacks children vertically */
+    justify-content: center;        /* Centers content vertically (optional) */
+    align-items: center;            /* Centers content horizontally */
+    width: 33.33%;                  /* 1/3rd of the screen width */
+    margin: 0 auto;                 /* Centers the container horizontally */
+    text-align: left;             /* Centers text inside the container */
+    line-height: 1.5;
+  }
+
+
+
+h1 {
+    font-family: 'Gothic A1', sans-serif;
+    text-align: center;
+    font-weight: 700;
+
+}
