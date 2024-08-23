@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const rows = data.split('\n').slice(1); // Skip the header row
             rows.forEach(row => {
-                const [location, lat, lon] = row.split(',');
-                locationData.set(location.trim(), {lat: parseFloat(lat), lon: parseFloat(lon)});
+                const [location, lat, long] = row.split(',');
+                locationData.set(location.trim(), {lat: parseFloat(lat), long: parseFloat(long)});
             });
         });
 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.style.height = `${radius * 2}px`;
 
                 new mapboxgl.Marker(el)
-                    .setLngLat([locData.lon, locData.lat])
+                    .setLngLat([locData.long, locData.lat])
                     .setPopup(new mapboxgl.Popup({ offset: 25 })
                     .setHTML(`<strong>${location}</strong><br>Frequency: ${frequency}`))
                     .addTo(map);
