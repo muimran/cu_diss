@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rows = data.split('\n').slice(1); // Skip the header row
             rows.forEach(row => {
                 const [location, lat, lon] = row.split(',');
-                locationData.set(district.trim(), {lat: parseFloat(lat), lon: parseFloat(lon)});
+                locationData.set(location.trim(), {lat: parseFloat(lat), lon: parseFloat(lon)});
             });
         });
 
@@ -37,11 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (pub.checked) {
                             articleDetails.forEach(article => {
                                 if (article.publication === pub.value) {
-                                    for (const [district, frequency] of Object.entries(article.district_frequencies)) {
-                                        if (aggregatedData[district]) {
-                                            aggregatedData[district] += frequency;
+                                    for (const [location, frequency] of Object.entries(article.district_frequencies)) {
+                                        if (aggregatedData[location]) {
+                                            aggregatedData[location] += frequency;
                                         } else {
-                                            aggregatedData[district] = frequency;
+                                            aggregatedData[location] = frequency;
                                         }
                                     }
                                 }
@@ -64,10 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Add new markers
-        for (const [district, frequency] of Object.entries(data)) {
-            const location = locationData.get(district);
+        for (const [location, frequency] of Object.entries(data)) {
+            const locData = locationData.get(location);
 
-            if (location) {
+            if (locData) {
                 const radius = getCircleRadius(frequency);
 
                 const el = document.createElement('div');
@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.style.height = `${radius * 2}px`;
 
                 new mapboxgl.Marker(el)
-                    .setLngLat([location.lon, location.lat])
+                    .setLngLat([locData.lon, locData.lat])
                     .setPopup(new mapboxgl.Popup({ offset: 25 })
-                    .setHTML(`<strong>${district}</strong><br>Frequency: ${frequency}`))
+                    .setHTML(`<strong>${location}</strong><br>Frequency: ${frequency}`))
                     .addTo(map);
             }
         }
