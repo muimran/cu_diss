@@ -1,94 +1,72 @@
-// Your Mapbox access token
-mapboxgl.accessToken = 'pk.eyJ1IjoiaW1yYW5kYXRhIiwiYSI6ImNtMDRlaHh1YTA1aDEybHI1ZW12OGh4cDcifQ.fHLLFYQx7JKPUp2Sl1jtYg';
+mapboxgl.accessToken = 'your_mapbox_access_token';
+const map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [90.4125, 23.8103], // starting position [lng, lat] centered on Bangladesh
+    zoom: 6 // starting zoom
+});
 
-document.addEventListener('DOMContentLoaded', () => {
-    let map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/imrandata/cm060ra9x00hl01pl9g2uc3xc',
-        center: [90.4125, 23.8103], // Centering on Bangladesh
-        zoom: 6
+const locations = {};  // Store locations from the CSV
+
+// Function to load CSV data
+function loadCSVData() {
+    d3.csv('location.csv').then(function(data) {
+        data.forEach(function(row) {
+            locations[row.location.toLowerCase()] = {
+                lat: parseFloat(row.lat),
+                long: parseFloat(row.long)
+            };
+        });
     });
+}
 
-    const publications = document.querySelectorAll('.publication');
-    const locationData = new Map();
+// Function to add circles based on selected publication
+function updateMap(publication) {
+    d3.json('path_to_your_json.json').then(function(data) {
+        const selectedArticles = data.filter(article => article.publication === publication);
 
-    // Fetch and parse location data from the CSV file
-    fetch('location.csv')
-        .then(response => response.text())
-        .then(data => {
-            const rows = data.split('\n').slice(1); // Skip the header row
-            rows.forEach(row => {
-                const [district, lat, lon] = row.split(',');
-                locationData.set(district.trim(), {lat: parseFloat(lat), lon: parseFloat(lon)});
-            });
-        });
-
-    // Fetch and parse the article details JSON file
-    fetch('article_details.json')
-        .then(response => response.json())
-        .then(articleDetails => {
-            let aggregatedData = {};
-
-            publications.forEach(publication => {
-                publication.addEventListener('change', () => {
-                    aggregatedData = {}; // Reset aggregated data
-
-                    publications.forEach(pub => {
-                        if (pub.checked) {
-                            articleDetails.forEach(article => {
-                                if (article.publication === pub.value) {
-                                    for (const [district, frequency] of Object.entries(article.district_frequencies)) {
-                                        if (aggregatedData[district]) {
-                                            aggregatedData[district] += frequency;
-                                        } else {
-                                            aggregatedData[district] = frequency;
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    });
-
-                    updateMap(aggregatedData);
-                });
-            });
-        });
-
-    function updateMap(data) {
-        // Clear existing markers
-        map.eachLayer(layer => {
-            if (layer.type === 'symbol') {
+        // Remove existing layers and sources to avoid overlapping
+        map.eachLayer(function (layer) {
+            if (layer.id !== 'background') {
                 map.removeLayer(layer.id);
                 map.removeSource(layer.id);
             }
         });
 
-        // Add new markers
-        for (const [district, frequency] of Object.entries(data)) {
-            const location = locationData.get(district);
-
-            if (location) {
-                const radius = getCircleRadius(frequency);
-
-                const el = document.createElement('div');
-                el.style.backgroundColor = '#1434A4';
-                el.style.borderRadius = '50%';
-                el.style.opacity = '0.85';
-                el.style.width = `${radius * 2}px`;
-                el.style.height = `${radius * 2}px`;
-
-                new mapboxgl.Marker(el)
-                    .setLngLat([location.lon, location.lat])
-                    .setPopup(new mapboxgl.Popup({ offset: 25 })
-                    .setHTML(`<strong>${district}</strong><br>Frequency: ${frequency}`))
+        // Add circles for each location in the selected articles
+        selectedArticles.forEach(function(article) {
+            const places = article.place_frequencies;
+            for (const [place, frequency] of Object.entries(places)) {
+                const locationData = locations[place.toLowerCase()];
+                if (locationData) {
+                    const circle = new mapboxgl.Marker({
+                        color: '#007cbf', // Example color for the circles
+                        scale: frequency * 0.1 // Example: scale based on frequency
+                    })
+                    .setLngLat([locationData.long, locationData.lat])
                     .addTo(map);
+                }
             }
-        }
-    }
+        });
+    });
+}
 
-    function getCircleRadius(frequencyCount) {
-        const baseRadius = 1.5; // Base radius in pixels
-        const scaleFactor = 0.30; // Scale factor for additional size based on frequency
-        return baseRadius + (Math.sqrt(frequencyCount) * scaleFactor);
-    }
+// Event listener for checkbox changes
+document.querySelectorAll('.publication').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            updateMap(this.value);
+        } else {
+            // Optionally clear the map if no publication is selected
+            map.eachLayer(function (layer) {
+                if (layer.id !== 'background') {
+                    map.removeLayer(layer.id);
+                    map.removeSource(layer.id);
+                }
+            });
+        }
+    });
 });
+
+// Initial data load
+loadCSVData();
