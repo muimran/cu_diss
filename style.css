@@ -20,12 +20,12 @@ body {
 }
 
 .tabs label {
-    margin-right: 15px;
+    margin-right: 15px; 
     cursor: pointer;
 }
 
 #map {
     width: 100vw; /* Full width of the viewport */
-    height: 800px;
+    height: 200px;
     border: none; /* Remove any borders to ensure full width */
 }
