@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container: 'map',
         style: 'mapbox://styles/imrandata/cm071umhs00jt01pl9byi9r2l',
         center: [90.4125, 23.8103], // Centering on Bangladesh
-        zoom: 6
+        zoom: 6.5
     });
 
     console.log('Map initialized.');
