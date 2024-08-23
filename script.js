@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const rows = data.split('\n').slice(1); // Skip the header row
             rows.forEach(row => {
-                const [district, lat, lon] = row.split(',');
+                const [location, lat, lon] = row.split(',');
                 locationData.set(district.trim(), {lat: parseFloat(lat), lon: parseFloat(lon)});
             });
         });
 
-    // Fetch and parse the article details JSON file
+    // Fetch and parse the article details JSON file 
     fetch('article_details.json')
         .then(response => response.json())
         .then(articleDetails => {
