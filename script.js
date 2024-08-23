@@ -1,10 +1,10 @@
 // Your Mapbox access token
-mapboxgl.accessToken = 'your_mapbox_access_token';
+mapboxgl.accessToken = 'pk.eyJ1IjoiaW1yYW5kYXRhIiwiYSI6ImNtMDRlaHh1YTA1aDEybHI1ZW12OGh4cDcifQ.fHLLFYQx7JKPUp2Sl1jtYg';
 
 document.addEventListener('DOMContentLoaded', () => {
     let map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/imrandata/cm060ra9x00hl01pl9g2uc3xc',
         center: [90.4125, 23.8103], // Centering on Bangladesh
         zoom: 6
     });
