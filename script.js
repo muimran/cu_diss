@@ -1,7 +1,7 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiaW1yYW5kYXRhIiwiYSI6ImNtMDRlaHh1YTA1aDEybHI1ZW12OGh4cDcifQ.fHLLFYQx7JKPUp2Sl1jtYg';
+mapboxgl.accessToken = 'pk.eyJ1IjoiZG93ZWxsYWYiLCJhIjoiY2x0cjJjc2VqMGVtZzJrbnYwZjcxczdkcCJ9.ljRbHHEIuM4J40yUamM8zg';
 const map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/imrandata/cm060ra9x00hl01pl9g2uc3xc', // style URL
+    style: 'mapbox://styles/dowellaf/cltr2h0h0007y01p7akad96el', // style URL
     center: [90.4125, 23.8103], // starting position [lng, lat] centered on Bangladesh
     zoom: 6 // starting zoom
 });
