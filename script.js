@@ -1,7 +1,7 @@
-mapboxgl.accessToken = 'your_mapbox_access_token';
+mapboxgl.accessToken = 'pk.eyJ1IjoiaW1yYW5kYXRhIiwiYSI6ImNtMDRlaHh1YTA1aDEybHI1ZW12OGh4cDcifQ.fHLLFYQx7JKPUp2Sl1jtYg';
 const map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    style: 'mapbox://styles/imrandata/cm060ra9x00hl01pl9g2uc3xc', // style URL
     center: [90.4125, 23.8103], // starting position [lng, lat] centered on Bangladesh
     zoom: 6 // starting zoom
 });
