@@ -4,7 +4,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaW1yYW5kYXRhIiwiYSI6ImNtMDRlaHh1YTA1aDEybHI1Z
 document.addEventListener('DOMContentLoaded', () => {
     let map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/imrandata/cm060ra9x00hl01pl9g2uc3xc',
+        style: 'mapbox://styles/imrandata/cm071umhs00jt01pl9byi9r2l',
         center: [90.4125, 23.8103], // Centering on Bangladesh
         zoom: 6
     });
