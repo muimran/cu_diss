@@ -30,26 +30,3 @@ body {
     border: none; /* Remove any borders to ensure full width */
 }
 
-
-
-
-.pulse-marker {
-    background-color: rgba(20, 52, 164, 0.85);
-    border-radius: 50%;
-    animation: pulse 2s infinite; /* Animation name and duration */
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.85;
-    }
-    50% {
-        transform: scale(1.5); /* Scale up to 1.5x */
-        opacity: 0.5; /* Reduce opacity to 0.5 */
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.85; /* Return to original opacity */
-    }
-}
