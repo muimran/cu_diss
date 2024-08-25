@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map Visualization</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+    <!-- Mapbox GL JS for the second map -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.2/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.2/mapbox-gl.css" rel="stylesheet" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Include D3.js library -->
     <script src="https://d3js.org/d3.v6.min.js"></script> 
@@ -23,7 +32,7 @@
                 articles published from 2000 onwards to keep the data consistent and manageable.</p>
         </div>
         
-
+        <!-- Tabs for selecting publications for the first map -->
         <div class="tabs">
             <label><input type="checkbox" class="publication" value="BBC"> BBC</label>
             <label><input type="checkbox" class="publication" value="CNN"> CNN</label>
@@ -33,7 +42,8 @@
             <label><input type="checkbox" class="publication" value="Guardian"> Guardian</label>
         </div>
      
-        <div id="map"></div>
+        <!-- Map container for Leaflet map -->
+        <div id="map" style="height: 500px;"></div>
         
         <div class="conclusion-text">
             <p>To analyse the large body of text in this research, I began by defining key questions: What can be asked of the text corpus? 
@@ -47,6 +57,7 @@
             </p>
         </div>
 
+        <!-- Tabs for selecting publications for the second map -->
         <div class="tabs-map2">
             <label><input type="checkbox" class="publication-map2" value="BBC"> BBC</label>
             <label><input type="checkbox" class="publication-map2" value="CNN"> CNN</label>
@@ -56,7 +67,8 @@
             <label><input type="checkbox" class="publication-map2" value="Guardian"> Guardian</label>
         </div>
         
-        <div id="map2"></div>
+        <!-- Map container for Mapbox map -->
+        <div id="map2" style="height: 500px;"></div>
 
         <div class="conclusion-text">
             <p>To analyse the large body of text in this research, I began by defining key questions: What can be asked of the text corpus? 
@@ -69,15 +81,13 @@
                  insights and addressing the key questions I set out to explore.
             </p>
         </div>
-        <br> </br>
+        
+        <!-- Placeholder for chart -->
         <div id="chart1"></div>    
     </div>
     
-
-    <br> </br>
-    <br> </br>
+    <!-- Scripts -->
     <script src="script.js"></script>
-    <!-- Include the D3 chart script -->
-    <script src="chart1.js"></script> <!-- Make sure to replace with actual path -->
+    <script src="chart1.js"></script> <!-- Include the D3 chart script -->
 </body>
 </html>

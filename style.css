@@ -37,14 +37,14 @@ body {
 
 #map {
     width: 100%; /* Make map width 100% of its container */
-    height: 900px;
+    height: 800px !important;
     border: none; /* Remove any borders to ensure full width */
     
 }
 
 #map2 {
     width: 100%; /* Make map width 100% of its container */
-    height: 650px;
+    height: 1000px !important;
     border: none; /* Remove any borders to ensure full width */
 }
 
@@ -115,6 +115,8 @@ h1 {
     pointer-events: none; /* Prevents tooltip from capturing mouse events */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+
 
 
 
