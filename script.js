@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the first Mapbox map
     let map1 = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/imrandata/cm04fow1v00f001qs9c8881p8',
+        style: 'mapbox://styles/imrandata/cm08pho5m00ks01qwd7916k2t',
         center: [90.4125, 23.8103], // Centering on Bangladesh
         zoom: 6.5,
         projection: 'mercator'

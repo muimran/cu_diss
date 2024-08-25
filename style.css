@@ -37,7 +37,7 @@ body {
 
 #map {
     width: 100%; /* Make map width 100% of its container */
-    height: 650px;
+    height: 900px;
     border: none; /* Remove any borders to ensure full width */
     
 }
