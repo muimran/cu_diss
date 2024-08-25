@@ -8,6 +8,8 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Include D3.js library -->
+    <script src="https://d3js.org/d3.v6.min.js"></script> 
 </head>
 <body>
     <div class="content">
@@ -21,6 +23,7 @@
                 articles published from 2000 onwards to keep the data consistent and manageable.</p>
         </div>
         
+
         <div class="tabs">
             <label><input type="checkbox" class="publication" value="BBC"> BBC</label>
             <label><input type="checkbox" class="publication" value="CNN"> CNN</label>
@@ -29,13 +32,52 @@
             <label><input type="checkbox" class="publication" value="New York Times"> New York Times</label>
             <label><input type="checkbox" class="publication" value="Guardian"> Guardian</label>
         </div>
-        
+     
         <div id="map"></div>
         
         <div class="conclusion-text">
-            <p>This map shows the frequency of district mentions across different news articles.</p>
+            <p>To analyse the large body of text in this research, I began by defining key questions: What can be asked of the text corpus? 
+                Who appears in it? What themes and geographic areas are mentioned? How often are certain adjectives used? Which other countries are 
+                referenced? And who else is mentioned in the articles?
+                I used several Python tools for this analysis. NLTK helped break down the text and remove common words, while spaCy identified names, 
+                locations, and parts of speech. Gensim was used to uncover themes through topic modeling. Finally, I employed Matplotlib and Seaborn 
+                to create visual representations of the findings.
+                This approach allowed me to efficiently process and analyze the text, extracting valuable
+                 insights and addressing the key questions I set out to explore.
+            </p>
         </div>
+
+        <div class="tabs-map2">
+            <label><input type="checkbox" class="publication-map2" value="BBC"> BBC</label>
+            <label><input type="checkbox" class="publication-map2" value="CNN"> CNN</label>
+            <label><input type="checkbox" class="publication-map2" value="telegraph"> Telegraph</label>
+            <label><input type="checkbox" class="publication-map2" value="foxnews"> Fox News</label>
+            <label><input type="checkbox" class="publication-map2" value="New York Times"> New York Times</label>
+            <label><input type="checkbox" class="publication-map2" value="Guardian"> Guardian</label>
+        </div>
+        
+        <div id="map2"></div>
+
+        <div class="conclusion-text">
+            <p>To analyse the large body of text in this research, I began by defining key questions: What can be asked of the text corpus? 
+                Who appears in it? What themes and geographic areas are mentioned? How often are certain adjectives used? Which other countries are 
+                referenced? And who else is mentioned in the articles?
+                I used several Python tools for this analysis. NLTK helped break down the text and remove common words, while spaCy identified names, 
+                locations, and parts of speech. Gensim was used to uncover themes through topic modeling. Finally, I employed Matplotlib and Seaborn 
+                to create visual representations of the findings.
+                This approach allowed me to efficiently process and analyze the text, extracting valuable
+                 insights and addressing the key questions I set out to explore.
+            </p>
+        </div>
+        <br> </br>
+        <div id="chart1"></div>    
     </div>
+    
+
+    <br> </br>
+    <br> </br>
     <script src="script.js"></script>
+    <!-- Include the D3 chart script -->
+    <script src="chart1.js"></script> <!-- Make sure to replace with actual path -->
 </body>
 </html>

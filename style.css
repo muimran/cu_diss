@@ -24,7 +24,25 @@ body {
     cursor: pointer;
 }
 
+.tabs-map2 {
+    margin: 20px;
+    text-align: center;
+}
+
+.tabs-map2 label {
+    margin-right: 15px; 
+    cursor: pointer;
+}
+
+
 #map {
+    width: 100%; /* Make map width 100% of its container */
+    height: 650px;
+    border: none; /* Remove any borders to ensure full width */
+    
+}
+
+#map2 {
     width: 100%; /* Make map width 100% of its container */
     height: 650px;
     border: none; /* Remove any borders to ensure full width */
@@ -44,11 +62,59 @@ body {
     line-height: 1.5;
   }
 
+  .conclusion-text {
+    font-family: 'IBM Plex Sans', sans-serif; /* Apply IBM Plex Sans font */
+    font-weight: 500; /* Set font weight to light (300) */
+    display: flex;                  /* Enables flexbox */
+    flex-direction: column;         /* Stacks children vertically */
+    justify-content: center;        /* Centers content vertically (optional) */
+    align-items: center;            /* Centers content horizontally */
+    width: 33.33%;                  /* 1/3rd of the screen width */
+    margin: 0 auto;                 /* Centers the container horizontally */
+    text-align: left;             /* Centers text inside the container */
+    line-height: 1.5;
+  }
 
 
 h1 {
     font-family: 'Gothic A1', sans-serif;
     text-align: center;
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 68px;
+    text-align: left;
+    line-height: 1.25; 
 
 }
+
+
+#chart1 {
+    display: flex;
+    justify-content: flex-end; /* Align to the start (left) */
+    margin-right: 200px;          /* Add left margin to move it more to the right */
+    width: 100%;                 /* Set the width of the container */
+    height: 600px;               /* Set a height for the div, or adjust as needed */
+    padding: 0;               /* Optional: add padding for spacing */
+}
+
+/* Ensure the SVG is responsive */
+#chart1 svg {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Tooltip styling */
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    background-color: #4682B4;
+    color: #fff;
+    border-radius: 4px;
+    pointer-events: none; /* Prevents tooltip from capturing mouse events */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+
+
