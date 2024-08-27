@@ -185,12 +185,12 @@ function handleStepEnter2(response) {
 // Initialize scrollama for scrolly2
 function init2() {
   // Initialize the steps2 array
-  steps2 = document.querySelectorAll('#scrolly2 article .step'); // Add this line to initialize steps2
+  steps2 = document.querySelectorAll('#scrolly2 article .step2'); // Updated to select elements with the new class name 'step2'
 
   // Setup the scroller passing options for scrolly2
   scroller2
     .setup({
-      step: "#scrolly2 article .step",
+      step: "#scrolly2 article .step2", // Updated to target '.step2'
       offset: 0.53,
       debug: false
     })

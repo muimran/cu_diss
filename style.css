@@ -10,12 +10,9 @@ body {
 }
 
 body {
-
   min-height: 1280px;
   color: #3b3b3b;
-
 }
-
 
 h1,
 h2,
@@ -34,8 +31,6 @@ a:hover {
   border-bottom: 2px solid currentColor;
 }
 
-
-
 /* Intro and Outro Sections */
 #intro {
   max-width: 40rem;
@@ -43,42 +38,38 @@ a:hover {
   text-align: center;
 }
 
-
-
 .intro__hed {
-  font-family: 'IBM Plex Sans', sans-serif; /* Apply IBM Plex Sans font */
-  font-weight: 500; /* Set font weight to light (300) */
-  display: flex;                  /* Enables flexbox */
-  flex-direction: column;         /* Stacks children vertically */
-  justify-content: left;        /* Centers content vertically (optional) */
-  align-items: center;            /* Centers content horizontally */
-  width: 33.33%;                  /* 1/3rd of the screen width */
-  margin: 0 auto;                 /* Centers the container horizontally */
-  text-align: left;             /* Centers text inside the container */
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  width: 33.33%;
+  margin: 0 auto;
+  text-align: left;
   line-height: 1.5;
 }
-
 
 h1 {
   font-family: 'Gothic A1', sans-serif;
   text-align: left;
   font-weight: 800;
   font-size: 48px;
-  line-height: 1; 
-
+  line-height: 1;
 }
 
 .para-1 {
-  font-family: 'Source Seriff 4', serif; 
-  font-weight: 300; /* Set font weight to light (300) */
+  font-family: 'Source Seriff 4', serif;
+  font-weight: 300;
   font-size: 18px;
-  display: flex;                  /* Enables flexbox */
-  flex-direction: column;         /* Stacks children vertically */
-  justify-content: center;        /* Centers content vertically (optional) */
-  align-items: center;            /* Centers content horizontally */
-  width: 33.33%;                  /* 1/3rd of the screen width */
-  margin: 0 auto;                 /* Centers the container horizontally */
-  text-align: left;             /* Centers text inside the container */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33.33%;
+  margin: 0 auto;
+  text-align: left;
   line-height: 1.5;
 }
 
@@ -93,16 +84,11 @@ h1 {
 #outro {
   height: 640px;
 }
-.tabs {
-  margin: 20px;
-  text-align: center;
 
-}
-
+.tabs,
 .tabs2 {
   margin: 20px;
   text-align: center;
-
 }
 
 /* Media Queries */
@@ -113,13 +99,8 @@ h1 {
   }
 }
 
-/* Additional Styles from HTML's <style> block */
-#scrolly {
-  position: relative;
-  background-color: #ffffff;
-  padding: 1rem;
-}
-
+/* Styles for Scrolly Sections */
+#scrolly,
 #scrolly2 {
   position: relative;
   background-color: #ffffff;
@@ -129,14 +110,13 @@ h1 {
 article {
   position: relative;
   padding: 0;
-  max-width: 800px; /* Optional: Set a wider max-width or full width */
-  margin-left: 20px; /* Push the article to the left */
-  margin-bottom: 40vh; /* Increase the bottom margin to create extra scroll space so that the map stays lonhger after the last elemnt */
-
+  max-width: 800px;
+  margin-left: 20px;
+  margin-bottom: 40vh;
 }
 
-
-.sticky-thing {
+.sticky-thing,
+.sticky-thing2 {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
@@ -146,74 +126,59 @@ article {
   z-index: 0;
   top: 12.5vh;
   height: 75vh;
-  /* Center everything inside */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Removed background-image, background-size, and background-position */
 }
 
-.sticky-thing2 {
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
-  width: 100%;
-  margin: 0;
-  background-color: #a42c2c00;
-  top: 12.5vh;
-  height: 75vh;
-  /* Center everything inside */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Removed background-image, background-size, and background-position */
-}
-.sticky-thing p {
+.sticky-thing p,
+.sticky-thing2 p {
   font-size: 8rem;
   font-weight: 900;
   color: #fff;
 }
 
-.step {
-  max-width: 400px; /* Optional: Set a max width for the step container */
-  margin-left: 20px; /* Pushes the container to the left */
-  margin-right: auto; /* Aligns the container to the left by setting right margin to auto */
-  margin-bottom: 35rem; /* Keeps the bottom margin */
+/* Styles for .step and .step2 elements */
+.step,
+.step2 {
+  max-width: 400px;
+  margin-left: 20px;
+  margin-right: auto;
+  margin-bottom: 35rem;
 }
 
-
-.step:last-child {
+.step:last-child,
+.step2:last-child {
   margin-bottom: 10;
 }
 
-.step.is-active p {
+.step.is-active p,
+.step2.is-active p {
   background-color: #8a9a5b33; /* Yellow background when active */
 }
 
-.step p {
+.step p,
+.step2 p {
   text-align: left;
   padding: 1rem;
   font-size: 1.2rem;
   background-color: #8a9a5b7d;
-  background-o
 }
 
 /* Styles for the Leaflet map container */
-#map {
+#map,
+#map2 {
   width: 100%;
   height: 100%;
 }
 
 #map2 {
-  width: 100%;
-  height: 989px; /* Or any preferred height */
-  margin-bottom: 50px; /* Adds space below the map div */
-
+  height: 989px;
+  margin-bottom: 50px;
 }
 
-
 .animated-marker span {
-  background-color: #D02D00; /* Fill color */
+  background-color: #D02D00;
   border-radius: 50%;
   opacity: 0.85;
   display: block;
@@ -225,16 +190,14 @@ article {
   100% { transform: scale(1); }
 }
 
-
-
 /* for chart1 */
 #chart1 {
   display: flex;
-  justify-content: flex-end; /* Align to the start (left) */
-  margin-right: 200px;          /* Add left margin to move it more to the right */
-  width: 100%;                 /* Set the width of the container */
-  height: 600px;               /* Set a height for the div, or adjust as needed */
-  padding: 0;               /* Optional: add padding for spacing */
+  justify-content: flex-end;
+  margin-right: 200px;
+  width: 100%;
+  height: 600px;
+  padding: 0;
 }
 
 /* Ensure the SVG is responsive */
@@ -242,7 +205,6 @@ article {
   max-width: 100%;
   height: auto;
 }
-
 
 /* Tooltip styling */
 .tooltip {
@@ -253,6 +215,6 @@ article {
   background-color: #4682B4;
   color: #fff;
   border-radius: 4px;
-  pointer-events: none; /* Prevents tooltip from capturing mouse events */
+  pointer-events: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
