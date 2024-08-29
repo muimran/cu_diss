@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  /* Add some basic styling */
+  body { font: 12px Arial; }
+  .axis line, .axis path { fill: none; stroke: #000; shape-rendering: crispEdges; }
+  .line { fill: none; stroke: #69b3a2; stroke-width: 2; }
+</style>
+<body>
+<div id="my_dataviz"></div>
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script>
+
+// Set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    width = 800 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+// Append the SVG object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Read the data from your JSON file
+d3.json("article_details.json").then(function(data) {
+
+  // Parse the date / time
+  var parseTime = d3.timeParse("%Y-%m-%d");
+
+  // Convert string date to date object
+  data.forEach(function(d) {
+    d.date = parseTime(d.date);
+  });
+
+  // Group data by week and count articles per week
+  var articleCountsByWeek = d3.rollup(
+    data,
+    v => v.length,
+    d => d3.timeWeek(d.date) // Group by start of the week
+  );
+
+  // Convert grouped data to array format for plotting
+  var weeklyData = Array.from(articleCountsByWeek, ([week, count]) => ({ week, count }));
+
+  // Add X axis --> it is a date format (weekly basis)
+  var x = d3.scaleTime()
+    .domain(d3.extent(weeklyData, function(d) { return d.week; }))  // Use week as domain
+    .range([ 0, width ]);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x).ticks(d3.timeWeek.every(1)).tickFormat(d3.timeFormat("%Y-%m-%d")));
+
+  // Add Y axis (number of articles per week)
+  var y = d3.scaleLinear()
+    .domain([0, d3.max(weeklyData, function(d) { return d.count; })])  // Max count of articles per week
+    .range([ height, 0 ]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  // Define the line
+  var line = d3.line()
+    .x(function(d) { return x(d.week); })
+    .y(function(d) { return y(d.count); });
+
+  // Add the line to the chart
+  svg.append("path")
+    .datum(weeklyData)
+    .attr("class", "line")
+    .attr("d", line);
+
+}).catch(function(error){
+  console.error('Error loading or parsing data:', error);
+});
+
+</script>

@@ -17,8 +17,13 @@ function createMap() {
     minZoom: 0.45,
     scrollWheelZoom: false,
     doubleClickZoom: true,
-  }).setView([23.685, 90.3563], 7.45);
+    zoomControl: false // Disable the default zoom control
 
+  }).setView([23.685, 90.3563], 7.45);
+  L.control.zoom({
+    position: 'topright'  // Move zoom control to the upper right
+  }).addTo(map);
+  
   document.getElementById("map").style.backgroundColor = "white";
 
   fetch("https://cdn.glitch.global/43656fdd-7bdb-46f2-8c73-40dcd257e516/bd_districts.geojson?v=1724549232976")
@@ -88,51 +93,58 @@ function initializeDataAndMarkers(map) {
       });
     });
 
-  function updateLeafletMap(map, markers, data, locationData) {
-    console.log('Updating Leaflet map with new data:', data);
-
-    markers.forEach(marker => map.removeLayer(marker));
-    markers.length = 0;
-
-    for (const [location, frequency] of Object.entries(data)) {
-      const locData = locationData.get(location);
-
-      if (locData) {
-        const circleRadius = getCircleRadius(frequency);
-
-        let markerHtmlStyles = `
-          background-color: #D02D00;
-          border-radius: 50%;
-          opacity: 0.85;
-          width: ${circleRadius * 2}px;
-          height: ${circleRadius * 2}px;
-          display: block;
-          position: relative;
-          transform-origin: 50% 50%;
-          animation: grow-shrink .75s ease-out forwards;
-        `;
-
-        let customIcon = L.divIcon({
-          className: "animated-marker",
-          iconAnchor: [circleRadius, circleRadius],
-          popupAnchor: [0, -circleRadius],
-          html: `<span style="${markerHtmlStyles}"></span>`
-        });
-
-        let marker = L.marker([locData.lat, locData.long], { icon: customIcon })
-          .addTo(map)
-          .bindPopup(`<strong>${location}</strong><br>Frequency: ${frequency}`);
-
-        markers.push(marker);
-      } else {
-        console.log(`Location data not found for ${location}`);
+    function updateLeafletMap(map, markers, data, locationData) {
+      console.log('Updating Leaflet map with new data:', data);
+  
+      markers.forEach(marker => map.removeLayer(marker));
+      markers.length = 0;
+  
+      // Calculate the total mentions across all districts
+      const totalMentions = Object.values(data).reduce((sum, frequency) => sum + frequency, 0);
+  
+      for (const [location, frequency] of Object.entries(data)) {
+          const locData = locationData.get(location);
+  
+          if (locData) {
+              // Calculate the percentage of the current location
+              const percentage = ((frequency / totalMentions) * 100).toFixed(2);
+  
+              const circleRadius = getCircleRadius(frequency);
+  
+              let markerHtmlStyles = `
+                  background-color: #D02D00;
+                  border-radius: 50%;
+                  opacity: 0.85;
+                  width: ${circleRadius * 2}px;
+                  height: ${circleRadius * 2}px;
+                  display: block;
+                  position: relative;
+                  transform-origin: 50% 50%;
+                  animation: grow-shrink .75s ease-out forwards;
+              `;
+  
+              let customIcon = L.divIcon({
+                  className: "animated-marker",
+                  iconAnchor: [circleRadius, circleRadius],
+                  popupAnchor: [0, -circleRadius],
+                  html: `<span style="${markerHtmlStyles}"></span>`
+              });
+  
+              let marker = L.marker([locData.lat, locData.long], { icon: customIcon })
+                  .addTo(map)
+                  .bindPopup(`<strong>${location}</strong><br>Percentage: ${percentage}%`); // Show percentage
+  
+              markers.push(marker);
+          } else {
+              console.log(`Location data not found for ${location}`);
+          }
       }
-    }
   }
+  
 
   function getCircleRadius(frequencyCount) {
     const baseRadius = 2;
-    const scaleFactor = 0.8;
+    const scaleFactor = 0.9;
     const radius = baseRadius + (Math.sqrt(frequencyCount) * scaleFactor);
     return radius;
   }

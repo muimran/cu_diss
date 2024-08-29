@@ -17,9 +17,9 @@ const tooltip = d3.select("body").append("div")
     .style("opacity", 0);
 
 // Load the CSV data
-d3.csv("top100_words.csv").then(data => {
+d3.csv("top100_words_yearwise.csv").then(data => {
     // Nest data by Publication
-    const nestedData = d3.groups(data, d => d.Publication);
+    const nestedData = d3.groups(data, d => d.Year);
 
     // Sort the data within each publication by frequency in descending order
     nestedData.forEach(pub => {

@@ -6,6 +6,7 @@ let articleData2 = [];
 let map2; // This will hold the reference to the second Mapbox map
 let markers2 = []; // To store all markers added to the second map
 let aggregatedData2 = {}; // To store the aggregated data for currently selected sources in scrolly2
+let totalMentions2 = 0; // New variable to store the total number of mentions
 let publications2 = ["BBC", "CNN", "telegraph", "foxnews", "New York Times", "Guardian"]; // Define publications2 array
 let steps2; // Define steps2 variable for scrolly steps
 
@@ -16,10 +17,10 @@ const scroller2 = scrollama(); // Add this line to initialize scroller2
 function createMap2() {
   map2 = new mapboxgl.Map({
     container: 'map2', // Ensure this matches the container ID in your HTML for the second map
-    style: 'mapbox://styles/imrandata/cm09t5gjz00lu01qwg0fqc6nr',
-    center: [0.3563, 23.685],
+    style: 'mapbox://styles/imrandata/cm0fmeq48000e01pb9z5c7jez',
+    center: [35.3563, 25.685],
     zoom: 2,
-    projection: 'naturalEarth'
+    projection: 'mercator'
   });
 
   map2.scrollZoom.disable();
@@ -59,6 +60,8 @@ function handleCheckboxChange2() {
 
   // Clear the current aggregated data and markers to recalculate
   aggregatedData2 = {};
+  totalMentions2 = 0; // Reset the total mentions count
+
   if (selectedSources.length > 0) {
     updateAggregatedData2(selectedSources);
     updateMapWithAggregatedData2();
@@ -76,13 +79,20 @@ function updateAggregatedData2(selectedSources) {
         // Aggregate data based on country_frequencies
         for (const [country, frequency] of Object.entries(article.country_frequencies)) {
           aggregatedData2[country] = (aggregatedData2[country] || 0) + frequency;
+          totalMentions2 += frequency; // Increment total mentions
         }
       }
     });
   });
 
   console.log('Aggregated data:', aggregatedData2); // Debugging line to check aggregated data
+  console.log('Total mentions:', totalMentions2); // Debugging line to check total mentions
+
+  // New line to log the total number of unique countries
+  const totalCountries = Object.keys(aggregatedData2).length;
+  console.log('Total unique countries:', totalCountries);
 }
+
 
 // Function to update the map with aggregated data for scrolly2
 function updateMapWithAggregatedData2() {
@@ -113,9 +123,11 @@ function updateMapWithAggregatedData2() {
           el.style.borderRadius = '50%';
           el.style.opacity = '0.85';
 
+          const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
+
           let marker = new mapboxgl.Marker(el)
             .setLngLat([locData.long, locData.lat])
-            .setPopup(new mapboxgl.Popup().setHTML(`<strong>${country}</strong><br>Frequency: ${frequency}`))
+            .setPopup(new mapboxgl.Popup().setHTML(`<strong>${country}</strong><br>Percentage: ${percentage}%`)) // Display percentage
             .addTo(map2);
 
           markers2.push(marker);
@@ -137,8 +149,9 @@ function clearMarkers2() {
 // Helper function to calculate the radius of a marker circle based on the frequency count
 function getCircleRadius(frequencyCount) {
   const baseRadius = 2;
-  const scaleFactor = 0.8;
-  return baseRadius + (Math.sqrt(frequencyCount) * scaleFactor);
+  const scaleFactor = 0.9;
+  const radius = baseRadius + (Math.sqrt(frequencyCount) * scaleFactor);
+  return radius;
 }
 
 // Scrollama event handlers for scrolly2
@@ -153,21 +166,14 @@ function handleStepEnter2(response) {
   el.classList.add('is-active');
 
   // Determine which publication to select based on the step index for scrolly2
-  let publicationToSelect2 = publications2[response.index]; // Get the corresponding publication value
-  
-  // Automatically select "BBC" for the first step
-  if (response.index === 0) {
-    publicationToSelect2 = 'BBC'; // Assume 'BBC' is the value for the BBC checkbox
-  }
-
-  const checkboxToSelect2 = document.querySelector(`input[type="checkbox"][value="${publicationToSelect2}"]`);
+  const publicationToSelect2 = publications2[response.index]; // Get the corresponding publication value
+  const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publicationToSelect2}"]`);
   console.log('Checkbox to select:', checkboxToSelect2); // Debugging line to check checkbox selection
 
-  // Automatically select the corresponding checkbox
   if (checkboxToSelect2) {
     // Uncheck all checkboxes first
     publications2.forEach((publication) => {
-      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"][value="${publication}"]`);
+      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
         checkboxToDeselect2.checked = false; // Uncheck the checkbox
         checkboxToDeselect2.dispatchEvent(new Event('change')); // Trigger the change event to remove markers
@@ -179,6 +185,21 @@ function handleStepEnter2(response) {
       checkboxToSelect2.checked = true; // Check the corresponding checkbox
       checkboxToSelect2.dispatchEvent(new Event('change')); // Trigger the change event
     }
+  }
+}
+
+// New function to handle when a step is exited
+function handleStepExit2(response) {
+  // Check if all steps are inactive
+  if (document.querySelectorAll("#scrolly2 .step2.is-active").length === 0) {
+    // Uncheck all checkboxes
+    publications2.forEach((publication) => {
+      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
+      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
+        checkboxToDeselect2.checked = false;
+        checkboxToDeselect2.dispatchEvent(new Event('change')); // Trigger the change event to remove markers
+      }
+    });
   }
 }
 
@@ -194,7 +215,8 @@ function init2() {
       offset: 0.53,
       debug: false
     })
-    .onStepEnter(handleStepEnter2);
+    .onStepEnter(handleStepEnter2)
+    .onStepExit(handleStepExit2); // Add the step exit event
 
   // Setup resize event for scrolly2
   window.addEventListener("resize", scroller2.resize);
