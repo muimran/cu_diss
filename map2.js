@@ -17,7 +17,7 @@ const scroller2 = scrollama(); // Add this line to initialize scroller2
 function createMap2() {
   map2 = new mapboxgl.Map({
     container: 'map2', // Ensure this matches the container ID in your HTML for the second map
-    style: 'mapbox://styles/imrandata/cm0fmeq48000e01pb9z5c7jez',
+    style: 'mapbox://styles/imrandata/cm09t5gjz00lu01qwg0fqc6nr',
     center: [35.3563, 25.685],
     zoom: 2,
     projection: 'mercator'

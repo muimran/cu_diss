@@ -17,9 +17,9 @@ const tooltip = d3.select("body").append("div")
     .style("opacity", 0);
 
 // Load the CSV data
-d3.csv("top100_words_yearwise.csv").then(data => {
+d3.csv("top100_words.csv").then(data => {
     // Nest data by Publication
-    const nestedData = d3.groups(data, d => d.Year);
+    const nestedData = d3.groups(data, d => d.Publication);
 
     // Sort the data within each publication by frequency in descending order
     nestedData.forEach(pub => {
@@ -56,10 +56,12 @@ d3.csv("top100_words_yearwise.csv").then(data => {
             .append("rect")
             .attr("class", `bar-${pubName}`)
             .attr("x", d => x(pubName))
-            .attr("y", (d, i) => y(i + 1))  // Increment y position for each word
+            .attr("y", (d, i) => i * barHeight)  // Simple change here: `i * barHeight`
             .attr("width", x.bandwidth())
             .attr("height", barHeight)
             .attr("fill", "steelblue")
+            .attr("y", (d, i) => i * (barHeight + 1))  // Modify this line to add a vertical gap
+
             .on("mouseover", function(event, d) {
                 // Highlight all bars with the same word across all columns
                 svg.selectAll("rect").filter(function(dd) {
