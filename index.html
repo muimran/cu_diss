@@ -13,6 +13,11 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.2/mapbox-gl.js"></script>
 
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.2/mapbox-gl.css" rel="stylesheet" />
     <!-- Include Leaflet CSS -->
     <link
@@ -54,7 +59,7 @@
           <div class="step" data-step="3">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
-          <div class="step" data-step="4">
+         <!-- <div class="step" data-step="4">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
           <div class="step" data-step="5">
@@ -62,7 +67,7 @@
           </div>
           <div class="step" data-step="6">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
+          </div> -->
         </article>
       </section>
 
@@ -123,12 +128,12 @@
           </div>
           <div class="step2" data-step="4">
             <p>New step content for scrolly2 - Step 4</p>
-          </div>
+          <!-- </div>
           <div class="step2" data-step="5">
             <p>New step content for scrolly2 - Step 5</p>
           </div>
           <div class="step2" data-step="6">
-            <p>New step content for scrolly2 - Step 6</p>
+            <p>New step content for scrolly2 - Step 6</p> -->
           </div>
         </article>
         
@@ -136,7 +141,11 @@
 
 
       
-      <div id="chart1"></div>   
+      <div class="chart-container">
+        <div id="chart1"></div> <!-- D3 Chart Container -->
+        <div id="container"></div> <!-- Highcharts Container -->
+      </div>
+      
       <section id="outro"></section>
     </main>
 

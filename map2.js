@@ -13,24 +13,36 @@ let steps2; // Define steps2 variable for scrolly steps
 // Initialize scroller2 for Scrollama
 const scroller2 = scrollama(); // Add this line to initialize scroller2
 
+// Initial map state
+const initialMapState = {
+  center: [35.3563, 25.685], // Initial center coordinates
+  zoom: 2 // Initial zoom level
+};
+
 // Function to create and initialize the Mapbox map for scrolly2
 function createMap2() {
   map2 = new mapboxgl.Map({
     container: 'map2', // Ensure this matches the container ID in your HTML for the second map
     style: 'mapbox://styles/imrandata/cm09t5gjz00lu01qwg0fqc6nr',
-    center: [35.3563, 25.685],
-    zoom: 2,
+    center: initialMapState.center,
+    zoom: initialMapState.zoom,
     projection: 'mercator'
   });
 
   map2.scrollZoom.disable();
   document.getElementById("map2").style.backgroundColor = "white";
 
-  // Load article data for the second map once initialized
-  loadArticleData2();
+  // Wait for the map to load before adding layers and event listeners
+  map2.on('load', function () {
+    // Ensure the commonwealth layer starts as hidden
+    map2.setLayoutProperty('commonwealth', 'visibility', 'none');
+    
+    // Load article data for the second map once initialized
+    loadArticleData2();
 
-  // Add event listeners to checkboxes dynamically for scrolly2
-  addCheckboxEventListeners2();
+    // Add event listeners to checkboxes dynamically for scrolly2
+    addCheckboxEventListeners2();
+  });
 }
 
 // Load article details from JSON for scrolly2
@@ -92,7 +104,6 @@ function updateAggregatedData2(selectedSources) {
   const totalCountries = Object.keys(aggregatedData2).length;
   console.log('Total unique countries:', totalCountries);
 }
-
 
 // Function to update the map with aggregated data for scrolly2
 function updateMapWithAggregatedData2() {
@@ -164,6 +175,30 @@ function handleStepEnter2(response) {
   // Remove is-active from all steps
   steps2.forEach(step => step.classList.remove('is-active'));
   el.classList.add('is-active');
+
+  // Toggle "commonwealth" layer visibility based on step index
+  if (response.index === 0) {
+    // Show the "commonwealth" layer when the first step enters
+    map2.setLayoutProperty('commonwealth', 'visibility', 'visible');
+  } else if (response.index === 1) {
+    // Hide the "commonwealth" layer and zoom to Africa when the second step enters
+    map2.setLayoutProperty('commonwealth', 'visibility', 'none');
+    map2.flyTo({
+      center: [20.0, 10.0], // Coordinates for Africa
+      zoom: 4, // Zoom level for Africa
+      speed: 1.2, // Optional: adjust speed of transition
+      curve: 1.5 // Optional: adjust 'smoothness' of flight
+    });
+  } else if (response.index === 2) {
+    // Return to initial zoom and center when the third step enters
+    map2.setLayoutProperty('commonwealth', 'visibility', 'none');
+    map2.flyTo({
+      center: initialMapState.center, // Initial center coordinates
+      zoom: initialMapState.zoom, // Initial zoom level
+      speed: 1.2, // Optional: adjust speed of transition
+      curve: 1.5 // Optional: adjust 'smoothness' of flight
+    });
+  }
 
   // Determine which publication to select based on the step index for scrolly2
   const publicationToSelect2 = publications2[response.index]; // Get the corresponding publication value

@@ -1,9 +1,48 @@
-// Set the dimensions and margins of the D3 graph
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <style>
+        #container {
+            height: 240px; /* Reduced height by 40% */
+            width: 480px; /* Reduced width by 40% */
+            position: absolute; /* Positioning closer to the first chart */
+            top: 50px; /* Adjust as needed to align vertically */
+            left: 800px; /* Adjust this value to keep it in its current position relative to the new width */
+        }
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: auto;
+            height: auto;
+            padding: 5px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        #chart1 {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chart1"></div>
+<div id="container"></div>
+
+<script>
+// Set the dimensions and margins of the graph
 const margin = {top: 40, right: 30, bottom: 60, left: 30},
-      width = 1000 - margin.left - margin.right,
+      width = 720 - margin.left - margin.right, // Increased width by 20%
       height = 600 - margin.top - margin.bottom;
 
-// Append the svg object to the body of the page for D3 chart
+// Append the svg object to the body of the page
 const svg = d3.select("#chart1")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -16,7 +55,7 @@ const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-// Load the CSV data
+// Load the CSV data for the D3 chart
 d3.csv("top100_words.csv").then(data => {
     // Nest data by Publication
     const nestedData = d3.groups(data, d => d.Publication);
@@ -38,6 +77,10 @@ d3.csv("top100_words.csv").then(data => {
 
     const barHeight = height / 110;  // Adjusted thickness for bars with space
 
+    // Calculate the position for the tooltip (to the right of the rightmost column)
+    const rightMostColumnX = x(nestedData[nestedData.length - 1][0]) + x.bandwidth();
+    const tooltipX = rightMostColumnX + margin.left + 20; // 20 pixels to the right of the rightmost column
+
     // X Axis
     svg.append("g")
         .attr("transform", `translate(0, ${height})`)
@@ -45,7 +88,7 @@ d3.csv("top100_words.csv").then(data => {
         .selectAll("text")
         .remove();  // Remove the publication names (ticks) on X axis
     svg.selectAll(".domain").remove();  // This line removes the x-axis line
-    
+
     // Draw bars
     nestedData.forEach(pub => {
         const pubName = pub[0];
@@ -72,9 +115,8 @@ d3.csv("top100_words.csv").then(data => {
                 tooltip.html(d.Word.toUpperCase());
 
                 // Position the tooltip to the right of the rightmost column
-                const rightMostColumnX = x(nestedData[nestedData.length - 1][0]) + x.bandwidth();
-                tooltip.style("left", (rightMostColumnX + margin.left + 85) + "px")
-                       .style("top", (event.pageY - 10) + "px");
+                tooltip.style("left", tooltipX + "px")
+                       .style("top", (event.pageY - 10) + "px"); // Adjust vertical position as needed
             })
             .on("mouseout", function() {
                 // Reset the color of all bars to steelblue
@@ -95,9 +137,6 @@ d3.csv("top100_words.csv").then(data => {
                     const years = wordData.map(row => +row.Year);
                     const frequencies = wordData.map(row => +row.Frequency);
 
-                    // Show the Highcharts container when a bar is clicked
-                    document.getElementById('container').style.display = 'block';
-
                     // Update Highcharts with the new data
                     Highcharts.chart('container', {
                         chart: {
@@ -108,13 +147,7 @@ d3.csv("top100_words.csv").then(data => {
                         },
                         title: {
                             text: `Frequency of the Word "${d.Word}" Over Time`,
-                            align: 'center',
-                            style: {
-                                fontFamily: 'IBM Plex Sans, sans-serif', // Specify the font family
-                                fontSize: '16px', // Specify the font size
-                                fontWeight: 'bold', // Specify the font weight
-                                color: '#333333' // Specify the font color
-                            }
+                            align: 'left'
                         },
                         xAxis: {
                             categories: years,
@@ -151,11 +184,6 @@ d3.csv("top100_words.csv").then(data => {
                                 }
                             }
                         },
-                        tooltip: {
-                            formatter: function() {
-                                return 'Frequency: ' + this.y + '<br>Year: ' + this.x;
-                            }
-                        },
                         series: [{
                             data: frequencies,
                             showInLegend: false
@@ -167,7 +195,6 @@ d3.csv("top100_words.csv").then(data => {
                             enabled: false
                         }
                     });
-                    
                 });
             });
     });
@@ -184,21 +211,7 @@ d3.csv("top100_words.csv").then(data => {
         .attr("height", 50);
 });
 
-// Function to hide the Highcharts container
-function hideHighcharts() {
-    document.getElementById('container').style.display = 'none';
-}
+</script>
 
-// Add an event listener to the document to hide the Highcharts chart when clicking outside
-document.addEventListener('click', function(event) {
-    // Check if the click is inside the Highcharts container or a D3 bar
-    const isClickInsideHighcharts = document.getElementById('container').contains(event.target);
-    const isClickOnBar = event.target.nodeName === 'rect';
-
-    if (!isClickInsideHighcharts && !isClickOnBar) {
-        hideHighcharts();
-    }
-});
-
-// Ensure the Highcharts container is initially hidden
-hideHighcharts();
+</body>
+</html>
