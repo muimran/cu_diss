@@ -14,7 +14,9 @@ const svg = d3.select("#chart1")
 // Tooltip setup
 const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0);
+    .style("opacity", 0)
+    .style("position", "absolute")  // Ensure tooltip is positioned absolutely
+    .style("pointer-events", "none"); // Prevent tooltip from affecting mouse events
 
 // Load the CSV data
 d3.csv("top100_words.csv").then(data => {
@@ -29,7 +31,7 @@ d3.csv("top100_words.csv").then(data => {
     // Set the scales
     const x = d3.scaleBand()
         .domain(nestedData.map(d => d[0]))
-        .range([0, width * .5])
+        .range([0, width * 0.5])
         .padding(0.2);
 
     const y = d3.scaleLinear()
@@ -38,14 +40,15 @@ d3.csv("top100_words.csv").then(data => {
 
     const barHeight = height / 110;  // Adjusted thickness for bars with space
 
-    // X Axis
+    // X Axis - render only once to keep it fixed
     svg.append("g")
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisBottom(x).tickSize(0).tickFormat(''))
         .selectAll("text")
         .remove();  // Remove the publication names (ticks) on X axis
+
     svg.selectAll(".domain").remove();  // This line removes the x-axis line
-    
+
     // Draw bars
     nestedData.forEach(pub => {
         const pubName = pub[0];
@@ -57,7 +60,7 @@ d3.csv("top100_words.csv").then(data => {
             .append("rect")
             .attr("class", `bar-${pubName}`)
             .attr("x", d => x(pubName))
-            .attr("y", (d, i) => i * (barHeight + .6))  // Modify this line to add a vertical gap
+            .attr("y", (d, i) => i * (barHeight + 0.6))  // Modify this line to add a vertical gap
             .attr("width", x.bandwidth())
             .attr("height", barHeight)
             .attr("fill", "steelblue")
@@ -68,7 +71,7 @@ d3.csv("top100_words.csv").then(data => {
                 }).attr("fill", "orange");
 
                 // Update tooltip content
-                tooltip.transition().duration(200).style("opacity", .9);
+                tooltip.transition().duration(200).style("opacity", 0.9);
                 tooltip.html(d.Word.toUpperCase());
 
                 // Position the tooltip to the right of the rightmost column
@@ -82,94 +85,128 @@ d3.csv("top100_words.csv").then(data => {
 
                 tooltip.transition().duration(500).style("opacity", 0);
             })
+
+            
             .on("click", function(event, d) {
                 // Load data for the clicked word
                 d3.csv("top100_words_articles_yearwise.csv").then(fullData => {
                     // Filter data for the selected word
                     const wordData = fullData.filter(row => row.Word.toLowerCase() === d.Word.toLowerCase());
-
+            
                     // Sort the filtered data by year
                     wordData.sort((a, b) => d3.ascending(+a.Year, +b.Year));
-
+            
                     // Extract years and frequencies for Highcharts
-                    const years = wordData.map(row => +row.Year);
-                    const frequencies = wordData.map(row => +row.Frequency);
-
+                    const newData = wordData.map(row => [+row.Year, +row.Frequency]);
+            
                     // Show the Highcharts container when a bar is clicked
                     document.getElementById('container').style.display = 'block';
-
-                    // Update Highcharts with the new data
-                    Highcharts.chart('container', {
-                        chart: {
-                            type: 'spline',
-                            animation: {
-                                duration: 1000
-                            }
-                        },
-                        title: {
-                            text: `Frequency of the Word "${d.Word}" Over Time`,
-                            align: 'center',
-                            style: {
-                                fontFamily: 'IBM Plex Sans, sans-serif', // Specify the font family
-                                fontSize: '16px', // Specify the font size
-                                fontWeight: 'bold', // Specify the font weight
-                                color: '#333333' // Specify the font color
-                            }
-                        },
-                        xAxis: {
-                            categories: years,
-                            title: {
-                                text: null
-                            },
-                            gridLineWidth: 0,
-                            labels: {
-                                formatter: function() {
-                                    return (this.value == years[0] || this.value == years[years.length - 1]) ? this.value : '';
-                                }
-                            }
-                        },
-                        yAxis: {
-                            title: {
-                                text: null
-                            },
-                            gridLineWidth: 0,
-                            labels: {
-                                enabled: true
-                            }
-                        },
-                        plotOptions: {
-                            series: {
-                                marker: {
-                                    enabled: false
-                                },
-                                lineWidth: 2,
+            
+                    // Check if a chart already exists
+                    if (Highcharts.charts[0]) {
+                        // Update the existing chart's series data with animation
+                        const chart = Highcharts.charts[0];
+                        
+                        // Update the chart title with the new word
+                        chart.setTitle({
+                            text: `Frequency of the Word "${d.Word}" Over Time`
+                        });
+            
+                        // Directly update the series data with a smooth transition
+                        chart.series[0].setData(newData, true, {
+                            duration: 1500, // Increase animation duration for smoother transition
+                            easing: 'easeInOutQuad' // Easing function for smooth transition
+                        });
+                    } else {
+                        // Create a new chart if it doesn't exist
+                        Highcharts.chart('container', {
+                            chart: {
+                                type: 'spline',
                                 animation: {
-                                    duration: 1000
+                                    duration: 1500 // Overall animation duration for chart
                                 },
-                                label: {
-                                    enabled: false
+                                margin: [70, 50, 60, 80]  // Fixed margins to prevent resizing
+                            },
+                            title: {
+                                text: `Frequency of the Word "${d.Word}" Over Time`,
+                                align: 'center',
+                                style: {
+                                    fontFamily: 'IBM Plex Sans, sans-serif', // Specify the font family
+                                    fontSize: '16px', // Specify the font size
+                                    fontWeight: 'bold', // Specify the font weight
+                                    color: '#333333' // Specify the font color
                                 }
+                            },
+                            xAxis: {
+                                type: 'linear', // Use a linear scale for the x-axis
+                                min: 2012, // Set minimum value to 2012
+                                max: 2024, // Set maximum value to 2024
+                                tickPositions: [2012, 2018, 2024], // Set specific ticks at 2012, 2018, 2024
+                                title: {
+                                    text: null // Remove the "Year" title
+                                },
+                                lineWidth: 2,  // Increase X-axis line thickness here
+                                minorTickLength: 0, // Remove minor ticks (tiny lines under the axis)
+                                tickLength: 0,  // Remove all ticks
+                                labels: {
+                                    formatter: function() {
+                                        return this.value; // Display the year values directly
+                                    }
+                                },
+                                gridLineWidth: 0 // Remove any grid lines on the X-axis
+                            },
+                            yAxis: {
+                                title: {
+                                    text: null // Remove the "Frequency" title
+                                },
+                                gridLineWidth: 0, // Disable grid lines on the Y-axis
+                                lineWidth: 0, // Remove Y-axis line
+                                labels: {
+                                    enabled: true
+                                }
+                            },
+                            plotOptions: {
+                                series: {
+                                    marker: {
+                                        enabled: false // Disable markers
+                                    },
+                                    lineWidth: 2,
+                                    animation: {
+                                        duration: 1500, // Increase animation duration for series update
+                                        easing: 'easeInOutQuad' // Smooth easing function
+                                    },
+                                    label: {
+                                        enabled: false
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                formatter: function() {
+                                    return 'Frequency: ' + this.y + '<br>Year: ' + this.x;
+                                }
+                            },
+                            series: [{
+                                data: newData, // Use an array of arrays for linear x-axis
+                                showInLegend: false
+                            }],
+                            exporting: {
+                                enabled: false
+                            },
+                            credits: {
+                                enabled: false
                             }
-                        },
-                        tooltip: {
-                            formatter: function() {
-                                return 'Frequency: ' + this.y + '<br>Year: ' + this.x;
-                            }
-                        },
-                        series: [{
-                            data: frequencies,
-                            showInLegend: false
-                        }],
-                        exporting: {
-                            enabled: false
-                        },
-                        credits: {
-                            enabled: false
-                        }
-                    });
-                    
+                        });
+                    }
                 });
             });
+            
+            
+            
+            
+            
+            
+            
+            
     });
 
     // Add publication logos under each column
