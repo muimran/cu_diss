@@ -242,12 +242,13 @@ article {
 
 .tooltip {
   position: absolute;
+  color: #FFA500;
   text-align: center;
   width: auto;
   height: auto;
   padding: 5px;
-  font: 12px sans-serif;
-  background: lightsteelblue;
+  font: 14px sans-serif;
+  background: rgb(12, 55, 113);
   border: 1px solid #d3d3d3;
   border-radius: 4px;
   pointer-events: none;

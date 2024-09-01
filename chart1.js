@@ -19,7 +19,7 @@ const tooltip = d3.select("body").append("div")
     .style("pointer-events", "none"); // Prevent tooltip from affecting mouse events
 
 // Load the CSV data
-d3.csv("top100_words.csv").then(data => {
+d3.csv("top100_content_pub.csv").then(data => {
     // Nest data by Publication
     const nestedData = d3.groups(data, d => d.Publication);
 
@@ -89,7 +89,7 @@ d3.csv("top100_words.csv").then(data => {
             
             .on("click", function(event, d) {
                 // Load data for the clicked word
-                d3.csv("top100_words_articles_yearwise.csv").then(fullData => {
+                d3.csv("top500_content_year.csv").then(fullData => {
                     // Filter data for the selected word
                     const wordData = fullData.filter(row => row.Word.toLowerCase() === d.Word.toLowerCase());
             
@@ -214,7 +214,7 @@ d3.csv("top100_words.csv").then(data => {
         .data(nestedData)
         .enter()
         .append("image")
-        .attr("xlink:href", d => d[1][0].Logo)
+        .attr("href", d => `logo/${d[1][0].Logo}`)  // Construct the relative path to the logo folder
         .attr("x", d => x(d[0]) + (x.bandwidth() - 50) / 2)  // Center the logo
         .attr("y", height + 20)
         .attr("width", 50)
