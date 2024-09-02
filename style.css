@@ -51,9 +51,6 @@ a:hover {
   line-height: 1.5;
 }
 
-
-
-
 h1 {
   font-family: 'Gothic A1', sans-serif;
   text-align: left;
@@ -63,7 +60,7 @@ h1 {
 }
 
 .para-1 {
-  font-family: 'Source Seriff 4', serif;
+  font-family: 'Source Serif 4', serif;
   font-weight: 300;
   font-size: 18px;
   display: flex;
@@ -155,7 +152,6 @@ article {
   justify-content: center;
 }
 
-
 .sticky-thing p,
 .sticky-thing2 p {
   font-size: 8rem;
@@ -191,19 +187,14 @@ article {
 }
 
 /* Styles for the Leaflet map container */
-#map
- {
+#map {
   width: 100%;
   height: 150%;
 }
 
-
-#map2
- {
+#map2 {
   width: 100vh;
-
 }
-
 
 .animated-marker span {
   background-color: #D02D00;
@@ -218,19 +209,22 @@ article {
   100% { transform: scale(1); }
 }
 
-
-
-
-
+/* Chart and Highchart News Containers */
 .chart-container {
-  display: flex; /* Use flexbox for horizontal layout */
+  display: flex; /* Keep the D3 and Highcharts containers side by side */
   align-items: flex-start; /* Align items at the top */
   justify-content: flex-start; /* Ensure items align to the start */
   margin-left: 80px;
 }
 
+.highchart-news-container {
+  display: flex;
+  flex-direction: column; /* Stack Highcharts and news container vertically */
+}
+
 #chart1 {
   margin-right: 0px; /* Reduced space between D3 and Highcharts */
+  width: 700px;
 }
 
 #container {
@@ -239,17 +233,165 @@ article {
   margin-right: 0; /* Remove any unnecessary margin */
 }
 
-
 .tooltip {
   position: absolute;
-  color: #FFA500;
+  color: #0C3771;;
   text-align: center;
   width: auto;
   height: auto;
   padding: 5px;
-  font: 14px sans-serif;
-  background: rgb(12, 55, 113);
-  border: 1px solid #d3d3d3;
+
+  font: 'IBM Plex Sans', sans-serif;
   border-radius: 4px;
   pointer-events: none;
+}
+
+
+
+/* News Container Styling */
+#news-container {
+  margin-top: 20px; /* Space above the news container */
+  font-family: 'Georgia', serif; /* Use a serif font to match the style */
+  max-width: 400px; /* Set a max width for the headlines */
+  color: #3b3b3b;
+  padding: 10px; /* Padding around the news container */
+  background-color: #f9f9f9; /* Subtle background color */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-left: 40px; /* Margin for positioning */
+}
+
+/* News Item Styling */
+.news-item {
+  display: flex; /* Flexbox for number and content alignment */
+  flex-direction: column; /* Stack number, content, and snippet vertically */
+  align-items: flex-start; /* Align items at the start */
+  margin-bottom: 20px; /* Space between each news item */
+  padding-bottom: 10px; /* Padding for spacing inside each item */
+  border-bottom: 1px solid #ddd; /* Light grey border for separation */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* News Content Styling */
+.news-content {
+  font-size: 16px; /* Base font size */
+  line-height: 1.5; /* Line height for readability */
+  margin-bottom: 5px; /* Space below headline */
+}
+
+/* News Date Styling */
+.news-date {
+  font-weight: bold; /* Bold date */
+  font-size: 16px; /* Slightly larger font size for the date */
+  margin-right: 5px; /* Space between date and headline */
+  text-transform: uppercase; /* Uppercase styling for consistency */
+}
+
+/* Highlighted Text Styling */
+.highlight {
+  font-weight: bold; /* Bold text */
+  text-transform: uppercase; /* Uppercase text */
+  background-color: yellow; /* Highlight color */
+}
+
+/* Snippet Styling */
+.news-snippet {
+  font-size: 14px; /* Smaller font size for the snippet */
+  color: #555; /* Subtle color for differentiation */
+  margin-top: 5px; /* Space above snippet */
+  padding-left: 10px; /* Indentation to align with headline content */
+  border-left: 3px solid #ddd; /* Optional left border to differentiate snippet */
+}
+
+/* Adjust headline hover state */
+.news-item:hover {
+  background-color: #f0f0f0; /* Slightly different background on hover */
+}
+
+.news-content .headline-link,
+.news-content .headline-link:visited,
+.news-content .headline-link:active {
+  color: black; /* Plain black text for the headlines */
+  text-decoration: none !important; /* Remove underline */
+  font-weight: bold; /* Make the link bold */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.news-content .headline-link:hover {
+  color: #1f77b4 !important; /* Match the color of the frequency line (blue) */
+  text-decoration: none !important; /* Ensure no underline on hover */
+}
+
+
+.news-content a {
+  color: inherit; /* Inherit the color from the parent element */
+  text-decoration: none; /* Remove underline */
+  font-weight: inherit; /* Inherit the font weight */
+}
+
+.news-content a:hover {
+  color: #1f77b4; /* Match the color of the frequency line (blue) */
+  text-decoration: none; /* Ensure no underline on hover */
+}
+
+
+
+/* Container for the search input */
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 2px solid #4682b4; /* Border color */
+  border-radius: 20px; /* Adjusted rounded corners */
+  padding: 2px 5px; /* Reduced padding inside the box */
+  background-color: white; /* White background */
+  max-width: 300px; /* Maximum width of the search box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+  height: 30px; /* Reduced height for the search box */
+}
+
+/* Styling for the search input field */
+.search-box input[type="text"] {
+  border: none; /* No border */
+  outline: none; /* No outline on focus */
+  width: 100%; /* Full width of the search box */
+  padding: 4px 8px; /* Reduced padding inside the input */
+  font-size: 14px; /* Slightly smaller font size */
+  line-height: 1.2; /* Adjust line height */
+  border-radius: 15px; /* Rounded corners */
+  height: 100%; /* Set input field height to fill the container */
+}
+
+
+#suggestions-container {
+  padding-top: 2px;
+  padding-left: 6px;
+
+}
+
+
+
+
+
+
+/* Styling for individual suggestion items */
+.suggestion-item {
+  padding: 8px 10px; /* Padding for suggestions */
+  cursor: pointer; /* Pointer cursor on hover */
+  color: #000; /* Text color for suggestions */
+  font-size: 14px; /* Font size for suggestions */
+}
+
+.suggestion-item:hover {
+  color: #4682b4; /* Background color on hover */
+}
+
+/* Styling for "No Results Found" message */
+.no-results {
+  padding: 8px 4px; /* Padding for no results message */
+  font-size: 12px; /* Font size for no results message */
+  font-weight: bold; /* Bold text */
+  color: #333; /* Text color for no results */
+  background-color: #e5e5e5; /* Background color */
+  border-radius: 15px; /* Rounded corners */
+  text-align: center; /* Center text */
 }

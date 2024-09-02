@@ -143,8 +143,27 @@
       
       <div class="chart-container">
         <div id="chart1"></div> <!-- D3 Chart Container -->
-        <div id="container"></div> <!-- Highcharts Container -->
-      </div>
+    
+        <!-- New search input and button for word search -->
+        <!-- New search input for word search without a button -->
+<div id="search-container" style="margin-top: 10px;">
+  <div class="search-box">
+    <input type="text" id="word-search" placeholder="Find a word..." autocomplete="off">
+  </div>
+  <div id="suggestions-container"></div> <!-- Suggestions Container -->
+</div>
+
+      
+    
+        <!-- New wrapper div for Highcharts and news -->
+        <div class="highchart-news-container">
+            <div id="container"></div> <!-- Highcharts Container -->
+            <div id="news-container" style="margin-top: 20px;"></div> <!-- News Container -->
+        </div>
+    </div>
+    
+    
+      
       
       <section id="outro"></section>
     </main>
