@@ -221,106 +221,114 @@ d3.csv("top100_content_pub.csv").then((data) => {
             easing: "easeInOutQuad",
           });
         } else {
-          Highcharts.chart("container", {
-            chart: {
-              type: "spline",
-              animation: {
-                duration: 1500,
-              },
-              margin: [70, 50, 60, 80],
-              events: {
-                click: function (event) {
-                  // Get the clicked position in terms of the x-axis value (year)
-                  const xAxis = this.xAxis[0];
-                  const selectedYear = Math.round(xAxis.toValue(event.chartX));
-                  
-                  // Check if the selected year exists in the data range
-                  const closestPoint = newData.find(point => point[0] === selectedYear);
-                  if (closestPoint) {
-                    displayNewsHeadlinesForYear(word.toLowerCase(), selectedYear);
-                  }
-                },
-              },
-            },
-            title: {
-              text: `Frequency of the Word "${word}" Over Time`,
-              align: "center",
-              style: {
-                fontFamily: "IBM Plex Sans, sans-serif",
-                fontSize: "16px",
-                fontWeight: "bold",
-                color: "#333333",
-              },
-            },
-            xAxis: {
-              type: "linear",
-              min: 2012,
-              max: 2024,
-              tickPositions: [2012, 2018, 2024],
-              title: {
-                text: null,
-              },
-              lineWidth: 3,
-              minorTickLength: 0,
-              tickLength: 0,
-              labels: {
-                formatter: function () {
-                  return this.value;
-                },
-              },
-              gridLineWidth: 0,
-            },
-            yAxis: {
-              title: {
-                text: null,
-              },
-              gridLineWidth: 0,
-              lineWidth: 0,
-              labels: {
-                enabled: true,
-              },
-            },
-            plotOptions: {
-              series: {
-                marker: {
-                  enabled: false,
-                },
-                lineWidth: 2,
-                animation: {
-                  duration: 1500,
-                  easing: "easeInOutQuad",
-                },
-                label: {
-                  enabled: false,
-                },
-                point: {
+            Highcharts.chart("container", {
+                chart: {
+                  type: "spline",
+                  animation: {
+                    duration: 1500,
+                  },
+                  margin: [70, 50, 60, 80],
                   events: {
-                    click: function () {
-                      const selectedYear = this.x; // Get the year of the clicked point
-                      displayNewsHeadlinesForYear(word.toLowerCase(), selectedYear); // Update headlines and snippets based on the selected year
+                    click: function (event) {
+                      // Get the clicked position in terms of the x-axis value (year)
+                      const xAxis = this.xAxis[0];
+                      const selectedYear = Math.round(xAxis.toValue(event.chartX));
+              
+                      // Check if a word is currently selected
+                      if (selectedWord) {
+                        // Display news headlines for the currently selected word
+                        displayNewsHeadlinesForYear(selectedWord.toLowerCase(), selectedYear);
+                      } else {
+                        console.log("No word selected.");
+                      }
                     },
                   },
                 },
-              },
-            },
-            tooltip: {
-              formatter: function () {
-                return "Frequency: " + this.y + "<br>Year: " + this.x;
-              },
-            },
-            series: [
-              {
-                data: newData,
-                showInLegend: false,
-              },
-            ],
-            exporting: {
-              enabled: false,
-            },
-            credits: {
-              enabled: false,
-            },
-          });
+                title: {
+                  text: `Frequency of the Word "${selectedWord}" Over Time`,
+                  align: "center",
+                  style: {
+                    fontFamily: "IBM Plex Sans, sans-serif",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    color: "#333333",
+                  },
+                },
+                xAxis: {
+                  type: "linear",
+                  min: 2012,
+                  max: 2024,
+                  tickPositions: [2012, 2018, 2024],
+                  title: {
+                    text: null,
+                  },
+                  lineWidth: 3,
+                  minorTickLength: 0,
+                  tickLength: 0,
+                  labels: {
+                    formatter: function () {
+                      return this.value;
+                    },
+                  },
+                  gridLineWidth: 0,
+                },
+                yAxis: {
+                  title: {
+                    text: null,
+                  },
+                  gridLineWidth: 0,
+                  lineWidth: 0,
+                  labels: {
+                    enabled: true,
+                  },
+                },
+                plotOptions: {
+                  series: {
+                    marker: {
+                      enabled: false,
+                    },
+                    lineWidth: 2,
+                    animation: {
+                      duration: 1500,
+                      easing: "easeInOutQuad",
+                    },
+                    label: {
+                      enabled: false,
+                    },
+                    point: {
+                      events: {
+                        click: function () {
+                          const selectedYear = this.x; // Get the year of the clicked point
+                          // Ensure the current selectedWord is used
+                          if (selectedWord) {
+                            displayNewsHeadlinesForYear(selectedWord.toLowerCase(), selectedYear);
+                          } else {
+                            console.log("No word selected.");
+                          }
+                        },
+                      },
+                    },
+                  },
+                },
+                tooltip: {
+                  formatter: function () {
+                    return "Frequency: " + this.y + "<br>Year: " + this.x;
+                  },
+                },
+                series: [
+                  {
+                    data: newData,
+                    showInLegend: false,
+                  },
+                ],
+                exporting: {
+                  enabled: false,
+                },
+                credits: {
+                  enabled: false,
+                },
+              });
+              
         }
       
         // Find the year with the highest frequency for the selected word
@@ -363,20 +371,18 @@ d3.csv("top100_content_pub.csv").then((data) => {
       }
     });
 
-  // Function to display suggestions based on input
-  function showSuggestions(input) {
-    const suggestionsContainer = document.getElementById(
-      "suggestions-container"
-    );
+// Function to display suggestions based on input
+function showSuggestions(input) {
+    const suggestionsContainer = document.getElementById("suggestions-container");
     suggestionsContainer.innerHTML = ""; // Clear previous suggestions
-
+  
     if (!input) return; // Exit if input is empty
-
+  
     const inputLowerCase = input.toLowerCase();
     const matchedWords = wordList
       .filter((word) => word.startsWith(inputLowerCase))
       .slice(0, 5); // Limit to top 5 suggestions
-
+  
     if (matchedWords.length === 0) {
       // No matching words found
       const noResultsItem = document.createElement("div");
@@ -388,7 +394,12 @@ d3.csv("top100_content_pub.csv").then((data) => {
       matchedWords.forEach((word) => {
         const suggestionItem = document.createElement("div");
         suggestionItem.className = "suggestion-item";
-        suggestionItem.innerText = word;
+  
+        // Highlight matching part in bold
+        const regex = new RegExp(`(${inputLowerCase})`, "i");
+        const highlightedWord = word.replace(regex, '<strong>$1</strong>');
+  
+        suggestionItem.innerHTML = highlightedWord;
         suggestionItem.onclick = () => {
           document.getElementById("word-search").value = word;
           suggestionsContainer.innerHTML = ""; // Clear suggestions
@@ -398,6 +409,7 @@ d3.csv("top100_content_pub.csv").then((data) => {
       });
     }
   }
+  
 
   svg
     .selectAll(".logo")
