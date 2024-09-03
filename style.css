@@ -246,8 +246,6 @@ article {
   pointer-events: none;
 }
 
-
-
 /* News Container Styling */
 #news-container {
   margin-top: 20px; /* Space above the news container */
@@ -322,7 +320,6 @@ article {
   text-decoration: none !important; /* Ensure no underline on hover */
 }
 
-
 .news-content a {
   color: inherit; /* Inherit the color from the parent element */
   text-decoration: none; /* Remove underline */
@@ -334,10 +331,9 @@ article {
   text-decoration: none; /* Ensure no underline on hover */
 }
 
-
-
-/* Container for the search input */
-.search-box {
+/* Container for the search input and compare input */
+.search-box,
+.compare-box { /* Apply the same styles to both search-box and compare-box */
   display: flex;
   align-items: center;
   border: 2px solid #4682b4; /* Border color */
@@ -347,10 +343,12 @@ article {
   max-width: 300px; /* Maximum width of the search box */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
   height: 30px; /* Reduced height for the search box */
+  margin-top: 10px; /* Added margin to separate boxes */
 }
 
-/* Styling for the search input field */
-.search-box input[type="text"] {
+/* Styling for the search input fields */
+.search-box input[type="text"],
+.compare-box input[type="text"] { /* Apply the same styles to both input fields */
   border: none; /* No border */
   outline: none; /* No outline on focus */
   width: 100%; /* Full width of the search box */
@@ -361,17 +359,11 @@ article {
   height: 100%; /* Set input field height to fill the container */
 }
 
-
-#suggestions-container {
+#suggestions-container,
+#compare-suggestions-container { /* Apply the same styles to both suggestion containers */
   padding-top: 2px;
   padding-left: 6px;
-
 }
-
-
-
-
-
 
 /* Styling for individual suggestion items */
 .suggestion-item {
