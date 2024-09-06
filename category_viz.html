@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Visualization with Scrollama</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.2.3/scrollama.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sticky-chart {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1;
+            width: 1200px;
+        }
+
+        .scrolly {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step {
+            margin: 0;
+            padding: 100px 0;
+            width: 100%;
+            text-align: right;
+            min-height: 60vh;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .element1, .element2, .element3 {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+            font-size: 24px;
+            color: #333;
+            width: 40%;
+        }
+
+        .element1.visible, .element2.visible, .element3.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-chart">
+        <svg id="canvas" width="1123" height="900"></svg>
+    </div>
+
+    <div class="scrolly">
+        <div class="step">
+            <div class="element1">ELEMENT 1</div>
+        </div>
+        <div class="step">
+            <div class="element2">ELEMENT 2</div>
+        </div>
+        <div class="step">
+            <div class="element3">ELEMENT 3</div>
+        </div>
+    </div>
+
+    <script>
+        let articleDetails = [];
+        let svg, g;
+        let colorScale;
+
+        const width = 1123;
+        const height = 900;
+        const margin = 40;
+        const lineSpacing = 12;
+        const radius = 4;
+        const dotSpacing = 8;
+        const numCols = Math.floor((width - 2 * margin) / (radius * 2 + dotSpacing));
+
+        fetch('article_details.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                articleDetails = data;
+                articleDetails.forEach(d => d.year = new Date(d.date).getFullYear());
+                articleDetails.sort((a, b) => d3.ascending(a.year, b.year) || d3.ascending(new Date(a.date), new Date(b.date)));
+                visualizeData(articleDetails);
+                setupScrollama();
+            })
+            .catch(error => {
+                console.error('Error fetching JSON data:', error);
+            });
+
+        function visualizeData(data) {
+            svg = d3.select("#canvas")
+                .attr("viewBox", [0, 0, width, height]);
+
+            g = svg.append("g");
+
+            const categories = [...new Set(data.map(d => d.category))];
+            const years = [...new Set(data.map(d => d.year))];
+
+            // Define a color scheme excluding grey for the second most frequent category
+            const colorScheme = d3.schemeCategory10.slice(); // Clone to avoid mutating the original
+            colorScheme[1] = '#1f77b4'; // Replace the second color with a distinct non-grey color
+
+            colorScale = d3.scaleOrdinal()
+                .domain(categories)
+                .range(colorScheme);
+
+            drawDotsByYear(data, years, colorScale, true);
+        }
+
+        function drawDotsByYear(data, years, colorScale, initialState) {
+            g.selectAll("*").remove();
+
+            let yPosition = margin;
+            const xScale = d3.scaleLinear()
+                .domain([0, numCols - 1])
+                .range([margin, width - margin]);
+
+            years.forEach(year => {
+                const yearData = data.filter(d => d.year === year);
+
+                g.append("line")
+                    .attr("class", "year-line")
+                    .attr("x1", margin)
+                    .attr("x2", width - margin)
+                    .attr("y1", yPosition)
+                    .attr("y2", yPosition)
+                    .attr("stroke", "#686666")
+                    .attr("stroke-width", 1);
+
+                    g.append("text")
+                    .attr("class", "year-label")
+                    .attr("x", margin + 5)
+                    .attr("y", yPosition - 5)
+                    .attr("text-anchor", "start")
+                    .attr("font-size", "14px")
+                    .attr("font-family", "'Roboto', sans-serif")  // Set font to Roboto
+                    .attr("font-weight", "600")  // Medium weight for Roboto
+                    .attr("fill", "#666")
+                    .text(year);
+
+
+                yPosition += lineSpacing;
+
+                g.selectAll(`.dot-${year}`)
+                    .data(yearData, d => d.serial)
+                    .enter()
+                    .append("circle")
+                    .attr("class", `dot-${year}`)
+                    .attr("cx", (d, i) => xScale(i % numCols))
+                    .attr("cy", (d, i) => yPosition + Math.floor(i / numCols) * (radius * 2 + dotSpacing))
+                    .attr("r", radius)
+                    .attr("fill", initialState ? "#686666" : d => colorScale(d.category));
+
+                yPosition += Math.ceil(yearData.length / numCols) * (radius * 2 + dotSpacing) + lineSpacing;
+            });
+        }
+
+        function setupScrollama() {
+            const scroller = scrollama();
+
+            scroller
+                .setup({
+                    step: ".step",
+                    offset: 0.65,
+                    debug: false
+                })
+                .onStepEnter(response => {
+                    if (response.index === 0) {
+                        d3.select(".element1").classed("visible", true);
+                        d3.select(".element2").classed("visible", false);
+                        d3.select(".element3").classed("visible", false);
+                        updateDots();
+                    } else if (response.index === 1) {
+                        d3.select(".element2").classed("visible", true);
+                        d3.select(".element1").classed("visible", false);
+                        d3.select(".element3").classed("visible", false);
+                        filterDotsForSelectedMonths();
+                    } else if (response.index === 2) {
+                        d3.select(".element3").classed("visible", true);
+                        d3.select(".element1").classed("visible", false);
+                        d3.select(".element2").classed("visible", false);
+                        sortByCategoryFrequency();
+                    }
+                })
+                .onStepExit(response => {
+                    d3.selectAll(".element1, .element2, .element3").classed("visible", false);
+                    resetDots();
+                });
+        }
+
+        function updateDots() {
+            g.selectAll("circle")
+                .transition()
+                .duration(500)
+                .attr("fill", d => colorScale(d.category));
+        }
+
+        function filterDotsForSelectedMonths() {
+            // Define or select existing blur filter with a smaller filter region to keep dots round
+            let defs = svg.select("defs");
+            if (defs.empty()) {
+                defs = svg.append("defs");
+            }
+
+            let blurFilter = defs.select("#blur");
+            if (blurFilter.empty()) {
+                blurFilter = defs.append("filter")
+                    .attr("id", "blur")
+                    .attr("x", "-20%")
+                    .attr("y", "-20%")
+                    .attr("width", "140%")
+                    .attr("height", "140%");
+                blurFilter.append("feGaussianBlur")
+                    .attr("stdDeviation", 2); // Adjust blur intensity as needed
+            }
+
+            g.selectAll("circle")
+                .transition()
+                .duration(500) // Synchronize duration for both effects
+                .attr("fill", d => {
+                    const date = new Date(d.date);
+                    const year = date.getFullYear();
+                    const month = date.getMonth();
+
+                    if ((year === 2013 && month === 4) || (year === 2016 && (month >= 6 && month <= 9))) {
+                        return colorScale(d.category); // Color change for selected months
+                    } else {
+                        return "#686666"; // Grey for others
+                    }
+                })
+                .attr("r", d => {
+                    const date = new Date(d.date);
+                    const year = date.getFullYear();
+                    const month = date.getMonth();
+
+                    if ((year === 2013 && month === 4) || (year === 2016 && (month >= 6 && month <= 9))) {
+                        return radius * 1.25; // Increase radius by 25% for colored dots
+                    } else {
+                        return radius; // Keep radius unchanged for grey dots
+                    }
+                })
+                .attr("filter", d => {
+                    const date = new Date(d.date);
+                    const year = date.getFullYear();
+                    const month = date.getMonth();
+
+                    if ((year === 2013 && month === 4) || (year === 2016 && (month >= 6 && month <= 9))) {
+                        return null; // No blur for colored dots
+                    } else {
+                        return "url(#blur)"; // Apply blur to grey dots
+                    }
+                });
+        }
+
+        function sortByCategoryFrequency() {
+            const categoryCount = {};
+
+            // Count the number of articles in each category
+            articleDetails.forEach(d => {
+                categoryCount[d.category] = (categoryCount[d.category] || 0) + 1;
+            });
+
+            // Sort categories by the count of articles in descending order
+            const sortedCategories = Object.entries(categoryCount)
+                .sort((a, b) => b[1] - a[1])
+                .map(d => d[0]);
+
+            // Sort article details by category count in descending order
+            articleDetails.sort((a, b) => sortedCategories.indexOf(a.category) - sortedCategories.indexOf(b.category));
+
+            const categoryPositions = {};
+            let currentX = margin;
+            let currentY = margin;
+
+            // Arrange dots by category based on the sorted order
+            sortedCategories.forEach(category => {
+                const categoryData = articleDetails.filter(d => d.category === category);
+
+                categoryData.forEach((d, i) => {
+                    if (currentX > width - margin) {
+                        currentX = margin;
+                        currentY += (radius * 2 + dotSpacing);
+                    }
+
+                    categoryPositions[d.serial] = {
+                        x: currentX,
+                        y: currentY
+                    };
+
+                    currentX += (radius * 2 + dotSpacing);
+                });
+
+                currentX += dotSpacing; // Additional spacing between categories
+            });
+
+            g.selectAll(".year-line, .year-label")
+                .transition()
+                .duration(1000)
+                .attr("opacity", 0)
+                .remove();
+
+            g.selectAll("circle")
+                .data(articleDetails, d => d.serial)
+                .join("circle")
+                .transition()
+                .duration(2500)
+                .attr("cx", (d) => categoryPositions[d.serial].x)
+                .attr("cy", (d) => categoryPositions[d.serial].y)
+                .attr("fill", d => colorScale(d.category));
+        }
+
+        function resetDots() {
+            g.selectAll("circle")
+                .transition()
+                .duration(500)
+                .attr("fill", "#686666")
+                .attr("r", radius) // Reset radius to original
+                .attr("filter", null); // Remove blur filter
+        }
+    </script>
+</body>
+</html>

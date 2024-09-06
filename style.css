@@ -141,7 +141,7 @@ article {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
-  width: 120%;
+  width: 100%;
   margin: 0;
   background-color: #a42c2c00;
   z-index: 0;
@@ -220,6 +220,8 @@ article {
 .highchart-news-container {
   display: flex;
   flex-direction: column; /* Stack Highcharts and news container vertically */
+  width: 550px; /* Fixed width for Highcharts */
+
 }
 
 #chart1 {
@@ -233,14 +235,26 @@ article {
   margin-right: 0; /* Remove any unnecessary margin */
 }
 
+.highcharts-legend,
+.highcharts-legend-box {
+  display: none !important;
+}
+
+.highcharts-logo {
+  display: none !important;
+}
+
+.highcharts-credits {
+  display: none !important;
+}
+
 .tooltip {
   position: absolute;
-  color: #0C3771;;
+  color: #0C3771;
   text-align: center;
   width: auto;
   height: auto;
   padding: 5px;
-
   font: 'IBM Plex Sans', sans-serif;
   border-radius: 4px;
   pointer-events: none;
@@ -386,4 +400,97 @@ article {
   background-color: #e5e5e5; /* Background color */
   border-radius: 15px; /* Rounded corners */
   text-align: center; /* Center text */
+}
+
+
+
+/* Existing CSS styles remain unchanged */
+
+/* Additional Styles for the Visualization */
+.scroll-container {
+  position: relative;
+  padding-bottom: 50vh; /* To allow sticky to behave correctly */
+}
+
+.sticky-chart {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1; /* Lower z-index value */
+  width: 90%; 
+  max-width: 1100px;
+  margin: 0 auto; 
+}
+
+.scrolly-viz {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 80%; /* Make sure it spans the entire width */
+  margin: 0 auto; /* Center align the scrolly sections */
+  margin-bottom: 40vh; /* Add margin to control visibility duration */
+  padding: 0 0px; /* Ensure padding for mobile responsiveness */
+}
+
+.step-chart {
+  margin: 0;
+  padding: 100px 0; /* Ensure enough padding for each section to allow scrolling triggers */
+  width: 100%;
+  text-align: right;
+  min-height: 60vh; /* Ensures sections have enough height for Scrollama triggers */
+  display: flex;
+  justify-content: flex-end;
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+/* Active step enhancements */
+.step-chart.is-active {
+  background-color: #f0f0f0; /* Highlight active step with a subtle background change */
+  padding: 120px 0; /* Increase padding when active to create visual separation */
+  transition: background-color 0.3s ease, padding 0.3s ease; /* Smooth transition for background and padding */
+}
+
+/* Smooth bottom-up animation for elements */
+.element1, .element2, .element3 {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out, transform 0.8s ease-out; /* Adjusted for a smoother and slower transition */
+  transform: translateY(100px); /* Start further off-screen to create a clearer bottom-up entry effect */
+  font-size: 24px;
+  color: #333;
+  width: 40%;
+  margin-left: 90%; /* Adjust to align elements as needed */
+  z-index: 2;
+}
+
+.element1.visible, .element2.visible, .element3.visible {
+  opacity: 1;
+  transform: translateY(0); /* Transition to original position */
+}
+
+/* Spacer style to keep the chart in view longer */
+.spacer {
+  height: 50vh; /* Adjust height to control how long the chart stays in view */
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .sticky-chart {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .scrolly-viz {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .step-chart {
+    padding: 50px 0;
+    text-align: center; /* Center text for smaller screens */
+  }
+
+  .element1, .element2, .element3 {
+    width: 80%;
+    font-size: 20px;
+  }
 }

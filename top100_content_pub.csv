@@ -1,601 +1,701 @@
-Publication,Word,Frequency,Logo
-CNN,people,582,cnn_logo.png
-CNN,building,373,cnn_logo.png
-CNN,dhaka,347,cnn_logo.png
-CNN,police,309,cnn_logo.png
-CNN,rohingya,249,cnn_logo.png
-CNN,government,240,cnn_logo.png
-CNN,bangladeshi,238,cnn_logo.png
-CNN,workers,230,cnn_logo.png
-CNN,country,194,cnn_logo.png
-CNN,rights,178,cnn_logo.png
-CNN,death,173,cnn_logo.png
-CNN,killed,166,cnn_logo.png
-CNN,refugees,166,cnn_logo.png
-CNN,collapses,164,cnn_logo.png
-CNN,myanmar,151,cnn_logo.png
-CNN,state,148,cnn_logo.png
-CNN,garment,140,cnn_logo.png
-CNN,bangladeshs,140,cnn_logo.png
-CNN,authorities,123,cnn_logo.png
-CNN,years,122,cnn_logo.png
-CNN,children,122,cnn_logo.png
-CNN,million,121,cnn_logo.png
-CNN,group,120,cnn_logo.png
-CNN,safety,119,cnn_logo.png
-CNN,factory,118,cnn_logo.png
-CNN,human,117,cnn_logo.png
-CNN,violence,114,cnn_logo.png
-CNN,collapse,110,cnn_logo.png
-CNN,factories,109,cnn_logo.png
-CNN,international,108,cnn_logo.png
-CNN,india,107,cnn_logo.png
-CNN,capital,105,cnn_logo.png
-CNN,party,105,cnn_logo.png
-CNN,home,103,cnn_logo.png
-CNN,april,102,cnn_logo.png
-CNN,died,101,cnn_logo.png
-CNN,attacks,101,cnn_logo.png
-CNN,border,100,cnn_logo.png
-CNN,islam,96,cnn_logo.png
-CNN,work,94,cnn_logo.png
-CNN,hide,93,cnn_logo.png
-CNN,isis,92,cnn_logo.png
-CNN,disaster,91,cnn_logo.png
-CNN,countrys,89,cnn_logo.png
-CNN,attack,89,cnn_logo.png
-CNN,opposition,87,cnn_logo.png
-CNN,refugee,87,cnn_logo.png
-CNN,boat,87,cnn_logo.png
-CNN,reported,83,cnn_logo.png
-CNN,sunday,83,cnn_logo.png
-CNN,officials,82,cnn_logo.png
-CNN,local,82,cnn_logo.png
-CNN,days,81,cnn_logo.png
-CNN,water,79,cnn_logo.png
-CNN,just,78,cnn_logo.png
-CNN,security,78,cnn_logo.png
-CNN,highlights,77,cnn_logo.png
-CNN,district,77,cnn_logo.png
-CNN,thousands,77,cnn_logo.png
-CNN,months,76,cnn_logo.png
-CNN,monday,75,cnn_logo.png
-CNN,family,75,cnn_logo.png
-CNN,groups,75,cnn_logo.png
-CNN,rescue,74,cnn_logo.png
-CNN,statement,74,cnn_logo.png
-CNN,hospital,74,cnn_logo.png
-CNN,september,73,cnn_logo.png
-CNN,war,73,cnn_logo.png
-CNN,indian,73,cnn_logo.png
-CNN,tuesday,72,cnn_logo.png
-CNN,rahman,72,cnn_logo.png
-CNN,men,71,cnn_logo.png
-CNN,coxs,71,cnn_logo.png
-CNN,hossain,70,cnn_logo.png
-CNN,world,70,cnn_logo.png
-CNN,bazar,70,cnn_logo.png
-CNN,near,70,cnn_logo.png
-CNN,military,70,cnn_logo.png
-CNN,ahmed,68,cnn_logo.png
-CNN,official,68,cnn_logo.png
-CNN,minister,68,cnn_logo.png
-CNN,prime minister,68,cnn_logo.png
-CNN,camp,68,cnn_logo.png
-CNN,director,67,cnn_logo.png
-CNN,arrested,66,cnn_logo.png
-CNN,recent,66,cnn_logo.png
-CNN,court,66,cnn_logo.png
-CNN,protests,66,cnn_logo.png
-CNN,rana,66,cnn_logo.png
-CNN,activists,66,cnn_logo.png
-CNN,families,65,cnn_logo.png
-CNN,bodies,63,cnn_logo.png
-CNN,injured,63,cnn_logo.png
-CNN,women,63,cnn_logo.png
-CNN,food,63,cnn_logo.png
-CNN,media,62,cnn_logo.png
-CNN,bangladeshis,62,cnn_logo.png
-CNN,left,61,cnn_logo.png
-CNN,saturday,61,cnn_logo.png
-CNN,rakhine,61,cnn_logo.png
-telegraph,england,446,telegraph_logo.svg
-telegraph,people,430,telegraph_logo.svg
-telegraph,ball,370,telegraph_logo.svg
-telegraph,dhaka,290,telegraph_logo.svg
-telegraph,just,257,telegraph_logo.svg
-telegraph,world,253,telegraph_logo.svg
-telegraph,building,218,telegraph_logo.svg
-telegraph,cricket,210,telegraph_logo.svg
-telegraph,government,207,telegraph_logo.svg
-telegraph,team,207,telegraph_logo.svg
-telegraph,police,199,telegraph_logo.svg
-telegraph,india,193,telegraph_logo.svg
-telegraph,bangladeshs,192,telegraph_logo.svg
-telegraph,single,183,telegraph_logo.svg
-telegraph,country,177,telegraph_logo.svg
-telegraph,years,176,telegraph_logo.svg
-telegraph,factory,166,telegraph_logo.svg
-telegraph,cup,153,telegraph_logo.svg
-telegraph,international,148,telegraph_logo.svg
-telegraph,workers,147,telegraph_logo.svg
-telegraph,shakib,146,telegraph_logo.svg
-telegraph,players,144,telegraph_logo.svg
-telegraph,bangladeshi,140,telegraph_logo.svg
-telegraph,balls,135,telegraph_logo.svg
-telegraph,game,133,telegraph_logo.svg
-telegraph,killed,132,telegraph_logo.svg
-telegraph,tour,129,telegraph_logo.svg
-telegraph,good,128,telegraph_logo.svg
-telegraph,work,128,telegraph_logo.svg
-telegraph,water,127,telegraph_logo.svg
-telegraph,roy,127,telegraph_logo.svg
-telegraph,death,126,telegraph_logo.svg
-telegraph,garment,126,telegraph_logo.svg
-telegraph,home,125,telegraph_logo.svg
-telegraph,series,122,telegraph_logo.svg
-telegraph,security,122,telegraph_logo.svg
-telegraph,play,122,telegraph_logo.svg
-telegraph,going,121,telegraph_logo.svg
-telegraph,pakistan,120,telegraph_logo.svg
-telegraph,englands,120,telegraph_logo.svg
-telegraph,family,119,telegraph_logo.svg
-telegraph,test,118,telegraph_logo.svg
-telegraph,away,117,telegraph_logo.svg
-telegraph,rana,112,telegraph_logo.svg
-telegraph,need,104,telegraph_logo.svg
-telegraph,second,104,telegraph_logo.svg
-telegraph,overs,104,telegraph_logo.svg
-telegraph,short,103,telegraph_logo.svg
-telegraph,attack,102,telegraph_logo.svg
-telegraph,conditions,101,telegraph_logo.svg
-telegraph,factories,101,telegraph_logo.svg
-telegraph,million,99,telegraph_logo.svg
-telegraph,rohingya,99,telegraph_logo.svg
-telegraph,runs,99,telegraph_logo.svg
-telegraph,inside,98,telegraph_logo.svg
-telegraph,das,98,telegraph_logo.svg
-telegraph,leg,98,telegraph_logo.svg
-telegraph,rashid,97,telegraph_logo.svg
-telegraph,days,96,telegraph_logo.svg
-telegraph,rights,95,telegraph_logo.svg
-telegraph,long,92,telegraph_logo.svg
-telegraph,party,92,telegraph_logo.svg
-telegraph,match,91,telegraph_logo.svg
-telegraph,collapse,91,telegraph_logo.svg
-telegraph,wickets,90,telegraph_logo.svg
-telegraph,far,89,telegraph_logo.svg
-telegraph,group,89,telegraph_logo.svg
-telegraph,wicket,89,telegraph_logo.svg
-telegraph,hit,88,telegraph_logo.svg
-telegraph,countrys,87,telegraph_logo.svg
-telegraph,working,87,telegraph_logo.svg
-telegraph,rahman,87,telegraph_logo.svg
-telegraph,left,86,telegraph_logo.svg
-telegraph,moeen,86,telegraph_logo.svg
-telegraph,woakes,85,telegraph_logo.svg
-telegraph,high,84,telegraph_logo.svg
-telegraph,local,84,telegraph_logo.svg
-telegraph,run,84,telegraph_logo.svg
-telegraph,safety,83,telegraph_logo.svg
-telegraph,win,83,telegraph_logo.svg
-telegraph,start,82,telegraph_logo.svg
-telegraph,children,81,telegraph_logo.svg
-telegraph,dont,81,telegraph_logo.svg
-telegraph,innings,81,telegraph_logo.svg
-telegraph,mahmudullah,81,telegraph_logo.svg
-telegraph,took,80,telegraph_logo.svg
-telegraph,hasan,80,telegraph_logo.svg
-telegraph,end,79,telegraph_logo.svg
-telegraph,war,79,telegraph_logo.svg
-telegraph,buttler,79,telegraph_logo.svg
-telegraph,know,78,telegraph_logo.svg
-telegraph,outside,78,telegraph_logo.svg
-telegraph,plaza,78,telegraph_logo.svg
-telegraph,set,77,telegraph_logo.svg
-telegraph,opposition,76,telegraph_logo.svg
-telegraph,captain,76,telegraph_logo.svg
-telegraph,bowling,76,telegraph_logo.svg
-telegraph,ground,75,telegraph_logo.svg
-telegraph,past,75,telegraph_logo.svg
-telegraph,south,75,telegraph_logo.svg
-BBC,people,636,bbc_logo.svg
-BBC,government,408,bbc_logo.svg
-BBC,dhaka,408,bbc_logo.svg
-BBC,police,392,bbc_logo.svg
-BBC,bangladeshi,261,bbc_logo.svg
-BBC,killed,258,bbc_logo.svg
-BBC,country,243,bbc_logo.svg
-BBC,party,209,bbc_logo.svg
-BBC,death,205,bbc_logo.svg
-BBC,bangladeshs,203,bbc_logo.svg
-BBC,opposition,197,bbc_logo.svg
-BBC,years,191,bbc_logo.svg
-BBC,local,185,bbc_logo.svg
-BBC,india,176,bbc_logo.svg
-BBC,attack,174,bbc_logo.svg
-BBC,ms,160,bbc_logo.svg
-BBC,rohingya,157,bbc_logo.svg
-BBC,war,156,bbc_logo.svg
-BBC,officials,150,bbc_logo.svg
-BBC,attacks,145,bbc_logo.svg
-BBC,islamist,145,bbc_logo.svg
-BBC,group,144,bbc_logo.svg
-BBC,myanmar,142,bbc_logo.svg
-BBC,died,139,bbc_logo.svg
-BBC,home,139,bbc_logo.svg
-BBC,groups,130,bbc_logo.svg
-BBC,violence,128,bbc_logo.svg
-BBC,state,128,bbc_logo.svg
-BBC,security,124,bbc_logo.svg
-BBC,islam,124,bbc_logo.svg
-BBC,news,123,bbc_logo.svg
-BBC,building,123,bbc_logo.svg
-BBC,family,122,bbc_logo.svg
-BBC,prime minister,117,bbc_logo.svg
-BBC,played,117,bbc_logo.svg
-BBC,rights,115,bbc_logo.svg
-BBC,thousands,115,bbc_logo.svg
-BBC,bnp,114,bbc_logo.svg
-BBC,capital,114,bbc_logo.svg
-BBC,countrys,113,bbc_logo.svg
-BBC,protests,111,bbc_logo.svg
-BBC,international,110,bbc_logo.svg
-BBC,million,110,bbc_logo.svg
-BBC,pakistan,110,bbc_logo.svg
-BBC,sheikh hasina,108,bbc_logo.svg
-BBC,islamic,107,bbc_logo.svg
-BBC,leader,105,bbc_logo.svg
-BBC,activists,103,bbc_logo.svg
-BBC,election,101,bbc_logo.svg
-BBC,number,101,bbc_logo.svg
-BBC,awami league,99,bbc_logo.svg
-BBC,media,99,bbc_logo.svg
-BBC,accused,99,bbc_logo.svg
-BBC,authorities,99,bbc_logo.svg
-BBC,court,99,bbc_logo.svg
-BBC,secular,98,bbc_logo.svg
-BBC,bloggers,98,bbc_logo.svg
-BBC,militants,97,bbc_logo.svg
-BBC,hundreds,96,bbc_logo.svg
-BBC,crimes,95,bbc_logo.svg
-BBC,cafe,94,bbc_logo.svg
-BBC,workers,92,bbc_logo.svg
-BBC,factory,92,bbc_logo.svg
-BBC,supporters,91,bbc_logo.svg
-BBC,safety,91,bbc_logo.svg
-BBC,killing,91,bbc_logo.svg
-BBC,men,91,bbc_logo.svg
-BBC,leaders,90,bbc_logo.svg
-BBC,killings,90,bbc_logo.svg
-BBC,agency,90,bbc_logo.svg
-BBC,days,90,bbc_logo.svg
-BBC,indian,88,bbc_logo.svg
-BBC,political,87,bbc_logo.svg
-BBC,left,87,bbc_logo.svg
-BBC,minister,86,bbc_logo.svg
-BBC,area,85,bbc_logo.svg
-BBC,district,85,bbc_logo.svg
-BBC,reports,85,bbc_logo.svg
-BBC,chittagong,84,bbc_logo.svg
-BBC,used,84,bbc_logo.svg
-BBC,human,83,bbc_logo.svg
-BBC,independence,83,bbc_logo.svg
-BBC,injured,82,bbc_logo.svg
-BBC,afp,82,bbc_logo.svg
-BBC,arrested,81,bbc_logo.svg
-BBC,city,81,bbc_logo.svg
-BBC,dead,80,bbc_logo.svg
-BBC,army,80,bbc_logo.svg
-BBC,religious,80,bbc_logo.svg
-BBC,members,80,bbc_logo.svg
-BBC,world,79,bbc_logo.svg
-BBC,garment,79,bbc_logo.svg
-BBC,son,77,bbc_logo.svg
-BBC,took,76,bbc_logo.svg
-BBC,children,76,bbc_logo.svg
-BBC,murder,75,bbc_logo.svg
-BBC,protesters,75,bbc_logo.svg
-BBC,work,75,bbc_logo.svg
-BBC,students,74,bbc_logo.svg
-BBC,want,73,bbc_logo.svg
-foxnews,people,575,foxnews_logo.svg
-foxnews,dhaka,468,foxnews_logo.svg
-foxnews,police,446,foxnews_logo.svg
-foxnews,government,379,foxnews_logo.svg
-foxnews,war,320,foxnews_logo.svg
-foxnews,garment,309,foxnews_logo.svg
-foxnews,party,307,foxnews_logo.svg
-foxnews,building,275,foxnews_logo.svg
-foxnews,bangladeshs,258,foxnews_logo.svg
-foxnews,workers,245,foxnews_logo.svg
-foxnews,killed,236,foxnews_logo.svg
-foxnews,opposition,234,foxnews_logo.svg
-foxnews,death,228,foxnews_logo.svg
-foxnews,group,222,foxnews_logo.svg
-foxnews,factory,210,foxnews_logo.svg
-foxnews,security,201,foxnews_logo.svg
-foxnews,factories,178,foxnews_logo.svg
-foxnews,official,176,foxnews_logo.svg
-foxnews,million,172,foxnews_logo.svg
-foxnews,prime minister,171,foxnews_logo.svg
-foxnews,officials,169,foxnews_logo.svg
-foxnews,crimes,166,foxnews_logo.svg
-foxnews,countrys,164,foxnews_logo.svg
-foxnews,capital,162,foxnews_logo.svg
-foxnews,country,161,foxnews_logo.svg
-foxnews,authorities,158,foxnews_logo.svg
-foxnews,court,158,foxnews_logo.svg
-foxnews,bangladeshi,156,foxnews_logo.svg
-foxnews,local,154,foxnews_logo.svg
-foxnews,rana,150,foxnews_logo.svg
-foxnews,independence,146,foxnews_logo.svg
-foxnews,rights,144,foxnews_logo.svg
-foxnews,jamaateislami,140,foxnews_logo.svg
-foxnews,leader,138,foxnews_logo.svg
-foxnews,saturday,135,foxnews_logo.svg
-foxnews,islamic,130,foxnews_logo.svg
-foxnews,rohingya,128,foxnews_logo.svg
-foxnews,minister,121,foxnews_logo.svg
-foxnews,years,119,foxnews_logo.svg
-foxnews,home,118,foxnews_logo.svg
-foxnews,sheikh hasina,117,foxnews_logo.svg
-foxnews,forces,114,foxnews_logo.svg
-foxnews,islam,114,foxnews_logo.svg
-foxnews,attack,114,foxnews_logo.svg
-foxnews,sunday,111,foxnews_logo.svg
-foxnews,rahman,109,foxnews_logo.svg
-foxnews,leaders,108,foxnews_logo.svg
-foxnews,arrested,108,foxnews_logo.svg
-foxnews,zia,106,foxnews_logo.svg
-foxnews,members,105,foxnews_logo.svg
-foxnews,family,105,foxnews_logo.svg
-foxnews,protests,103,foxnews_logo.svg
-foxnews,bodies,102,foxnews_logo.svg
-foxnews,myanmar,102,foxnews_logo.svg
-foxnews,violence,102,foxnews_logo.svg
-foxnews,industry,102,foxnews_logo.svg
-foxnews,monday,97,foxnews_logo.svg
-foxnews,attacks,96,foxnews_logo.svg
-foxnews,senior,96,foxnews_logo.svg
-foxnews,set,96,foxnews_logo.svg
-foxnews,died,94,foxnews_logo.svg
-foxnews,safety,94,foxnews_logo.svg
-foxnews,trials,93,foxnews_logo.svg
-foxnews,groups,92,foxnews_logo.svg
-foxnews,injured,92,foxnews_logo.svg
-foxnews,sentenced,92,foxnews_logo.svg
-foxnews,main,91,foxnews_logo.svg
-foxnews,dead,90,foxnews_logo.svg
-foxnews,pakistan,90,foxnews_logo.svg
-foxnews,district,88,foxnews_logo.svg
-foxnews,owners,87,foxnews_logo.svg
-foxnews,plaza,87,foxnews_logo.svg
-foxnews,political,87,foxnews_logo.svg
-foxnews,state,86,foxnews_logo.svg
-foxnews,thursday,86,foxnews_logo.svg
-foxnews,charges,86,foxnews_logo.svg
-foxnews,tribunal,84,foxnews_logo.svg
-foxnews,outside,83,foxnews_logo.svg
-foxnews,collapsed,83,foxnews_logo.svg
-foxnews,friday,82,foxnews_logo.svg
-foxnews,women,82,foxnews_logo.svg
-foxnews,thousands,81,foxnews_logo.svg
-foxnews,hossain,81,foxnews_logo.svg
-foxnews,sentence,81,foxnews_logo.svg
-foxnews,killing,80,foxnews_logo.svg
-foxnews,report,80,foxnews_logo.svg
-foxnews,late,79,foxnews_logo.svg
-foxnews,largest,79,foxnews_logo.svg
-foxnews,collapse,79,foxnews_logo.svg
-foxnews,islamist,78,foxnews_logo.svg
-foxnews,months,77,foxnews_logo.svg
-foxnews,left,77,foxnews_logo.svg
-foxnews,reported,75,foxnews_logo.svg
-foxnews,wednesday,74,foxnews_logo.svg
-foxnews,general,74,foxnews_logo.svg
-foxnews,press,74,foxnews_logo.svg
-foxnews,nextimage,73,foxnews_logo.svg
-foxnews,inside,72,foxnews_logo.svg
-foxnews,supporters,72,foxnews_logo.svg
-foxnews,chief,70,foxnews_logo.svg
-New York Times,people,869,nytimes_logo.jpeg
-New York Times,dhaka,836,nytimes_logo.jpeg
-New York Times,police,718,nytimes_logo.jpeg
-New York Times,government,715,nytimes_logo.jpeg
-New York Times,bangladeshi,508,nytimes_logo.jpeg
-New York Times,workers,500,nytimes_logo.jpeg
-New York Times,garment,445,nytimes_logo.jpeg
-New York Times,factory,443,nytimes_logo.jpeg
-New York Times,country,418,nytimes_logo.jpeg
-New York Times,bangladeshs,403,nytimes_logo.jpeg
-New York Times,group,396,nytimes_logo.jpeg
-New York Times,factories,385,nytimes_logo.jpeg
-New York Times,killed,380,nytimes_logo.jpeg
-New York Times,building,355,nytimes_logo.jpeg
-New York Times,officials,341,nytimes_logo.jpeg
-New York Times,safety,333,nytimes_logo.jpeg
-New York Times,years,332,nytimes_logo.jpeg
-New York Times,party,331,nytimes_logo.jpeg
-New York Times,ms,329,nytimes_logo.jpeg
-New York Times,state,329,nytimes_logo.jpeg
-New York Times,islam,310,nytimes_logo.jpeg
-New York Times,labor,288,nytimes_logo.jpeg
-New York Times,countrys,287,nytimes_logo.jpeg
-New York Times,rights,278,nytimes_logo.jpeg
-New York Times,islamic,273,nytimes_logo.jpeg
-New York Times,million,269,nytimes_logo.jpeg
-New York Times,death,267,nytimes_logo.jpeg
-New York Times,men,256,nytimes_logo.jpeg
-New York Times,groups,249,nytimes_logo.jpeg
-New York Times,industry,247,nytimes_logo.jpeg
-New York Times,international,241,nytimes_logo.jpeg
-New York Times,war,235,nytimes_logo.jpeg
-New York Times,capital,230,nytimes_logo.jpeg
-New York Times,united,227,nytimes_logo.jpeg
-New York Times,political,226,nytimes_logo.jpeg
-New York Times,attacks,225,nytimes_logo.jpeg
-New York Times,opposition,220,nytimes_logo.jpeg
-New York Times,leaders,217,nytimes_logo.jpeg
-New York Times,violence,211,nytimes_logo.jpeg
-New York Times,attack,206,nytimes_logo.jpeg
-New York Times,members,204,nytimes_logo.jpeg
-New York Times,recent,198,nytimes_logo.jpeg
-New York Times,women,198,nytimes_logo.jpeg
-New York Times,local,196,nytimes_logo.jpeg
-New York Times,home,191,nytimes_logo.jpeg
-New York Times,rana,191,nytimes_logo.jpeg
-New York Times,killing,188,nytimes_logo.jpeg
-New York Times,rohingya,183,nytimes_logo.jpeg
-New York Times,authorities,180,nytimes_logo.jpeg
-New York Times,states,179,nytimes_logo.jpeg
-New York Times,retailers,174,nytimes_logo.jpeg
-New York Times,islamist,171,nytimes_logo.jpeg
-New York Times,prime minister,171,nytimes_logo.jpeg
-New York Times,law,169,nytimes_logo.jpeg
-New York Times,american,164,nytimes_logo.jpeg
-New York Times,leader,164,nytimes_logo.jpeg
-New York Times,work,163,nytimes_logo.jpeg
-New York Times,plaza,163,nytimes_logo.jpeg
-New York Times,just,160,nytimes_logo.jpeg
-New York Times,india,158,nytimes_logo.jpeg
-New York Times,saturday,157,nytimes_logo.jpeg
-New York Times,power,157,nytimes_logo.jpeg
-New York Times,official,156,nytimes_logo.jpeg
-New York Times,months,154,nytimes_logo.jpeg
-New York Times,human,153,nytimes_logo.jpeg
-New York Times,world,153,nytimes_logo.jpeg
-New York Times,khan,153,nytimes_logo.jpeg
-New York Times,news,151,nytimes_logo.jpeg
-New York Times,arrested,151,nytimes_logo.jpeg
-New York Times,days,149,nytimes_logo.jpeg
-New York Times,city,149,nytimes_logo.jpeg
-New York Times,monday,148,nytimes_logo.jpeg
-New York Times,religious,143,nytimes_logo.jpeg
-New York Times,secular,143,nytimes_logo.jpeg
-New York Times,brands,142,nytimes_logo.jpeg
-New York Times,family,142,nytimes_logo.jpeg
-New York Times,activists,137,nytimes_logo.jpeg
-New York Times,place,136,nytimes_logo.jpeg
-New York Times,rahman,136,nytimes_logo.jpeg
-New York Times,court,136,nytimes_logo.jpeg
-New York Times,thousands,135,nytimes_logo.jpeg
-New York Times,sunday,135,nytimes_logo.jpeg
-New York Times,district,135,nytimes_logo.jpeg
-New York Times,used,134,nytimes_logo.jpeg
-New York Times,awami league,134,nytimes_logo.jpeg
-New York Times,owners,133,nytimes_logo.jpeg
-New York Times,security,133,nytimes_logo.jpeg
-New York Times,myanmar,133,nytimes_logo.jpeg
-New York Times,bloggers,132,nytimes_logo.jpeg
-New York Times,died,130,nytimes_logo.jpeg
-New York Times,traffic,129,nytimes_logo.jpeg
-New York Times,hindu,128,nytimes_logo.jpeg
-New York Times,muslim,128,nytimes_logo.jpeg
-New York Times,thursday,127,nytimes_logo.jpeg
-New York Times,director,127,nytimes_logo.jpeg
-New York Times,working,126,nytimes_logo.jpeg
-New York Times,long,126,nytimes_logo.jpeg
-New York Times,conditions,126,nytimes_logo.jpeg
-New York Times,western,126,nytimes_logo.jpeg
-New York Times,national,126,nytimes_logo.jpeg
-Guardian,people,877,guardian_logo.svg
-Guardian,workers,696,guardian_logo.svg
-Guardian,government,595,guardian_logo.svg
-Guardian,dhaka,492,guardian_logo.svg
-Guardian,factory,465,guardian_logo.svg
-Guardian,england,454,guardian_logo.svg
-Guardian,world,441,guardian_logo.svg
-Guardian,factories,435,guardian_logo.svg
-Guardian,years,418,guardian_logo.svg
-Guardian,international,416,guardian_logo.svg
-Guardian,safety,416,guardian_logo.svg
-Guardian,garment,412,guardian_logo.svg
-Guardian,work,385,guardian_logo.svg
-Guardian,country,375,guardian_logo.svg
-Guardian,bangladeshi,357,guardian_logo.svg
-Guardian,just,346,guardian_logo.svg
-Guardian,building,342,guardian_logo.svg
-Guardian,women,329,guardian_logo.svg
-Guardian,police,322,guardian_logo.svg
-Guardian,bangladeshs,300,guardian_logo.svg
-Guardian,water,300,guardian_logo.svg
-Guardian,rights,296,guardian_logo.svg
-Guardian,rohingya,261,guardian_logo.svg
-Guardian,home,260,guardian_logo.svg
-Guardian,india,256,guardian_logo.svg
-Guardian,children,254,guardian_logo.svg
-Guardian,cricket,251,guardian_logo.svg
-Guardian,brands,250,guardian_logo.svg
-Guardian,conditions,246,guardian_logo.svg
-Guardian,rana,244,guardian_logo.svg
-Guardian,working,241,guardian_logo.svg
-Guardian,group,239,guardian_logo.svg
-Guardian,test,237,guardian_logo.svg
-Guardian,plaza,237,guardian_logo.svg
-Guardian,industry,235,guardian_logo.svg
-Guardian,series,233,guardian_logo.svg
-Guardian,killed,223,guardian_logo.svg
-Guardian,security,221,guardian_logo.svg
-Guardian,team,218,guardian_logo.svg
-Guardian,local,217,guardian_logo.svg
-Guardian,months,204,guardian_logo.svg
-Guardian,past,197,guardian_logo.svg
-Guardian,second,196,guardian_logo.svg
-Guardian,family,195,guardian_logo.svg
-Guardian,pakistan,192,guardian_logo.svg
-Guardian,good,191,guardian_logo.svg
-Guardian,days,191,guardian_logo.svg
-Guardian,million,186,guardian_logo.svg
-Guardian,global,185,guardian_logo.svg
-Guardian,political,185,guardian_logo.svg
-Guardian,set,183,guardian_logo.svg
-Guardian,development,182,guardian_logo.svg
-Guardian,game,181,guardian_logo.svg
-Guardian,tour,181,guardian_logo.svg
-Guardian,retailers,181,guardian_logo.svg
-Guardian,ball,180,guardian_logo.svg
-Guardian,human,180,guardian_logo.svg
-Guardian,want,180,guardian_logo.svg
-Guardian,accord,179,guardian_logo.svg
-Guardian,end,177,guardian_logo.svg
-Guardian,dont,177,guardian_logo.svg
-Guardian,need,176,guardian_logo.svg
-Guardian,players,175,guardian_logo.svg
-Guardian,pay,175,guardian_logo.svg
-Guardian,change,174,guardian_logo.svg
-Guardian,health,171,guardian_logo.svg
-Guardian,place,170,guardian_logo.svg
-Guardian,englands,169,guardian_logo.svg
-Guardian,high,167,guardian_logo.svg
-Guardian,violence,167,guardian_logo.svg
-Guardian,refugees,166,guardian_logo.svg
-Guardian,long,165,guardian_logo.svg
-Guardian,support,165,guardian_logo.svg
-Guardian,death,164,guardian_logo.svg
-Guardian,war,164,guardian_logo.svg
-Guardian,labour,163,guardian_logo.svg
-Guardian,going,157,guardian_logo.svg
-Guardian,know,157,guardian_logo.svg
-Guardian,rahman,157,guardian_logo.svg
-Guardian,director,156,guardian_logo.svg
-Guardian,collapse,156,guardian_logo.svg
-Guardian,countries,155,guardian_logo.svg
-Guardian,families,154,guardian_logo.svg
-Guardian,party,152,guardian_logo.svg
-Guardian,runs,151,guardian_logo.svg
-Guardian,clothes,151,guardian_logo.svg
-Guardian,countrys,150,guardian_logo.svg
-Guardian,number,150,guardian_logo.svg
-Guardian,help,150,guardian_logo.svg
-Guardian,match,149,guardian_logo.svg
-Guardian,opposition,149,guardian_logo.svg
-Guardian,cup,148,guardian_logo.svg
-Guardian,played,145,guardian_logo.svg
-Guardian,better,145,guardian_logo.svg
-Guardian,life,145,guardian_logo.svg
-Guardian,state,143,guardian_logo.svg
-Guardian,living,141,guardian_logo.svg
-Guardian,climate,141,guardian_logo.svg
-Guardian,used,139,guardian_logo.svg
-Guardian,attack,139,guardian_logo.svg
+Publication,Word,Frequency
+CNN,people,585
+CNN,building,391
+CNN,dhaka,370
+CNN,country,336
+CNN,police,310
+CNN,bangladeshi,300
+CNN,collapse,274
+CNN,worker,272
+CNN,government,256
+CNN,refugee,253
+CNN,rohingya,249
+CNN,factory,227
+CNN,death,216
+CNN,right,216
+CNN,group,195
+CNN,myanmar,191
+CNN,attack,190
+CNN,state,172
+CNN,killed,166
+CNN,child,159
+CNN,garment,153
+CNN,official,150
+CNN,home,147
+CNN,family,142
+CNN,million,140
+CNN,authority,132
+CNN,india,129
+CNN,camp,128
+CNN,woman,127
+CNN,party,126
+CNN,protest,123
+CNN,man,122
+CNN,human,120
+CNN,safety,119
+CNN,border,116
+CNN,violence,114
+CNN,international,114
+CNN,killing,113
+CNN,world,107
+CNN,capital,106
+CNN,work,106
+CNN,boat,106
+CNN,disaster,103
+CNN,body,102
+CNN,april,102
+CNN,died,101
+CNN,islam,97
+CNN,district,95
+CNN,life,93
+CNN,hospital,93
+CNN,hide,93
+CNN,water,92
+CNN,case,92
+CNN,local,88
+CNN,opposition,88
+CNN,blogger,85
+CNN,election,84
+CNN,reported,83
+CNN,nation,82
+CNN,thousand,81
+CNN,area,81
+CNN,agency,81
+CNN,activist,81
+CNN,statement,80
+CNN,muslim,80
+CNN,report,78
+CNN,just,78
+CNN,security,78
+CNN,rescue,74
+CNN,war,74
+CNN,court,73
+CNN,september,73
+CNN,leader,73
+CNN,indian,73
+CNN,city,72
+CNN,rahman,72
+CNN,minister,72
+CNN,cyclone,72
+CNN,condition,71
+CNN,issue,71
+CNN,hossain,70
+CNN,coxs bazar,70
+CNN,near,70
+CNN,military,70
+CNN,ahmed,68
+CNN,prime minister,68
+CNN,director,67
+CNN,rain,66
+CNN,arrested,66
+CNN,recent,66
+CNN,medium,66
+CNN,want,66
+CNN,food,65
+CNN,islamist,65
+CNN,officer,63
+CNN,operation,63
+CNN,injured,63
+CNN,organization,63
+CNN,law,62
+CNN,militant,62
+telegraph,england,566
+telegraph,ball,505
+telegraph,people,434
+telegraph,country,335
+telegraph,dhaka,323
+telegraph,world,283
+telegraph,building,272
+telegraph,factory,271
+telegraph,team,262
+telegraph,just,257
+telegraph,government,234
+telegraph,single,232
+telegraph,india,216
+telegraph,cricket,213
+telegraph,police,200
+telegraph,run,183
+telegraph,player,181
+telegraph,wicket,179
+telegraph,worker,171
+telegraph,international,168
+telegraph,game,167
+telegraph,cup,164
+telegraph,right,163
+telegraph,bangladeshi,162
+telegraph,test,157
+telegraph,family,157
+telegraph,home,156
+telegraph,death,152
+telegraph,work,151
+telegraph,shakib,146
+telegraph,play,146
+telegraph,attack,145
+telegraph,group,143
+telegraph,tour,142
+telegraph,garment,137
+telegraph,good,133
+telegraph,official,132
+telegraph,killed,132
+telegraph,water,129
+telegraph,pakistan,128
+telegraph,roy,127
+telegraph,security,123
+telegraph,match,123
+telegraph,series,122
+telegraph,going,121
+telegraph,man,120
+telegraph,need,119
+telegraph,condition,117
+telegraph,away,117
+telegraph,end,117
+telegraph,million,114
+telegraph,party,114
+telegraph,start,113
+telegraph,child,113
+telegraph,hit,109
+telegraph,short,105
+telegraph,leg,105
+telegraph,refugee,104
+telegraph,hand,104
+telegraph,rohingya,99
+telegraph,inside,98
+telegraph,rashid,97
+telegraph,disaster,95
+telegraph,woman,93
+telegraph,win,93
+telegraph,long,92
+telegraph,camp,92
+telegraph,bowler,92
+telegraph,collapse,92
+telegraph,far,89
+telegraph,local,89
+telegraph,know,88
+telegraph,cover,88
+telegraph,working,87
+telegraph,rahman,87
+telegraph,ground,86
+telegraph,left,86
+telegraph,moeen,86
+telegraph,woakes,85
+telegraph,high,84
+telegraph,life,84
+telegraph,leader,83
+telegraph,safety,83
+telegraph,boundary,83
+telegraph,case,82
+telegraph,captain,82
+telegraph,nation,81
+telegraph,want,81
+telegraph,batsman,81
+telegraph,inning,81
+telegraph,mahmudullah,81
+telegraph,place,80
+telegraph,took,80
+telegraph,strike,80
+telegraph,hasan,80
+telegraph,war,80
+telegraph,election,79
+telegraph,buttler,79
+telegraph,owner,79
+telegraph,body,78
+BBC,people,642
+BBC,government,436
+BBC,dhaka,432
+BBC,country,420
+BBC,police,393
+BBC,attack,319
+BBC,bangladeshi,316
+BBC,group,274
+BBC,party,268
+BBC,killed,258
+BBC,death,238
+BBC,official,215
+BBC,india,203
+BBC,opposition,199
+BBC,local,196
+BBC,leader,195
+BBC,home,187
+BBC,killing,181
+BBC,islamist,173
+BBC,man,169
+BBC,myanmar,167
+BBC,factory,167
+BBC,family,166
+BBC,building,158
+BBC,election,157
+BBC,rohingya,157
+BBC,war,156
+BBC,state,152
+BBC,million,148
+BBC,area,143
+BBC,protest,140
+BBC,died,139
+BBC,militant,138
+BBC,blogger,138
+BBC,right,137
+BBC,student,133
+BBC,islam,129
+BBC,violence,128
+BBC,muslim,125
+BBC,security,124
+BBC,report,124
+BBC,number,123
+BBC,news,123
+BBC,activist,122
+BBC,worker,120
+BBC,woman,119
+BBC,prime minister,117
+BBC,thousand,117
+BBC,played,117
+BBC,capital,115
+BBC,bnp,114
+BBC,world,113
+BBC,pakistan,112
+BBC,international,110
+BBC,member,109
+BBC,sheikh hasina,108
+BBC,court,107
+BBC,child,107
+BBC,islamic,107
+BBC,agency,106
+BBC,authority,106
+BBC,city,106
+BBC,crime,102
+BBC,medium,100
+BBC,awami league,99
+BBC,accused,99
+BBC,district,98
+BBC,secular,98
+BBC,supporter,97
+BBC,life,97
+BBC,cafe,97
+BBC,camp,97
+BBC,garment,94
+BBC,force,94
+BBC,indian,94
+BBC,murder,94
+BBC,jamaat,93
+BBC,safety,91
+BBC,minister,90
+BBC,want,90
+BBC,body,89
+BBC,son,88
+BBC,village,88
+BBC,political,87
+BBC,left,87
+BBC,hospital,85
+BBC,human,84
+BBC,chittagong,84
+BBC,used,84
+BBC,independence,83
+BBC,victim,83
+BBC,injured,82
+BBC,afp,82
+BBC,work,82
+BBC,arrested,81
+BBC,water,81
+BBC,army,81
+BBC,refugee,81
+BBC,dead,80
+BBC,charge,80
+foxnews,people,576
+foxnews,dhaka,526
+foxnews,police,447
+foxnews,government,413
+foxnews,factory,397
+foxnews,party,383
+foxnews,country,355
+foxnews,official,345
+foxnews,garment,344
+foxnews,building,323
+foxnews,war,321
+foxnews,group,314
+foxnews,death,282
+foxnews,worker,281
+foxnews,leader,246
+foxnews,killed,236
+foxnews,opposition,235
+foxnews,attack,210
+foxnews,security,201
+foxnews,million,196
+foxnews,crime,192
+foxnews,jamaat,182
+foxnews,authority,174
+foxnews,prime minister,171
+foxnews,court,171
+foxnews,bangladeshi,168
+foxnews,home,165
+foxnews,capital,163
+foxnews,force,154
+foxnews,local,154
+foxnews,owner,153
+foxnews,right,153
+foxnews,family,150
+foxnews,independence,146
+foxnews,protest,144
+foxnews,killing,142
+foxnews,state,141
+foxnews,body,136
+foxnews,trial,131
+foxnews,islamic,130
+foxnews,tribunal,130
+foxnews,member,129
+foxnews,rohingya,128
+foxnews,report,125
+foxnews,minister,122
+foxnews,man,121
+foxnews,islamist,121
+foxnews,islam,118
+foxnews,election,118
+foxnews,sheikh hasina,117
+foxnews,myanmar,117
+foxnews,industry,113
+foxnews,nation,109
+foxnews,rahman,109
+foxnews,refugee,108
+foxnews,arrested,108
+foxnews,woman,107
+foxnews,zia,106
+foxnews,violence,102
+foxnews,area,100
+foxnews,dozen,97
+foxnews,senior,96
+foxnews,set,96
+foxnews,district,95
+foxnews,case,95
+foxnews,died,94
+foxnews,safety,94
+foxnews,injured,92
+foxnews,sentenced,92
+foxnews,charge,91
+foxnews,main,91
+foxnews,pakistan,91
+foxnews,dead,90
+foxnews,street,87
+foxnews,political,87
+foxnews,sentence,86
+foxnews,thousand,85
+foxnews,condition,84
+foxnews,rana plaza,84
+foxnews,outside,83
+foxnews,collapsed,83
+foxnews,blogger,83
+foxnews,world,82
+foxnews,law,81
+foxnews,hossain,81
+foxnews,collapse,81
+foxnews,arrest,80
+foxnews,late,79
+foxnews,largest,79
+foxnews,left,77
+foxnews,disaster,76
+foxnews,reported,75
+foxnews,general,74
+foxnews,camp,74
+foxnews,press,74
+foxnews,nextimage,73
+foxnews,supporter,73
+foxnews,inside,72
+foxnews,company,71
+foxnews,chief,70
+New York Times,dhaka,891
+New York Times,people,882
+New York Times,factory,841
+New York Times,country,826
+New York Times,government,801
+New York Times,police,718
+New York Times,group,645
+New York Times,worker,613
+New York Times,bangladeshi,590
+New York Times,state,508
+New York Times,official,497
+New York Times,garment,481
+New York Times,attack,431
+New York Times,party,427
+New York Times,building,415
+New York Times,leader,381
+New York Times,killed,380
+New York Times,man,358
+New York Times,death,350
+New York Times,right,347
+New York Times,safety,333
+New York Times,islam,328
+New York Times,million,316
+New York Times,killing,288
+New York Times,labor,288
+New York Times,industry,287
+New York Times,islamic,273
+New York Times,woman,267
+New York Times,home,264
+New York Times,member,249
+New York Times,family,244
+New York Times,international,244
+New York Times,world,238
+New York Times,war,235
+New York Times,capital,232
+New York Times,united,227
+New York Times,opposition,227
+New York Times,political,226
+New York Times,city,220
+New York Times,islamist,218
+New York Times,case,213
+New York Times,law,212
+New York Times,violence,211
+New York Times,blogger,209
+New York Times,retailer,207
+New York Times,life,207
+New York Times,company,206
+New York Times,election,203
+New York Times,local,202
+New York Times,muslim,202
+New York Times,authority,202
+New York Times,recent,198
+New York Times,militant,196
+New York Times,work,195
+New York Times,india,192
+New York Times,owner,189
+New York Times,activist,187
+New York Times,rohingya,183
+New York Times,protest,175
+New York Times,officer,174
+New York Times,hindu,172
+New York Times,prime minister,171
+New York Times,american,168
+New York Times,nation,168
+New York Times,khan,167
+New York Times,power,166
+New York Times,court,165
+New York Times,place,163
+New York Times,area,163
+New York Times,brand,161
+New York Times,just,160
+New York Times,rana plaza,160
+New York Times,district,159
+New York Times,myanmar,156
+New York Times,condition,155
+New York Times,human,154
+New York Times,union,154
+New York Times,wage,152
+New York Times,news,151
+New York Times,arrested,151
+New York Times,religious,143
+New York Times,secular,143
+New York Times,organization,143
+New York Times,thousand,143
+New York Times,pakistan,137
+New York Times,rahman,136
+New York Times,report,136
+New York Times,body,135
+New York Times,used,134
+New York Times,awami league,134
+New York Times,security,133
+New York Times,hospital,133
+New York Times,national,133
+New York Times,child,132
+New York Times,charge,132
+New York Times,change,132
+New York Times,jamaat,131
+New York Times,died,130
+New York Times,collapse,130
+New York Times,plan,130
+Guardian,factory,905
+Guardian,people,896
+Guardian,worker,802
+Guardian,country,680
+Guardian,government,673
+Guardian,england,623
+Guardian,world,545
+Guardian,dhaka,517
+Guardian,garment,478
+Guardian,international,443
+Guardian,woman,436
+Guardian,work,428
+Guardian,right,418
+Guardian,safety,416
+Guardian,bangladeshi,413
+Guardian,building,395
+Guardian,child,384
+Guardian,group,373
+Guardian,family,363
+Guardian,just,346
+Guardian,water,329
+Guardian,home,326
+Guardian,police,325
+Guardian,test,300
+Guardian,team,292
+Guardian,india,286
+Guardian,life,277
+Guardian,brand,275
+Guardian,run,269
+Guardian,ball,264
+Guardian,company,263
+Guardian,condition,262
+Guardian,rohingya,261
+Guardian,cricket,258
+Guardian,industry,258
+Guardian,refugee,254
+Guardian,game,247
+Guardian,million,247
+Guardian,party,241
+Guardian,working,241
+Guardian,local,240
+Guardian,attack,240
+Guardian,need,239
+Guardian,death,237
+Guardian,series,233
+Guardian,player,227
+Guardian,killed,223
+Guardian,security,222
+Guardian,retailer,221
+Guardian,camp,220
+Guardian,change,217
+Guardian,want,214
+Guardian,place,212
+Guardian,match,211
+Guardian,good,210
+Guardian,man,207
+Guardian,rana plaza,206
+Guardian,pakistan,201
+Guardian,past,197
+Guardian,accord,197
+Guardian,tour,193
+Guardian,end,189
+Guardian,set,189
+Guardian,development,187
+Guardian,leader,187
+Guardian,area,186
+Guardian,owner,186
+Guardian,global,185
+Guardian,political,185
+Guardian,community,183
+Guardian,pay,183
+Guardian,human,182
+Guardian,official,182
+Guardian,report,180
+Guardian,know,180
+Guardian,number,177
+Guardian,union,176
+Guardian,protest,173
+Guardian,collapse,173
+Guardian,health,171
+Guardian,help,170
+Guardian,support,170
+Guardian,high,169
+Guardian,war,169
+Guardian,violence,167
+Guardian,order,167
+Guardian,australia,166
+Guardian,long,165
+Guardian,state,163
+Guardian,labour,163
+Guardian,director,162
+Guardian,problem,162
+Guardian,wage,162
+Guardian,wicket,161
+Guardian,city,161
+Guardian,member,161
+Guardian,election,158
+Guardian,going,157
+Guardian,rahman,157
+Guardian,cup,156
+Overall,people,4015
+Overall,dhaka,3059
+Overall,country,2952
+Overall,government,2813
+Overall,factory,2808
+Overall,police,2393
+Overall,worker,2259
+Overall,building,1954
+Overall,bangladeshi,1949
+Overall,group,1944
+Overall,garment,1687
+Overall,party,1559
+Overall,attack,1535
+Overall,official,1521
+Overall,death,1475
+Overall,right,1434
+Overall,killed,1395
+Overall,world,1368
+Overall,home,1245
+Overall,family,1222
+Overall,state,1212
+Overall,england,1196
+Overall,leader,1165
+Overall,million,1161
+Overall,woman,1149
+Overall,international,1142
+Overall,safety,1136
+Overall,man,1097
+Overall,india,1087
+Overall,rohingya,1077
+Overall,war,1035
+Overall,work,1022
+Overall,opposition,980
+Overall,local,969
+Overall,just,952
+Overall,child,934
+Overall,killing,921
+Overall,refugee,914
+Overall,security,881
+Overall,islam,864
+Overall,myanmar,818
+Overall,protest,817
+Overall,capital,811
+Overall,industry,810
+Overall,authority,804
+Overall,election,799
+Overall,collapse,793
+Overall,violence,793
+Overall,life,791
+Overall,water,783
+Overall,ball,781
+Overall,member,770
+Overall,team,747
+Overall,area,734
+Overall,condition,733
+Overall,owner,715
+Overall,case,714
+Overall,pakistan,714
+Overall,islamist,713
+Overall,report,708
+Overall,camp,693
+Overall,human,684
+Overall,political,682
+Overall,prime minister,681
+Overall,city,671
+Overall,died,663
+Overall,court,656
+Overall,islamic,654
+Overall,blogger,652
+Overall,company,650
+Overall,thousand,633
+Overall,rahman,627
+Overall,body,619
+Overall,place,608
+Overall,activist,607
+Overall,want,606
+Overall,retailer,605
+Overall,law,600
+Overall,disaster,597
+Overall,working,596
+Overall,crime,596
+Overall,rana plaza,596
+Overall,number,594
+Overall,run,588
+Overall,nation,586
+Overall,need,584
+Overall,muslim,583
+Overall,set,583
+Overall,recent,582
+Overall,district,580
+Overall,brand,580
+Overall,force,576
+Overall,left,569
+Overall,arrested,564
+Overall,jamaat,564
+Overall,militant,537
+Overall,used,529
+Overall,past,528
+Overall,help,523
+Overall,power,522

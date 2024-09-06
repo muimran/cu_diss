@@ -1,4 +1,4 @@
-// Load the JSON data for articles
+//  Load the JSON data for articles
 let articlesData;
 
 // Fetch the articles data once and store it
@@ -385,40 +385,33 @@ d3.csv("top100_content_pub.csv").then((data) => {
           },
         },
         tooltip: {
-          useHTML: true, // Enable HTML in tooltips
-          formatter: function () {
-            return `<span style="font-size: 12px; font-weight: bold;">${this.series.name.replace(/Word\s"(.+?)"/, "$1")}</span>`;
-          },
-          positioner: function (labelWidth, labelHeight, point) {
-            // Position tooltip a few pixels to the right of the frequency line
-            return {
-              x: point.plotX + this.chart.plotLeft + 10, // 10 pixels to the right
-              y: point.plotY + this.chart.plotTop - (labelHeight / 2), // Centered vertically
-            };
-          },
-          backgroundColor: 'rgba(255, 255, 255, 0.85)', // Semi-transparent background
-          borderWidth: 0,
-          shadow: false,
-        },
-        legend: {
-          enabled: false, // Disable the legend
-        },
-        series: [
-          {
-            name: `Word "${defaultWord}"`,
-            data: initialData,
-            color: "blue", // Initial line color for the default word
-            animation: {
-              duration: 1500,
+            useHTML: true, // Enable HTML in tooltips
+            formatter: function () {
+              // Remove "(Compare)" from the series name for tooltip display
+              const word = this.series.name.replace(/Word\s"(.+?)"/, "$1").replace(/\s*\(Compare\)/i, '').trim();
+              return `<span style="font-size: 12px; font-weight: bold;">${word}</span>`;
             },
-          },
-        ],
-        exporting: {
-          enabled: false,
-        },
-        credits: {
-          enabled: false,
-        },
+            positioner: function (labelWidth, labelHeight, point) {
+              const chart = this.chart;
+              const x = point.plotX + chart.plotLeft + 10; // Initial position, 10 pixels to the right
+              const y = point.plotY + chart.plotTop - (labelHeight / 2); // Centered vertically
+          
+              // Check if the tooltip would overflow on the right side
+              const overflowRight = x + labelWidth > chart.chartWidth;
+              
+              // Adjust the x position if it would overflow
+              const adjustedX = overflowRight ? x - labelWidth - 20 : x;
+          
+              return {
+                x: adjustedX,
+                y: y,
+              };
+            },
+            backgroundColor: 'rgba(255, 255, 255, 0.85)', // Semi-transparent background
+            borderWidth: 0,
+            shadow: false,
+          }
+          ,
       });
       
 
@@ -485,6 +478,13 @@ d3.csv("top100_content_pub.csv").then((data) => {
             animation: {
               duration: 1500,
             },
+            legend: {
+                enabled: false
+              },
+              credits: {
+                enabled: false // Remove Highcharts watermark
+              },
+              
             margin: [70, 50, 60, 80],
             events: {
               click: function (event) {

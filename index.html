@@ -8,22 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://d3js.org/d3.v6.min.js"></script> 
-    <!-- Mapbox GL JS for the second map -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> <!-- Roboto font -->
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.2.3/scrollama.min.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.2/mapbox-gl.js"></script>
-
-
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.2/mapbox-gl.css" rel="stylesheet" />
-    <!-- Include Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet/dist/leaflet.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Add your new JavaScript file reference -->
+    <script src="visualization.js" defer></script> <!-- This line is for the chart visualization -->
   </head>
 
   <body>
@@ -40,6 +38,29 @@
           rankings to make sure they reflected mainstream media in these regions, and I concentrated on 
           articles published from 2000 onwards to keep the data consistent and manageable.</p>
       </section>
+
+      <!-- Wrap the visualization and scrolly steps in a container to control sticky behavior -->
+      <section class="scroll-container">
+        <div class="sticky-chart">
+          <svg id="canvas" width="1123" height="900"></svg>
+        </div>
+
+        <div class="scrolly-viz"> <!-- Changed to .scrolly-viz for uniqueness -->
+          <div class="step-chart"> <!-- Changed to .step-chart -->
+            <div class="element1">ELEMENT 1</div>
+          </div>
+          <div class="step-chart"> <!-- Changed to .step-chart -->
+            <div class="element2">ELEMENT 2</div>
+          </div>
+          <div class="step-chart"> <!-- Changed to .step-chart -->
+            <div class="element3">ELEMENT 3</div>
+          </div>
+
+          <!-- Add a spacer element to keep the chart in view longer -->
+          <div class="spacer"></div>
+        </div>
+      </section>
+      <!-- End of visualization -->
 
 
 
@@ -59,18 +80,10 @@
           <div class="step" data-step="3">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
-         <!-- <div class="step" data-step="4">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div class="step" data-step="5">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div class="step" data-step="6">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div> -->
         </article>
       </section>
 
+      <!-- Other sections of your page remain unchanged -->
       <div class="tabs">
         <label><input type="checkbox" class="publication" value="BBC"> BBC</label>
         <label><input type="checkbox" class="publication" value="CNN"> CNN</label>
@@ -99,9 +112,6 @@
           articles published from 2000 onwards to keep the data consistent and manageable.</p>
       </section>
       
-
-      
-
       <!-- New scroll section with 6 steps before map2 -->
       <section id="scrolly2">
         <div class="sticky-thing2">
@@ -128,19 +138,10 @@
           </div>
           <div class="step2" data-step="4">
             <p>New step content for scrolly2 - Step 4</p>
-          <!-- </div>
-          <div class="step2" data-step="5">
-            <p>New step content for scrolly2 - Step 5</p>
-          </div>
-          <div class="step2" data-step="6">
-            <p>New step content for scrolly2 - Step 6</p> -->
           </div>
         </article>
-        
       </section>
 
-
-      
       <div class="chart-container">
         <div id="chart1"></div> <!-- D3 Chart Container -->
       
@@ -165,24 +166,17 @@
         </div>
       </div>
       
-    
-    
-      
-      
       <section id="outro"></section>
     </main>
 
     <!-- Include Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <!-- JavaScript files -->
+    <!-- Other JavaScript files -->
     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
-    <script src="https://unpkg.com/scrollama"></script>
-
     <script src="script.js"></script>
-    <script src="map2.js"></script> 
+    <script src="map2.js"></script>
     <script src="chart1.js"></script> <!-- Include the D3 chart script -->
-
   </body>
 </html>
