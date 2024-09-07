@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let articleDetails = [];
     let svg, g;
     let colorScale;
+    let isGreyState = true;  // Flag to track if chart is in grey state
   
     const width = 1123;
     const height = 900;
@@ -10,7 +11,32 @@ document.addEventListener("DOMContentLoaded", function() {
     const radius = 4;
     const dotSpacing = 8;
     const numCols = Math.floor((width - 2 * margin) / (radius * 2 + dotSpacing));
-  
+
+    // Inject the tooltip CSS dynamically to avoid conflicts
+    const style = document.createElement('style');
+    style.innerHTML = `
+    .custom-tooltip {
+        position: absolute;
+        background-color: white;
+        border: 0px solid #ccc;
+        padding: 5px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-family: 'Roboto', sans-serif;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+        z-index: 1000;  /* Add z-index to ensure it's on top */
+
+    }
+    
+    `;
+    document.head.appendChild(style);
+
+    // Create tooltip div with a unique class
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "custom-tooltip");  // Use a unique class name to avoid conflicts
+
     // Fetch the article details from a JSON file
     fetch('article_details.json')
       .then(response => {
@@ -40,13 +66,10 @@ document.addEventListener("DOMContentLoaded", function() {
       const categories = [...new Set(data.map(d => d.category))];
       const years = [...new Set(data.map(d => d.year))];
   
-      // Define a color scale for categories
-      const colorScheme = d3.schemeCategory10.slice();
-      colorScheme[1] = '#1f77b4';
-  
+      // Use a custom color scale with many distinct colors
       colorScale = d3.scaleOrdinal()
         .domain(categories)
-        .range(colorScheme);
+        .range(d3.quantize(d3.interpolateRainbow, categories.length));
   
       drawDotsByYear(data, years, colorScale, true);
     }
@@ -93,7 +116,31 @@ document.addEventListener("DOMContentLoaded", function() {
           .attr("cx", (d, i) => xScale(i % numCols))
           .attr("cy", (d, i) => yPosition + Math.floor(i / numCols) * (radius * 2 + dotSpacing))
           .attr("r", radius)
-          .attr("fill", initialState ? "#686666" : d => colorScale(d.category));  // Grey in the initial state, category color later
+          .attr("fill", initialState ? "#686666" : d => colorScale(d.category))  // Grey in the initial state, category color later
+          .on("mouseover", function(event, d) {
+            if (!isGreyState) {  // Only show the tooltip if not in grey state
+              tooltip.style("opacity", 1)
+                     .html(d.category)
+                     .style("left", (event.pageX + 10) + "px")
+                     .style("top", (event.pageY - 30) + "px");
+              d3.select(this)
+                .attr("stroke", "#000")
+                .attr("stroke-width", 2);
+            }
+          })
+          .on("mousemove", function(event) {
+            if (!isGreyState) {  // Update tooltip position if not in grey state
+              tooltip.style("left", (event.pageX + 10) + "px")
+                     .style("top", (event.pageY - 30) + "px");
+            }
+          })
+          .on("mouseout", function() {
+            if (!isGreyState) {  // Hide the tooltip if not in grey state
+              tooltip.style("opacity", 0);
+              d3.select(this)
+                .attr("stroke", null);
+            }
+          });
   
         yPosition += Math.ceil(yearData.length / numCols) * (radius * 2 + dotSpacing) + lineSpacing;
       });
@@ -107,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .setup({
           step: ".step-chart", // Target the steps correctly in your HTML
           offset: 0.75,        // Adjust this value to control the trigger point
-          debug: true
+          debug: false
         })
         .onStepEnter(function(response) {  
           handleStepChange(response.index, "enter");
@@ -116,11 +163,11 @@ document.addEventListener("DOMContentLoaded", function() {
           handleStepChange(response.index, "exit", response.direction);
         });
     }
-  
+
     // Function to handle step changes based on index and type (enter/exit)
     function handleStepChange(index, type, direction) {
       d3.selectAll(".element1, .element2, .element3").classed("visible", false);
-  
+
       if (type === "enter") {
         if (index === 0) {
           d3.select(".element1").classed("visible", true);
@@ -146,9 +193,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
     }
-  
+
     // Function to update dots' color to category colors
     function updateDots() {
+      isGreyState = false;  // Set to non-grey state when updating to category colors
       g.selectAll("circle")
         .transition()
         .duration(500)
@@ -157,10 +205,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to reset dots to the initial state (grey color or the initial category colors)
     function resetDotsToInitialState() {
+      isGreyState = true;  // Set back to grey state
       g.selectAll("circle")
         .transition()
         .duration(500)
-        .attr("fill", "#686666")  // Set dots to grey (or change this if you want something else)
+        .attr("fill", "#686666")  // Set dots to grey
         .attr("r", radius)        // Reset size to original radius
         .attr("filter", null);    // Remove any blur effect
     }
@@ -222,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
   
-    // Function to sort dots by category frequency
+    // Function to sort dots by category frequency and add legend
     function sortByCategoryFrequency() {
       const categoryCount = {};
   
@@ -274,6 +323,38 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("cx", (d) => categoryPositions[d.serial].x)
         .attr("cy", (d) => categoryPositions[d.serial].y)
         .attr("fill", d => colorScale(d.category));
+  
+      // Add a legend for the top 10 categories with dynamic spacing
+      const topCategories = sortedCategories.slice(0,5);
+      const legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", `translate(${margin}, ${currentY + 40})`);
+  
+      let currentLegendX = 0;
+  
+      topCategories.forEach(category => {
+        // Append rectangles for each category
+        legend.append("rect")
+          .attr("x", currentLegendX)
+          .attr("width", 20)
+          .attr("height", 20)
+          .attr("fill", colorScale(category));
+  
+        // Append text for each category
+        legend.append("text")
+          .attr("x", currentLegendX + 30)  // Adjust to position next to the rectangle
+          .attr("y", 15)
+          .attr("font-size", "14px")
+          .attr("font-family", "'Roboto', sans-serif")
+          .attr("fill", "#666")
+          .text(category);
+  
+        // Measure the width of the text
+        const textWidth = legend.select("text:last-child").node().getBBox().width;
+  
+        // Increment currentLegendX by the width of the text and some padding
+        currentLegendX += 50 + textWidth;  // 50 includes the rectangle width + padding between text and rectangle
+      });
     }
   
     // Function to reset dots to the initial state (category color)
@@ -289,7 +370,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to revert dots from sorted state (Step 2) to filtered state (Step 1)
     function revertToFilteredState() {
       drawDotsByYear(articleDetails, [...new Set(articleDetails.map(d => d.year))], colorScale, false);
-
       filterDotsForSelectedMonths();  // Apply filtering back to the state from Step 1
     }
 });

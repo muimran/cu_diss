@@ -61,15 +61,15 @@ h1 {
 
 .para-1 {
   font-family: 'Source Serif 4', serif;
-  font-weight: 300;
+  font-weight: 300;3
   font-size: 18px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   width: 33.33%;
   margin: 0 auto;
-  text-align: left;
+  text-align: justify;
   line-height: 1.5;
 }
 
@@ -84,6 +84,16 @@ h1 {
 #outro {
   height: 640px;
 }
+
+
+#subhead1 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700; /* Bold */
+  font-style: italic; /* Italic */
+  font-size: 32px;
+  text-align: center;
+}
+
 
 .tabs,
 .tabs2 {
@@ -441,6 +451,7 @@ article {
   display: flex;
   justify-content: flex-end;
   transition: background-color 0.3s ease; /* Smooth transition for background color change */
+
 }
 
 /* Active step enhancements */
@@ -493,4 +504,14 @@ article {
     width: 80%;
     font-size: 20px;
   }
+}
+
+
+.element1, 
+.element2, 
+.element3 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #310606;
+  text-align: left;
 }
