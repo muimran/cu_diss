@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const month = date.getMonth();
   
           if ((year === 2013 && month === 4) || (year === 2016 && (month >= 6 && month <= 9))) {
-            return radius * 1.25;  // Increase size for selected months
+            return radius * 1.45;  // 45% Increase size for selected months
           } else {
             return radius;  // Normal size for others
           }
