@@ -54,7 +54,7 @@
 
       <br></br>
 
-    <section id="subhead1">
+      <section id="subhead1">
         <h2>POLITICS DOMINATES</h2>
       </section>
       <br></br>
@@ -69,14 +69,14 @@
           <svg id="canvas" width="1123" height="900"></svg>
         </div>
 
-        <div class="scrolly-viz"> <!-- Changed to .scrolly-viz for uniqueness -->
-          <div class="step-chart"> <!-- Changed to .step-chart -->
+        <div class="scrolly-viz">
+          <div class="step-chart"> <!-- First scrolly step -->
             <div class="element1">ELEMENT 1</div>
           </div>
-          <div class="step-chart"> <!-- Changed to .step-chart -->
+          <div class="step-chart"> <!-- Second scrolly step -->
             <div class="element2">ELEMENT 2</div>
           </div>
-          <div class="step-chart"> <!-- Changed to .step-chart -->
+          <div class="step-chart"> <!-- Third scrolly step -->
             <div class="element3">In coverage about Bangladesh in leading Western media, politics takes center stage, 
               making up almost 60% of the stories. In fact, just five topics dominate nearly 90% of the reporting.</div>
           </div>
@@ -87,23 +87,20 @@
       </section>
       <!-- End of visualization -->
 
-
-
       <section id="scrolly">
-        <!-- Replace sticky-thing content with Leaflet map container -->
         <div class="sticky-thing">
           <div id="map" style="width: 100%; height: 100%;"></div>
         </div>
 
         <article>
           <div class="step" data-step="1">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
           <div class="step" data-step="2">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
           <div class="step" data-step="3">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
         </article>
       </section>
@@ -127,20 +124,9 @@
           rankings to make sure they reflected mainstream media in these regions, and I concentrated on 
           articles published from 2000 onwards to keep the data consistent and manageable.</p>
       </section>
-
-      <section class="para-1">
-        <p>For this research, I started by gathering relevant news articles from major Western 
-          outlets using a two-stage web scraping process. While I initially aimed to include top 
-          newspapers from ten Western countries, I decided to narrow the focus to the top three news 
-          websites from the US and the UK due to time constraints. I chose these sites based on SimilarWeb 
-          rankings to make sure they reflected mainstream media in these regions, and I concentrated on 
-          articles published from 2000 onwards to keep the data consistent and manageable.</p>
-      </section>
       
-      <!-- New scroll section with 6 steps before map2 -->
       <section id="scrolly2">
         <div class="sticky-thing2">
-          <!-- New content for the second scrollable area -->
           <div id="map2" style="width: 100%; height: 100%;"></div>
         </div>
         <div class="tabs2">
@@ -170,34 +156,29 @@
       <div class="chart-container">
         <div id="chart1"></div> <!-- D3 Chart Container -->
       
-        <!-- Original search input and suggestion box for word search -->
         <div id="search-container" style="margin-top: 10px;">
           <div class="search-box">
             <input type="text" id="word-search" placeholder="Find a word..." autocomplete="off">
           </div>
-          <div id="suggestions-container"></div> <!-- Suggestions Container for the original search box -->
-      
-          <!-- New compare input and suggestion box -->
+          <div id="suggestions-container"></div>
+
           <div class="compare-box" style="margin-top: 10px;">
             <input type="text" id="compare-search" placeholder="Compare a word..." autocomplete="off">
           </div>
-          <div id="compare-suggestions-container"></div> <!-- Suggestions Container for compare box -->
+          <div id="compare-suggestions-container"></div>
         </div>
-      
-        <!-- New wrapper div for Highcharts and news -->
+
         <div class="highchart-news-container">
-          <div id="container"></div> <!-- Highcharts Container -->
-          <div id="news-container" style="margin-top: 20px;"></div> <!-- News Container -->
+          <div id="container"></div>
+          <div id="news-container" style="margin-top: 20px;"></div>
         </div>
       </div>
-      
+
       <section id="outro"></section>
     </main>
 
     <!-- Include Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-    <!-- Other JavaScript files -->
     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
     <script src="script.js"></script>
