@@ -86,7 +86,7 @@ h1 {
   height: 640px;
 }
 
-#subhead1 {
+#subhead {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700; /* Bold */
   font-style: italic; /* Italic */
@@ -98,6 +98,7 @@ h1 {
 .tabs2 {
   margin: 20px;
   text-align: center;
+  display: none;
 }
 
 /* Media Queries */

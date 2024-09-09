@@ -15,8 +15,8 @@ const scroller2 = scrollama(); // Add this line to initialize scroller2
 
 // Initial map state
 const initialMapState = {
-  center: [35.3563, 25.685], // Initial center coordinates
-  zoom: 2 // Initial zoom level
+  center: [25.3563, 25.685], // Initial center coordinates
+  zoom: 1.8 // Initial zoom level
 };
 
 // Global variable to track the previous step index
