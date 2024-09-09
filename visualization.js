@@ -4,7 +4,7 @@
         let colorScale;
         let isGreyState = true;  // Flag to track if chart is in grey state
 
-        const width = 1123;
+        const width = 1110;
         const height = 900;
         const margin = 40;
         const lineSpacing = 12;
@@ -128,10 +128,31 @@
                     })
                     .on("mousemove", function(event) {
                         if (!isGreyState) {
-                            tooltip.style("left", (event.pageX + 10) + "px")
-                                .style("top", (event.pageY - 30) + "px");
+                            const tooltipWidth = tooltip.node().offsetWidth;
+                            const tooltipHeight = tooltip.node().offsetHeight;
+                            
+                            // Get the viewBox dimensions or parent container dimensions
+                            const svgRect = svg.node().getBoundingClientRect();
+                    
+                            // Calculate new tooltip positions based on mouse coordinates
+                            let left = event.pageX + 10;
+                            let top = event.pageY - 30;
+                    
+                            // Adjust if tooltip exceeds the right edge
+                            if (left + tooltipWidth > svgRect.right) {
+                                left = event.pageX - tooltipWidth - 10;
+                            }
+                    
+                            // Adjust if tooltip exceeds the bottom edge
+                            if (top + tooltipHeight > svgRect.bottom) {
+                                top = event.pageY - tooltipHeight - 10;
+                            }
+                    
+                            // Set the new tooltip position
+                            tooltip.style("left", left + "px").style("top", top + "px");
                         }
                     })
+                    
                     .on("mouseout", function() {
                         if (!isGreyState) {
                             tooltip.style("opacity", 0);
@@ -179,8 +200,8 @@ function handleStepChange(index, type, direction) {
         }
     } else if (type === "exit") {
         if (direction === "up") {
+            // If the user is scrolling up from the category step, remove the legend
             if (index === 2) {
-                // Remove the legend when exiting the last step
                 d3.select(".legend").remove();
                 revertToFilteredState();
             } else if (index === 1) {
@@ -189,10 +210,15 @@ function handleStepChange(index, type, direction) {
                 resetDotsToInitialState();
             }
         } else if (direction === "down") {
+            // If the user scrolls down from step 2, remove the legend as well
+            if (index === 2) {
+                d3.select(".legend").remove();
+            }
             resetDots();
         }
     }
 }
+
 
 
         // Function to update dots' color to category colors
@@ -325,43 +351,60 @@ function handleStepChange(index, type, direction) {
                 .attr("cy", (d) => categoryPositions[d.serial].y)
                 .attr("fill", d => colorScale(d.category));
 
-                const topCategories = sortedCategories.slice(0, 5);
-                const legend = svg.append("g")
-                    .attr("class", "legend")
-                    .attr("transform", `translate(${margin}, ${currentY + 40})`);
+                const topCategories = sortedCategories.slice(0, 17); // Ensure you have up to 18 items
+const legend = svg.append("g")
+    .attr("class", "legend")
+    .attr("transform", `translate(${margin}, ${currentY + 40})`);
+
+let currentLegendX = 0;
+let currentLegendY = 0;
+const legendLineHeight = 25; // Line height for circles and text
+const maxLegendWidth = width - 2 * margin; // Maximum width of the row
+
+const initialDelay = 1000; // Delay before the first category appears (in milliseconds)
+
+topCategories.forEach((category, i) => {
+    // Create the circle (legend dot)
+    const circle = legend.append("circle")
+        .attr("cx", currentLegendX + 10)  // X position for circle
+        .attr("cy", currentLegendY + 10)  // Y position for circle
+        .attr("r", 6)  // Radius for legend dot
+        .attr("fill", colorScale(category))
+        .attr("opacity", 0)  // Start invisible
+        .transition()        // Transition effect
+        .delay(initialDelay + i * 200)  // Initial delay + index-based delay
+        .duration(200)       // Animation duration
+        .attr("opacity", 1); // Fade in
+
+    // Create the text (category label)
+    const text = legend.append("text")
+        .attr("x", currentLegendX + 25)  // Position text after the circle
+        .attr("y", currentLegendY + 14)  // Y position for text, aligned with the circle
+        .attr("font-size", "12px")  // Decrease font size
+        .attr("font-family", "'Roboto', sans-serif")
+        .attr("fill", "#666")
+        .text(category)
+        .attr("opacity", 0)  // Start invisible
+        .transition()        // Transition effect
+        .delay(initialDelay + i * 200)  // Initial delay + index-based delay
+        .duration(200)       // Animation duration
+        .attr("opacity", 1); // Fade in
+
+    // Measure the width of the text element
+    const textWidth = text.node().getBBox().width;
+
+    // Check if the current item (circle + text) exceeds the available width
+    if (currentLegendX + 50 + textWidth > maxLegendWidth) {
+        // Move to the next line
+        currentLegendX = 0;
+        currentLegendY += legendLineHeight;
+    } else {
+        // Increment the X position for the next legend item
+        currentLegendX += 50 + textWidth;
+    }
+});
+
                 
-                let currentLegendX = 0;
-                
-                topCategories.forEach((category, i) => {
-                    // Delay the appearance of each legend item based on its index (i)
-                    legend.append("rect")
-                        .attr("x", currentLegendX)
-                        .attr("width", 20)
-                        .attr("height", 20)
-                        .attr("fill", colorScale(category))
-                        .attr("opacity", 0)  // Start invisible
-                        .transition()        // Transition effect
-                        .delay(i * 300)      // Delay based on index (300ms per category)
-                        .duration(500)       // Animation duration
-                        .attr("opacity", 1); // Fade in
-                
-                    legend.append("text")
-                        .attr("x", currentLegendX + 30)
-                        .attr("y", 15)
-                        .attr("font-size", "14px")
-                        .attr("font-family", "'Roboto', sans-serif")
-                        .attr("fill", "#666")
-                        .text(category)
-                        .attr("opacity", 0)  // Start invisible
-                        .transition()        // Transition effect
-                        .delay(i * 300)      // Delay based on index (300ms per category)
-                        .duration(500)       // Animation duration
-                        .attr("opacity", 1); // Fade in
-                
-                    const textWidth = legend.select("text:last-child").node().getBBox().width;
-                
-                    currentLegendX += 50 + textWidth;
-                });
                 
         }
 

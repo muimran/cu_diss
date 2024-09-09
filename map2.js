@@ -19,6 +19,9 @@ const initialMapState = {
   zoom: 2 // Initial zoom level
 };
 
+// Global variable to track the previous step index
+let previousStepIndex2 = null;
+
 // Function to create and initialize the Mapbox map for scrolly2
 function createMap2() {
   map2 = new mapboxgl.Map({
@@ -167,7 +170,6 @@ function getCircleRadius(frequencyCount) {
 
 // Scrollama event handlers for scrolly2
 function handleStepEnter2(response) {
-  // response = { element, direction, index }
   var el = response.element;
   console.log('Entering step:', response.index); // Debugging line to check step index
   console.log('scrolly2 step:', el);
@@ -176,7 +178,7 @@ function handleStepEnter2(response) {
   steps2.forEach(step => step.classList.remove('is-active'));
   el.classList.add('is-active');
 
-  // Toggle "commonwealth" layer visibility based on step index
+  // Handle map transitions based on step index
   if (response.index === 0) {
     // Show the "commonwealth" layer when the first step enters
     map2.setLayoutProperty('commonwealth', 'visibility', 'visible');
@@ -185,54 +187,111 @@ function handleStepEnter2(response) {
     map2.setLayoutProperty('commonwealth', 'visibility', 'none');
     map2.flyTo({
       center: [20.0, 10.0], // Coordinates for Africa
-      zoom: 4, // Zoom level for Africa
-      speed: 1.2, // Optional: adjust speed of transition
-      curve: 1.5 // Optional: adjust 'smoothness' of flight
+      zoom: 4,
+      speed: 1.2,
+      curve: 1.5
     });
   } else if (response.index === 2) {
     // Return to initial zoom and center when the third step enters
     map2.setLayoutProperty('commonwealth', 'visibility', 'none');
     map2.flyTo({
       center: initialMapState.center, // Initial center coordinates
-      zoom: initialMapState.zoom, // Initial zoom level
-      speed: 1.2, // Optional: adjust speed of transition
-      curve: 1.5 // Optional: adjust 'smoothness' of flight
+      zoom: initialMapState.zoom,
+      speed: 1.2,
+      curve: 1.5
     });
   }
 
-  // Determine which publication to select based on the step index for scrolly2
-  const publicationToSelect2 = publications2[response.index]; // Get the corresponding publication value
+  // Select the corresponding publication based on the step index for scrolly2
+  const publicationToSelect2 = publications2[response.index];
   const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publicationToSelect2}"]`);
-  console.log('Checkbox to select:', checkboxToSelect2); // Debugging line to check checkbox selection
 
   if (checkboxToSelect2) {
-    // Uncheck all checkboxes first
-    publications2.forEach((publication) => {
-      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
-      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
-        checkboxToDeselect2.checked = false; // Uncheck the checkbox
-        checkboxToDeselect2.dispatchEvent(new Event('change')); // Trigger the change event to remove markers
-      }
-    });
-
-    // Check the checkbox for the current step
-    if (!checkboxToSelect2.checked) {
-      checkboxToSelect2.checked = true; // Check the corresponding checkbox
-      checkboxToSelect2.dispatchEvent(new Event('change')); // Trigger the change event
-    }
-  }
-}
-
-// New function to handle when a step is exited
-function handleStepExit2(response) {
-  // Check if all steps are inactive
-  if (document.querySelectorAll("#scrolly2 .step2.is-active").length === 0) {
-    // Uncheck all checkboxes
     publications2.forEach((publication) => {
       const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
         checkboxToDeselect2.checked = false;
+        checkboxToDeselect2.dispatchEvent(new Event('change'));
+      }
+    });
+
+    if (!checkboxToSelect2.checked) {
+      checkboxToSelect2.checked = true;
+      checkboxToSelect2.dispatchEvent(new Event('change'));
+    }
+  }
+
+  // Update the previous step index for reference in handleStepExit2
+  previousStepIndex2 = response.index;
+}
+
+// New function to handle when a step is exited
+function handleStepExit2(response) {
+  console.log('Exiting step:', response.index); // Debugging line to check exit step
+  console.log('Scroll direction:', response.direction); // Check scroll direction
+
+  // Revert to the previous map state if scrolling down
+  if (response.direction === 'up') {
+    if (response.index === 0) {
+      // If scrolling up from the first step, reset to the initial state
+      map2.flyTo({
+        center: initialMapState.center,
+        zoom: initialMapState.zoom,
+        speed: 1.2,
+        curve: 1.5
+      });
+      map2.setLayoutProperty('commonwealth', 'visibility', 'none');
+
+      // Uncheck the checkbox for the first step
+      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[0]}"]`);
+      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
+        checkboxToDeselect2.checked = false;
         checkboxToDeselect2.dispatchEvent(new Event('change')); // Trigger the change event to remove markers
+      }
+
+    } else if (response.index === 1) {
+      // If scrolling up from step 1 to 0, reset to commonwealth visibility
+      map2.setLayoutProperty('commonwealth', 'visibility', 'visible');
+      map2.flyTo({
+        center: initialMapState.center,
+        zoom: initialMapState.zoom,
+        speed: 1.2,
+        curve: 1.5
+      });
+
+      // Uncheck the checkbox for step 2
+      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[1]}"]`);
+      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
+        checkboxToDeselect2.checked = false;
+        checkboxToDeselect2.dispatchEvent(new Event('change'));
+      }
+
+    } else if (response.index === 2) {
+      // Revert map to step 1 state
+      map2.setLayoutProperty('commonwealth', 'visibility', 'none');
+      map2.flyTo({
+        center: [20.0, 10.0], // Coordinates for Africa
+        zoom: 4,
+        speed: 1.2,
+        curve: 1.5
+      });
+
+      // Uncheck the checkbox for step 3
+      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[2]}"]`);
+      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
+        checkboxToDeselect2.checked = false;
+        checkboxToDeselect2.dispatchEvent(new Event('change'));
+      }
+    }
+  }
+
+  // Uncheck all checkboxes when no steps are active
+  if (document.querySelectorAll("#scrolly2 .step2.is-active").length === 0) {
+    publications2.forEach((publication) => {
+      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
+      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
+        checkboxToDeselect2.checked = false;
+        checkboxToDeselect2.dispatchEvent(new Event('change'));
       }
     });
   }
@@ -240,23 +299,20 @@ function handleStepExit2(response) {
 
 // Initialize scrollama for scrolly2
 function init2() {
-  // Initialize the steps2 array
-  steps2 = document.querySelectorAll('#scrolly2 article .step2'); // Updated to select elements with the new class name 'step2'
+  steps2 = document.querySelectorAll('#scrolly2 article .step2');
 
-  // Setup the scroller passing options for scrolly2
   scroller2
     .setup({
-      step: "#scrolly2 article .step2", // Updated to target '.step2'
+      step: "#scrolly2 article .step2",
       offset: 0.53,
       debug: false
     })
     .onStepEnter(handleStepEnter2)
-    .onStepExit(handleStepExit2); // Add the step exit event
+    .onStepExit(handleStepExit2);
 
-  // Setup resize event for scrolly2
   window.addEventListener("resize", scroller2.resize);
 }
 
-// Kick things off for scrolly2
-createMap2(); // Initialize the Mapbox map for scrolly2
-init2(); // Initialize the scrollama for scrolly2
+// Kick things off
+createMap2();
+init2();

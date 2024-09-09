@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> <!-- Roboto font -->
-    
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.2.3/scrollama.min.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.2/mapbox-gl.js"></script>
@@ -22,160 +21,223 @@
 
     <!-- Add your new JavaScript file reference -->
     <script src="visualization.js" defer></script> <!-- This line is for the chart visualization -->
+
+    <!-- Circular progress pie styles -->
+    <style>
+      /* Loading screen */
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+      }
+
+      /* Circular progress pie */
+      .progress-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+      }
+
+      .progress-container .circle {
+        fill: none;
+        stroke-width: 10;
+        stroke-linecap: round;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+      }
+
+      .progress-background {
+        stroke: #e6e6e6;
+      }
+
+      .progress-fill {
+        stroke: #3498db;
+        stroke-dasharray: 0, 100;
+        transition: stroke-dasharray 0.3s;
+      }
+
+      /* Hide content initially using opacity and visibility */
+      #content {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease;
+      }
+    </style>
   </head>
 
   <body>
-    <main>
-      <section id="intro">
-        <h1 class="intro__hed">When Bangladesh Makes News in the West</h1>
-      </section>
-
-      <section class="para-1">
-        <p>In the past month, Bangladesh has once again found itself in the global spotlight. Student-led protests, 
-          which began in early July 2024 with demands to reform the quota system in government jobs, culminated in the 
-          resignation of Prime Minister Sheikh Hasina on August 5. On the same day, she fled the country, but not before 
-          her security forces had allegedly killed hundreds of student protesters across Bangladesh. Western media outlets 
-          scrambled to cover the dramatic turn of events, with striking photos of protesters storming the Prime Minister's 
-          residence dominating the homepages of major news outlets. While these moments of intense coverage are often crisis-driven, 
-          they also raise a broader question: What do Western media outlets talk about when they talk about Bangladesh?</p>
-      </section>
-
-      <section class="para-1">
-        <p>Over the past decade, major Western outlets—BBC, CNN, Fox, The Telegraph, The Guardian, and The New York Times—have followed 
-          a familiar pattern when covering Bangladesh. Coverage spikes during disasters, such as the Rana Plaza factory collapse or 
-          the Rohingya refugee crisis. But outside of these crises, how is Bangladesh featured in the broader narrative? To find the answer, 
-          I analysed nearly 2,000 articles published between 2012 and 2024 to uncover the recurring themes and focal points that shape global
-           perceptions of this evolving nation.</p>
-      </section>
-
-      <section class="para-1">
-        <p>Para 3 continues....</p>
-      </section>
-
-      <br></br>
-
-      <section id="subhead1">
-        <h2>POLITICS DOMINATES</h2>
-      </section>
-      <br></br>
-
-      <section class="para-1">
-        <p>Para 1 here...</p>
-      </section>
-
-      <!-- Wrap the visualization and scrolly steps in a container to control sticky behavior -->
-      <section class="scroll-container">
-        <div class="sticky-chart">
-          <svg id="canvas" width="1123" height="900"></svg>
-        </div>
-
-        <div class="scrolly-viz">
-          <div class="step-chart"> <!-- First scrolly step -->
-            <div class="element1">ELEMENT 1</div>
-          </div>
-          <div class="step-chart"> <!-- Second scrolly step -->
-            <div class="element2">ELEMENT 2</div>
-          </div>
-          <div class="step-chart"> <!-- Third scrolly step -->
-            <div class="element3">In coverage about Bangladesh in leading Western media, politics takes center stage, 
-              making up almost 60% of the stories. In fact, just five topics dominate nearly 90% of the reporting.</div>
-          </div>
-
-          <!-- Add a spacer element to keep the chart in view longer -->
-          <div class="spacer"></div>
-        </div>
-      </section>
-      <!-- End of visualization -->
-
-      <section id="scrolly">
-        <div class="sticky-thing">
-          <div id="map" style="width: 100%; height: 100%;"></div>
-        </div>
-
-        <article>
-          <div class="step" data-step="1">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-          <div class="step" data-step="2">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-          <div class="step" data-step="3">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </article>
-      </section>
-
-      <!-- Other sections of your page remain unchanged -->
-      <div class="tabs">
-        <label><input type="checkbox" class="publication" value="BBC"> BBC</label>
-        <label><input type="checkbox" class="publication" value="CNN"> CNN</label>
-        <label><input type="checkbox" class="publication" value="telegraph"> Telegraph</label>
-        <label><input type="checkbox" class="publication" value="foxnews"> Fox News</label>
-        <label><input type="checkbox" class="publication" value="New York Times"> New York Times</label>
-        <label><input type="checkbox" class="publication" value="Guardian"> Guardian</label>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="progress-container">
+        <!-- SVG Circle for the background -->
+        <svg viewBox="0 0 36 36" width="120" height="120" overflow="visible">
+          <circle class="circle progress-background" cx="18" cy="18" r="16"></circle>
+          <circle class="circle progress-fill" cx="18" cy="18" r="16"></circle>
+        </svg>
       </div>
+    </div>
 
-      <section class="para-1">
-        <h2>When Bangladesh Makes News in the West</h2>
-        <p>For this research, I started by gathering relevant news articles from major Western 
-          outlets using a two-stage web scraping process. While I initially aimed to include top 
-          newspapers from ten Western countries, I decided to narrow the focus to the top three news 
-          websites from the US and the UK due to time constraints. I chose these sites based on SimilarWeb 
-          rankings to make sure they reflected mainstream media in these regions, and I concentrated on 
-          articles published from 2000 onwards to keep the data consistent and manageable.</p>
-      </section>
-      
-      <section id="scrolly2">
-        <div class="sticky-thing2">
-          <div id="map2" style="width: 100%; height: 100%;"></div>
+    <!-- Main content starts here -->
+    <div id="content">
+      <main>
+        <section id="intro">
+          <h1 class="intro__hed">When Bangladesh Makes News in the West</h1>
+        </section>
+
+        <section class="para-1">
+          <p>In the past month, Bangladesh has once again found itself in the global spotlight. Student-led protests, 
+            which began in early July 2024 with demands to reform the quota system in government jobs, culminated in the 
+            resignation of Prime Minister Sheikh Hasina on August 5. On the same day, she fled the country, but not before 
+            her security forces had allegedly killed hundreds of student protesters across Bangladesh. Western media outlets 
+            scrambled to cover the dramatic turn of events, with striking photos of protesters storming the Prime Minister's 
+            residence dominating the homepages of major news outlets. While these moments of intense coverage are often crisis-driven, 
+            they also raise a broader question: What do Western media outlets talk about when they talk about Bangladesh?</p>
+        </section>
+
+        <section class="para-1">
+          <p>Over the past decade, major Western outlets—BBC, CNN, Fox, The Telegraph, The Guardian, and The New York Times—have followed 
+            a familiar pattern when covering Bangladesh. Coverage spikes during disasters, such as the Rana Plaza factory collapse or 
+            the Rohingya refugee crisis. But outside of these crises, how is Bangladesh featured in the broader narrative? To find the answer, 
+            I analysed nearly 2,000 articles published between 2012 and 2024 to uncover the recurring themes and focal points that shape global
+            perceptions of this evolving nation.</p>
+        </section>
+
+        <section class="para-1">
+          <p>Para 3 continues....</p>
+        </section>
+
+        <br></br>
+
+        <section id="subhead1">
+          <h2>HEADING 2</h2>
+        </section>
+        <br></br>
+
+        <section class="para-1">
+          <p>Para 1 here...</p>
+        </section>
+
+        <!-- Wrap the visualization and scrolly steps in a container to control sticky behavior -->
+        <section class="scroll-container">
+          <div class="sticky-chart">
+            <svg id="canvas" width="1110" height="920"></svg>
+          </div>
+
+          <div class="scrolly-viz">
+            <div class="step-chart"> <!-- First scrolly step -->
+              <div class="element1">ELEMENT 1</div>
+            </div>
+            <div class="step-chart"> <!-- Second scrolly step -->
+              <div class="element2">ELEMENT 2</div>
+            </div>
+            <div class="step-chart"> <!-- Third scrolly step -->
+              <div class="element3">In coverage about Bangladesh in leading Western media, politics takes center stage, 
+                making up almost 60% of the stories. In fact, just five topics dominate nearly 90% of the reporting.</div>
+            </div>
+
+            <!-- Add a spacer element to keep the chart in view longer -->
+            <div class="spacer"></div>
+          </div>
+        </section>
+        <!-- End of visualization -->
+
+        <section id="scrolly">
+          <div class="sticky-thing">
+            <div id="map" style="width: 100%; height: 100%;"></div>
+          </div>
+
+          <article>
+            <div class="step" data-step="1">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="step" data-step="2">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="step" data-step="3">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </article>
+        </section>
+
+        <!-- Other sections of your page remain unchanged -->
+        <div class="tabs">
+          <label><input type="checkbox" class="publication" value="BBC"> BBC</label>
+          <label><input type="checkbox" class="publication" value="CNN"> CNN</label>
+          <label><input type="checkbox" class="publication" value="telegraph"> Telegraph</label>
+          <label><input type="checkbox" class="publication" value="foxnews"> Fox News</label>
+          <label><input type="checkbox" class="publication" value="New York Times"> New York Times</label>
+          <label><input type="checkbox" class="publication" value="Guardian"> Guardian</label>
         </div>
-        <div class="tabs2">
-          <label><input type="checkbox" class="publication2" value="BBC"> BBC</label>
-          <label><input type="checkbox" class="publication2" value="CNN"> CNN</label>
-          <label><input type="checkbox" class="publication2" value="telegraph"> Telegraph</label>
-          <label><input type="checkbox" class="publication2" value="foxnews"> Fox News</label>
-          <label><input type="checkbox" class="publication2" value="New York Times"> New York Times</label>
-          <label><input type="checkbox" class="publication2" value="Guardian"> Guardian</label>
+
+        <section class="para-1">
+          <h2>When Bangladesh Makes News in the West</h2>
+          <p>For this research, I started by gathering relevant news articles from major Western 
+            outlets using a two-stage web scraping process. While I initially aimed to include top 
+            newspapers from ten Western countries, I decided to narrow the focus to the top three news 
+            websites from the US and the UK due to time constraints. I chose these sites based on SimilarWeb 
+            rankings to make sure they reflected mainstream media in these regions, and I concentrated on 
+            articles published from 2000 onwards to keep the data consistent and manageable.</p>
+        </section>
+        
+        <section id="scrolly2">
+          <div class="sticky-thing2">
+            <div id="map2" style="width: 100%; height: 100%;"></div>
+          </div>
+          <div class="tabs2">
+            <label><input type="checkbox" class="publication2" value="BBC"> BBC</label>
+            <label><input type="checkbox" class="publication2" value="CNN"> CNN</label>
+            <label><input type="checkbox" class="publication2" value="telegraph"> Telegraph</label>
+            <label><input type="checkbox" class="publication2" value="foxnews"> Fox News</label>
+            <label><input type="checkbox" class="publication2" value="New York Times"> New York Times</label>
+            <label><input type="checkbox" class="publication2" value="Guardian"> Guardian</label>
+          </div>
+          <article>
+            <div class="step2" data-step="1">
+              <p>New step content for scrolly2 - Step 1</p>
+            </div>
+            <div class="step2" data-step="2">
+              <p>New step content for scrolly2 - Step 2</p>
+            </div>
+            <div class="step2" data-step="3">
+              <p>New step content for scrolly2 - Step 3</p>
+            </div>
+            <div class="step2" data-step="4">
+              <p>New step content for scrolly2 - Step 4</p>
+            </div>
+          </article>
+        </section>
+
+        <div class="chart-container">
+          <div id="chart1"></div> <!-- D3 Chart Container -->
+        
+          <div id="search-container" style="margin-top: 10px;">
+            <div class="search-box">
+              <input type="text" id="word-search" placeholder="Find a word..." autocomplete="off">
+            </div>
+            <div id="suggestions-container"></div>
+
+            <div class="compare-box" style="margin-top: 10px;">
+              <input type="text" id="compare-search" placeholder="Compare a word..." autocomplete="off">
+            </div>
+            <div id="compare-suggestions-container"></div>
+          </div>
+
+          <div class="highchart-news-container">
+            <div id="container"></div>
+            <div id="news-container" style="margin-top: 20px;"></div>
+          </div>
         </div>
-        <article>
-          <div class="step2" data-step="1">
-            <p>New step content for scrolly2 - Step 1</p>
-          </div>
-          <div class="step2" data-step="2">
-            <p>New step content for scrolly2 - Step 2</p>
-          </div>
-          <div class="step2" data-step="3">
-            <p>New step content for scrolly2 - Step 3</p>
-          </div>
-          <div class="step2" data-step="4">
-            <p>New step content for scrolly2 - Step 4</p>
-          </div>
-        </article>
-      </section>
 
-      <div class="chart-container">
-        <div id="chart1"></div> <!-- D3 Chart Container -->
-      
-        <div id="search-container" style="margin-top: 10px;">
-          <div class="search-box">
-            <input type="text" id="word-search" placeholder="Find a word..." autocomplete="off">
-          </div>
-          <div id="suggestions-container"></div>
-
-          <div class="compare-box" style="margin-top: 10px;">
-            <input type="text" id="compare-search" placeholder="Compare a word..." autocomplete="off">
-          </div>
-          <div id="compare-suggestions-container"></div>
-        </div>
-
-        <div class="highchart-news-container">
-          <div id="container"></div>
-          <div id="news-container" style="margin-top: 20px;"></div>
-        </div>
-      </div>
-
-      <section id="outro"></section>
-    </main>
+        <section id="outro"></section>
+      </main>
+    </div> <!-- End of content div -->
 
     <!-- Include Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -184,5 +246,40 @@
     <script src="script.js"></script>
     <script src="map2.js"></script>
     <script src="chart1.js"></script> <!-- Include the D3 chart script -->
+
+    <!-- JavaScript to control the loading donut progress and the loading screen -->
+    <script>
+      window.onload = function () {
+        const progressFill = document.querySelector('.progress-fill');
+        const totalProgress = 100;
+        const duration = 3000; // 3 seconds
+
+        let startTime = null;
+
+        function animateProgress(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const progress = Math.min((elapsed / duration) * totalProgress, totalProgress);
+
+          // Update the stroke-dasharray of the progress circle
+          progressFill.style.strokeDasharray = `${progress}, 100`;
+
+          if (elapsed < duration) {
+            requestAnimationFrame(animateProgress);
+          } else {
+            // After progress is complete, hide loading screen and show content
+            document.getElementById('loading-screen').style.opacity = '0';
+            setTimeout(() => {
+              document.getElementById('loading-screen').style.display = 'none';
+              document.getElementById('content').style.opacity = '1';
+              document.getElementById('content').style.visibility = 'visible';
+            }, 500); // Allow 500ms for fade-out effect
+          }
+        }
+
+        // Start animation
+        requestAnimationFrame(animateProgress);
+      };
+    </script>
   </body>
 </html>
