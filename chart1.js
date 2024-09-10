@@ -248,7 +248,7 @@ d3.csv("top100_content_pub.csv").then((data) => {
       chart.setTitle({ text: `Frequency of the Word "${selectedWord}" Over Time` });
 
       // Load data for the clicked word and add it to Highcharts
-      d3.csv("top500_content_year.csv").then((fullData) => {
+      d3.csv("top1000_content_year.csv").then((fullData) => {
         const wordData = fullData.filter(
           (row) => row.Word.toLowerCase() === word.toLowerCase()
         );

@@ -64,14 +64,14 @@ h1 {
   font-family: 'Source Serif 4', serif;
   font-weight: 300;
   font-size: 18px;
+  text-align: justify;
+  line-height: 1.5;
   display: flex;
   flex-direction: column;
   justify-content: left;
   align-items: left;
   width: 33.33%;
   margin: 0 auto;
-  text-align: justify;
-  line-height: 1.5;
 }
 
 .intro__dek {
@@ -413,11 +413,13 @@ article {
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 1; /* Lower z-index value */
-  width: 90%; 
+  z-index: 1;
+  width: 90%;
   max-width: 1110px;
-  margin: 0 auto; 
+  margin: 0 auto;
+  transform: translateX(-150px); /* This shifts the chart 150px to the left */
 }
+
 
 .scrolly-viz {
   position: relative;
@@ -451,19 +453,28 @@ article {
 /* Smooth bottom-up animation for elements */
 .element1, .element2, .element3 {
   opacity: 1;
-  transition: opacity 0.8s ease-in-out, transform 0.8s ease-out; /* Adjusted for a smoother and slower transition */
-  transform: translateY(100px); /* Start further off-screen to create a clearer bottom-up entry effect */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-out; /* Smooth transition */
+  transform: translateY(100px); /* Keep the bottom-up animation */
   font-size: 24px;
   color: #333;
-  width: 40%;
-  margin-left: 90%; /* Adjust to align elements as needed */
+  width: calc(40% + 150px); /* Increase width by 150px */
+  margin-left: calc(90% - 150px); /* Shift the element 150px to the left while keeping the right alignment */
   z-index: 2;
 }
 
 .element1.visible, .element2.visible, .element3.visible {
   opacity: 1;
-  transform: translateY(0); /* Transition to original position */
+  transform: translateY(0); /* Bottom-up animation resets to original position */
+  font-family: 'Source Serif 4', serif;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: justify;
+  line-height: 1.5;
 }
+
+
+
+
 
 /* Spacer style to keep the chart in view longer */
 .spacer {
