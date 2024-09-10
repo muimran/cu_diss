@@ -132,6 +132,18 @@ let wordList = [];
 d3.csv("top100_content_pub.csv").then((data) => {
   const nestedData = d3.groups(data, (d) => d.Publication);
 
+  // Define the logo paths for each publication
+  const logoPaths = {
+    "BBC": "logo/bbc_logo.svg",
+    "CNN": "logo/cnn_logo.svg",
+    "foxnews": "foxnews_logo.svg",
+    "telegraph": "logo/telegraph_logo.svg",
+    "Guardian": "logo/guardian_logo.svg",
+    "New York Times": "logo/nytimes_logo.svg",
+    "Overall": "logo/all_outlets.svg"
+    // Add more mappings for other publications as needed
+  };
+
   // Populate word list for autocomplete suggestions, removing duplicates
   wordList = Array.from(new Set(data.map((d) => d.Word.toLowerCase())));
 
@@ -266,7 +278,7 @@ d3.csv("top100_content_pub.csv").then((data) => {
 
   // Function to initialize the chart with a default word
   function initializeChart(defaultWord) {
-    d3.csv("top500_content_year.csv").then((fullData) => {
+    d3.csv("top1000_content_year.csv").then((fullData) => {
       const wordData = fullData.filter(
         (row) => row.Word.toLowerCase() === defaultWord.toLowerCase()
       );
@@ -689,19 +701,19 @@ d3.csv("top100_content_pub.csv").then((data) => {
   // Function to show suggestions in the suggestion container
   function showSuggestions(input, container) {
     container.innerHTML = ""; // Clear previous suggestions
-
+  
     if (!input) return; // Exit if input is empty
-
+  
     const inputLowerCase = input.toLowerCase();
     const matchedWords = wordList
       .filter(
         (word) =>
-          word.startsWith(inputLowerCase) &&
+          word.includes(inputLowerCase) && // Use includes() to match anywhere in the word
           word !== (selectedWord ? selectedWord.toLowerCase() : "") &&
           word !== (compareWord ? compareWord.toLowerCase() : "")
       )
       .slice(0, 5); // Limit to top 5 suggestions
-
+  
     if (matchedWords.length === 0) {
       // No matching words found
       const noResultsItem = document.createElement("div");
@@ -713,11 +725,11 @@ d3.csv("top100_content_pub.csv").then((data) => {
       matchedWords.forEach((word) => {
         const suggestionItem = document.createElement("div");
         suggestionItem.className = "suggestion-item";
-
+  
         // Highlight matching part in bold
         const regex = new RegExp(`(${inputLowerCase})`, "i");
         const highlightedWord = word.replace(regex, "<strong>$1</strong>");
-
+  
         suggestionItem.innerHTML = highlightedWord;
         suggestionItem.onclick = () => {
           document.getElementById(container.id === "suggestions-container" ? "word-search" : "compare-search").value = word; // Update input field
@@ -728,15 +740,17 @@ d3.csv("top100_content_pub.csv").then((data) => {
       });
     }
   }
+  
 
   // Additional logic for your D3 chart (logos, observers, etc.)
 
+  // Append logos to the chart below the bars
   svg
     .selectAll(".logo")
     .data(nestedData)
     .enter()
     .append("image")
-    .attr("href", (d) => `logo/${d[1][0].Logo}`)
+    .attr("href", (d) => logoPaths[d[0]]) // Use the publication name to get the logo path
     .attr("x", (d) => x(d[0]) + (x.bandwidth() - 50) / 2)
     .attr("y", height + 20)
     .attr("width", 50)
