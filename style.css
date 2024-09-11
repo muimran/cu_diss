@@ -451,10 +451,10 @@ article {
 }
 
 /* Smooth bottom-up animation for elements */
-.element1, .element2, .element3 {
+.element0, .element1, .element2, .element3 {
   opacity: 1;
   transition: opacity 0.8s ease-in-out, transform 0.8s ease-out; /* Smooth transition */
-  transform: translateY(100px); /* Keep the bottom-up animation */
+  transform: translateY(100px); /* Bottom-up animation */
   font-size: 24px;
   color: #333;
   width: calc(40% + 150px); /* Increase width by 150px */
@@ -462,7 +462,7 @@ article {
   z-index: 2;
 }
 
-.element1.visible, .element2.visible, .element3.visible {
+.element0.visible, .element1.visible, .element2.visible, .element3.visible {
   opacity: 1;
   transform: translateY(0); /* Bottom-up animation resets to original position */
   font-family: 'Source Serif 4', serif;
@@ -471,6 +471,7 @@ article {
   text-align: justify;
   line-height: 1.5;
 }
+
 
 
 
@@ -498,12 +499,13 @@ article {
     text-align: center; /* Center text for smaller screens */
   }
 
-  .element1, .element2, .element3 {
+  .element0, .element1, .element2, .element3 {
     width: 80%;
     font-size: 20px;
   }
 }
 
+.element0,
 .element1, 
 .element2, 
 .element3 {
