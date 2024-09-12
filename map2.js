@@ -127,7 +127,14 @@ function updateMapWithAggregatedData2() {
       for (const [country, frequency] of Object.entries(aggregatedData2)) {
         const locData = locationData2.get(country);
         if (locData) {
+          // Calculate the percentage for each country
+          const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
+
+          // Get the circle radius based on frequency
           const circleRadius = getCircleRadius(frequency);
+
+          // Console log for debugging purposes (track frequency, percentage, and radius)
+          console.log(`Country: ${country}, Frequency: ${frequency}, Percentage: ${percentage}%, Circle Radius: ${circleRadius}`);
 
           let el = document.createElement('div');
           el.className = 'marker';
@@ -136,8 +143,6 @@ function updateMapWithAggregatedData2() {
           el.style.backgroundColor = '#D02D00';
           el.style.borderRadius = '50%';
           el.style.opacity = '0.85';
-
-          const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
 
           let marker = new mapboxgl.Marker(el)
             .setLngLat([locData.long, locData.lat])
@@ -152,6 +157,7 @@ function updateMapWithAggregatedData2() {
     })
     .catch(error => console.error('Error loading location data for scrolly2:', error));
 }
+
 
 // Function to clear all markers from map2
 function clearMarkers2() {
