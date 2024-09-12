@@ -83,7 +83,7 @@ h1 {
 }
 
 #outro {
-  height: 640px;
+  height: 240px;
 }
 
 #subhead {
@@ -98,7 +98,6 @@ h1 {
 .tabs2 {
   margin: 20px;
   text-align: center;
-  display: none;
 }
 
 /* Media Queries */
@@ -121,7 +120,7 @@ h1 {
 #scrolly2 {
   position: relative;
   background-color: #ffffff;
-  padding: 0rem;
+  padding-bottom: 10rem;
 }
 
 article {
@@ -129,7 +128,7 @@ article {
   padding: 0;
   max-width: 800px;
   margin-left: 20px;
-  margin-bottom: 40vh;
+  margin-bottom: 0vh;
 }
 
 .sticky-thing {
@@ -406,7 +405,7 @@ article {
 /* Additional Styles for the Visualization */
 .scroll-container {
   position: relative;
-  padding-bottom: 50vh; /* To allow sticky to behave correctly */
+  padding-bottom: 10vh; /* To allow sticky to behave correctly */
 }
 
 .sticky-chart {
@@ -450,37 +449,37 @@ article {
   transition: background-color 0.6s ease, padding 0.6s ease; /* Smooth transition for background and padding */
 }
 
-/* Smooth bottom-up animation for elements */
 .element0, .element1, .element2, .element3 {
   opacity: 1;
-  transition: opacity 0.8s ease-in-out, transform 0.8s ease-out; /* Smooth transition */
-  transform: translateY(100px); /* Bottom-up animation */
-  font-size: 24px;
-  color: #333;
-  width: calc(40% + 150px); /* Increase width by 150px */
-  margin-left: calc(90% - 150px); /* Shift the element 150px to the left while keeping the right alignment */
-  z-index: 2;
-}
-
-.element0.visible, .element1.visible, .element2.visible, .element3.visible {
-  opacity: 1;
-  transform: translateY(0); /* Bottom-up animation resets to original position */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-out;
+  transform: translateY(100px);
   font-family: 'Source Serif 4', serif;
   font-weight: 300;
   font-size: 18px;
   text-align: justify;
   line-height: 1.5;
+  color: #333;
+  width: calc(40% + 150px);
+  margin-left: calc(90% - 150px);
+  z-index: 2;
+}
+
+.element0.visible, .element1.visible, .element2.visible, .element3.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media screen and (max-width: 768px) {
+  .element0, .element1, .element2, .element3 {
+    width: 80%;
+    font-size: 20px;
+  }
 }
 
 
 
 
 
-
-/* Spacer style to keep the chart in view longer */
-.spacer {
-  height: 50vh; /* Adjust height to control how long the chart stays in view */
-}
 
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
@@ -505,12 +504,10 @@ article {
   }
 }
 
-.element0,
-.element1, 
-.element2, 
-.element3 {
-  font-size: 16px;
-  font-weight: 400;
-  color: #310606;
-  text-align: left;
+
+
+
+/* Spacer style to keep the chart in view longer */
+.spacer {
+  height: 50vh; /* Adjust height to control how long the chart stays in view */
 }

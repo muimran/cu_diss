@@ -95,59 +95,85 @@ function initializeDataAndMarkers(map) {
 
     function updateLeafletMap(map, markers, data, locationData) {
       console.log('Updating Leaflet map with new data:', data);
-  
+    
+      // Remove existing markers
       markers.forEach(marker => map.removeLayer(marker));
       markers.length = 0;
-  
+    
       // Calculate the total mentions across all districts
       const totalMentions = Object.values(data).reduce((sum, frequency) => sum + frequency, 0);
-  
+    
+      // Loop through each location's frequency data
       for (const [location, frequency] of Object.entries(data)) {
-          const locData = locationData.get(location);
-  
-          if (locData) {
-              // Calculate the percentage of the current location
-              const percentage = ((frequency / totalMentions) * 100).toFixed(2);
-  
-              const circleRadius = getCircleRadius(frequency);
-  
-              let markerHtmlStyles = `
-                  background-color: #D02D00;
-                  border-radius: 50%;
-                  opacity: 0.85;
-                  width: ${circleRadius * 2}px;
-                  height: ${circleRadius * 2}px;
-                  display: block;
-                  position: relative;
-                  transform-origin: 50% 50%;
-                  animation: grow-shrink .75s ease-out forwards;
-              `;
-  
-              let customIcon = L.divIcon({
-                  className: "animated-marker",
-                  iconAnchor: [circleRadius, circleRadius],
-                  popupAnchor: [0, -circleRadius],
-                  html: `<span style="${markerHtmlStyles}"></span>`
-              });
-  
-              let marker = L.marker([locData.lat, locData.long], { icon: customIcon })
-                  .addTo(map)
-                  .bindPopup(`<strong>${location}</strong><br>Percentage: ${percentage}%`); // Show percentage
-  
-              markers.push(marker);
-          } else {
-              console.log(`Location data not found for ${location}`);
-          }
+        const locData = locationData.get(location);
+    
+        if (locData) {
+          // Calculate the percentage for the current location
+          const percentage = (frequency / totalMentions) * 100;
+    
+          // Pass the percentage to the getCircleRadius function
+          const circleRadius = getCircleRadius(percentage);
+    
+          // Log the percentage and calculated radius to debug the values
+          console.log(`Location: ${location}, Frequency: ${frequency}, Percentage: ${percentage}%, Circle Radius: ${circleRadius}`);
+    
+          let markerHtmlStyles = `
+            background-color: #D02D00;
+            border-radius: 50%;
+            opacity: 0.85;
+            width: ${circleRadius * 2}px;
+            height: ${circleRadius * 2}px;
+            display: block;
+            position: relative;
+            transform-origin: 50% 50%;
+            animation: grow-shrink .75s ease-out forwards;
+          `;
+    
+          let customIcon = L.divIcon({
+            className: "animated-marker",
+            iconAnchor: [circleRadius, circleRadius],
+            popupAnchor: [0, -circleRadius],
+            html: `<span style="${markerHtmlStyles}"></span>`
+          });
+    
+          let marker = L.marker([locData.lat, locData.long], { icon: customIcon })
+            .addTo(map)
+            .bindPopup(`<strong>${location}</strong><br>Percentage: ${percentage.toFixed(2)}%`);
+    
+          markers.push(marker);
+        } else {
+          console.log(`Location data not found for ${location}`);
+        }
       }
-  }
+    }
+    
+    
   
 
-  function getCircleRadius(frequencyCount) {
-    const baseRadius = 2;
-    const scaleFactor = 0.9;
-    const radius = baseRadius + (Math.sqrt(frequencyCount) * scaleFactor);
-    return radius;
-  }
+    function getCircleRadius(percentage) {
+      const baseRadius = 2.5;
+      const scaleFactor = 0.010;  // Adjust the scale factor if needed
+      const exponent = 2;
+      const boostFactor = 4.5;
+    
+      let radius;
+      if (percentage <= 13) {
+        // Apply a boost to smaller percentages
+        radius = baseRadius + (Math.pow(percentage, exponent) * scaleFactor * boostFactor);
+      } else {
+        // Regular scaling for larger percentages
+        radius = baseRadius + (Math.pow(percentage, exponent) * scaleFactor);
+      }
+    
+      // Log the percentage and radius to verify
+      console.log(`Percentage: ${percentage}, Radius: ${radius}`);
+      return radius;
+    }
+    
+  
+  
+  
+  
 }
 
 function handleStepEnter(response) {
