@@ -1,5 +1,5 @@
 // Array of publication values corresponding to each step
-const publications = ["BBC", "CNN", "telegraph", "foxnews", "New York Times", "Guardian"];
+const publications = ["BBC", "foxnews", "CNN", "telegraph", "New York Times", "Guardian"];
 
 // DOM - document object model
 var main = document.querySelector("main");
@@ -183,24 +183,40 @@ function handleStepEnter(response) {
   steps.forEach(step => step.classList.remove('is-active'));
   el.classList.add('is-active');
 
-  const publicationToSelect = publications[response.index];
-  const checkboxToSelect = document.querySelector(`input[type="checkbox"][value="${publicationToSelect}"]`);
-
-  if (checkboxToSelect) {
+  // Check if we are on the third step (index 2)
+  if (response.index === 2) {
+    // Select all publications
     publications.forEach((publication) => {
-      const checkboxToDeselect = document.querySelector(`input[type="checkbox"][value="${publication}"]`);
-      if (checkboxToDeselect && checkboxToDeselect.checked) {
-        checkboxToDeselect.checked = false;
-        checkboxToDeselect.dispatchEvent(new Event('change'));
+      const checkboxToSelect = document.querySelector(`input[type="checkbox"][value="${publication}"]`);
+      if (checkboxToSelect && !checkboxToSelect.checked) {
+        checkboxToSelect.checked = true;
+        checkboxToSelect.dispatchEvent(new Event('change'));
       }
     });
+  } else {
+    // Otherwise, just select the publication based on the current index
+    const publicationToSelect = publications[response.index];
+    const checkboxToSelect = document.querySelector(`input[type="checkbox"][value="${publicationToSelect}"]`);
 
-    if (!checkboxToSelect.checked) {
-      checkboxToSelect.checked = true;
-      checkboxToSelect.dispatchEvent(new Event('change'));
+    if (checkboxToSelect) {
+      // Uncheck all other checkboxes
+      publications.forEach((publication) => {
+        const checkboxToDeselect = document.querySelector(`input[type="checkbox"][value="${publication}"]`);
+        if (checkboxToDeselect && checkboxToDeselect.checked) {
+          checkboxToDeselect.checked = false;
+          checkboxToDeselect.dispatchEvent(new Event('change'));
+        }
+      });
+
+      // Check the current publication's checkbox
+      if (!checkboxToSelect.checked) {
+        checkboxToSelect.checked = true;
+        checkboxToSelect.dispatchEvent(new Event('change'));
+      }
     }
   }
 }
+
 
 // New function to handle when a step is exited
 function handleStepExit(response) {
