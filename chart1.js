@@ -470,7 +470,7 @@ d3.csv("data/top100_content_pub.csv").then((data) => {
       .attr("fill", "green");
 
     // Load data and update the Highcharts graph
-    d3.csv("top1000_content_year.csv").then((fullData) => {
+    d3.csv("data/top1000_content_year.csv").then((fullData) => {
       const wordData = fullData.filter(
         (row) => row.Word.toLowerCase() === word.toLowerCase()
       );
@@ -772,12 +772,31 @@ d3.csv("data/top100_content_pub.csv").then((data) => {
         if (entry.isIntersecting) {
           // Trigger click on the first bar in the first column to initialize or reload the chart
           const firstBar = svg.select(".bar-" + nestedData[0][0]).node();
-          if (firstBar) firstBar.dispatchEvent(new Event("click"));
+  
+          if (firstBar) {
+            // Dispatch a click event to select the first bar
+            firstBar.dispatchEvent(new Event("click"));
+  
+            // Programmatically show the tooltip for the selected bar
+            const firstBarData = d3.select(firstBar).datum(); // Get data bound to the first bar
+  
+            // Simulate the behavior of the tooltip just like in the mouseover
+            tooltip.transition().duration(200).style("opacity", 0.9); // Show tooltip
+            tooltip.html(firstBarData.Word.toUpperCase()); // Set tooltip content
+  
+            // Set the tooltip position based on bar's position on the screen
+            const barPosition = firstBar.getBoundingClientRect(); // Get bar's position in the viewport
+            tooltip
+              .style("left", barPosition.left + window.scrollX + 449 + "px") // Adjust the left position
+              .style("top", barPosition.top + window.scrollY - 9 + "px"); // Adjust the top position
+          }
         }
       });
     },
     { threshold: 0.1 }
-  ); // Adjust threshold as needed
+  );
+  
+   // Adjust threshold as needed
 
   // Observe the container element
   const container = document.getElementById("container");
