@@ -56,7 +56,7 @@ function initializeDataAndMarkers(map) {
   const locationData = new Map();
   let markers = [];
 
-  fetch('location.csv')
+  fetch('data/location.csv')
     .then(response => response.text())
     .then(data => {
       const rows = data.split('\n').slice(1);
@@ -67,7 +67,7 @@ function initializeDataAndMarkers(map) {
       console.log('Location data (districts and countries) parsed and stored:', locationData);
     });
 
-  fetch('article_details.json')
+  fetch('data/article_details.json')
     .then(response => response.json())
     .then(articleDetails => {
       let aggregatedData = {};

@@ -50,7 +50,7 @@ function createMap2() {
 
 // Load article details from JSON for scrolly2
 function loadArticleData2() {
-  fetch('article_details.json')
+  fetch('data/article_details.json')
     .then(response => response.json())
     .then(data => {
       articleData2 = data; // Store the data in a global variable for scrolly2
@@ -113,7 +113,7 @@ function updateMapWithAggregatedData2() {
   clearMarkers2(); // Ensure no previous markers remain
 
   // Load location data from CSV for scrolly2
-  fetch('location.csv')
+  fetch('data/location.csv')
     .then(response => response.text())
     .then(data => {
       const locationData2 = new Map();

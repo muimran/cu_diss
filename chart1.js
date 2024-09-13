@@ -2,7 +2,7 @@
 let articlesData;
 
 // Fetch the articles data once and store it
-d3.json("article_details.json")
+d3.json("data/article_details.json")
   .then((data) => {
     articlesData = data;
   })
@@ -129,14 +129,14 @@ let compareWord = null; // To keep track of the word selected in the compare box
 let wordList = [];
 
 // Load the CSV data
-d3.csv("top100_content_pub.csv").then((data) => {
+d3.csv("data/top100_content_pub.csv").then((data) => {
   const nestedData = d3.groups(data, (d) => d.Publication);
 
   // Define the logo paths for each publication
   const logoPaths = {
     "BBC": "logo/bbc_logo.svg",
     "CNN": "logo/cnn_logo.svg",
-    "foxnews": "foxnews_logo.svg",
+    "foxnews": "logo/foxnews_logo.svg",
     "telegraph": "logo/telegraph_logo.svg",
     "Guardian": "logo/guardian_logo.svg",
     "New York Times": "logo/nytimes_logo.svg",
@@ -248,7 +248,7 @@ d3.csv("top100_content_pub.csv").then((data) => {
       chart.setTitle({ text: `Frequency of the Word "${selectedWord}" Over Time` });
 
       // Load data for the clicked word and add it to Highcharts
-      d3.csv("top1000_content_year.csv").then((fullData) => {
+      d3.csv("data/top1000_content_year.csv").then((fullData) => {
         const wordData = fullData.filter(
           (row) => row.Word.toLowerCase() === word.toLowerCase()
         );
@@ -278,7 +278,7 @@ d3.csv("top100_content_pub.csv").then((data) => {
 
   // Function to initialize the chart with a default word
   function initializeChart(defaultWord) {
-    d3.csv("top1000_content_year.csv").then((fullData) => {
+    d3.csv("data/top1000_content_year.csv").then((fullData) => {
       const wordData = fullData.filter(
         (row) => row.Word.toLowerCase() === defaultWord.toLowerCase()
       );
@@ -339,6 +339,15 @@ d3.csv("top100_content_pub.csv").then((data) => {
             color: "#333333",
           },
         },
+        subtitle: {
+          text: 'Normalized for 100,000 words',
+          align: 'center',
+          style: {
+              fontFamily: "IBM Plex Sans, sans-serif",
+              fontSize: "12px",
+              color: "#666666",
+          },
+      },
         xAxis: {
           type: "linear",
           min: 2012,
@@ -461,7 +470,7 @@ d3.csv("top100_content_pub.csv").then((data) => {
       .attr("fill", "green");
 
     // Load data and update the Highcharts graph
-    d3.csv("top500_content_year.csv").then((fullData) => {
+    d3.csv("top1000_content_year.csv").then((fullData) => {
       const wordData = fullData.filter(
         (row) => row.Word.toLowerCase() === word.toLowerCase()
       );
