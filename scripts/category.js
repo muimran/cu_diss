@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
         isGreyState = false;  // Set to non-grey state when updating to category colors
         g.selectAll("circle")
             .transition()
-            .duration(500)
+            .duration(0)
             .attr("fill", d => colorScale(d.category))
             .attr("opacity", 1);
     }

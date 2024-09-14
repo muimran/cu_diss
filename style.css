@@ -1,10 +1,11 @@
 /* Global styles */
 * {
   box-sizing: border-box;
+
 }
 
 :root {
-  --primary-color: #fbfbf6;
+  --primary-color: #f5f4f4;
 }
 
 
@@ -107,12 +108,51 @@ h1 {
   text-align: center;
 }
 
-.tabs,
-.tabs2 {
+.tabs {
   margin: 20px;
   text-align: center;
   display: none;
 }
+
+
+
+/* TEMPORARY FOR PLAYING WITH WORLD MAP BUTTON */
+
+.tabs2 label {
+  display: inline-block;
+  background-color: #7c82a6; /* Default background color */
+  color: #000;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+
+
+/* Style the label when the checkbox inside it is checked */
+
+
+/* Reset to original style when checkbox is not checked */
+
+
+
+
+
+
+
+/* TEMPORARY */
+
+
+
+
+
+
+
+
 
 /* Media Queries */
 @media (min-width: 840px) {

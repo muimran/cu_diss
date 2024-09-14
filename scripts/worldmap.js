@@ -9,6 +9,7 @@ let aggregatedData2 = {}; // To store the aggregated data for currently selected
 let totalMentions2 = 0; // New variable to store the total number of mentions
 let publications2 = ["BBC", "CNN", "telegraph", "foxnews", "New York Times", "Guardian"]; // Define publications2 array
 let steps2; // Define steps2 variable for scrolly steps
+let locationData2 = new Map(); // To store location and continent data
 
 // Initialize scroller2 for Scrollama
 const scroller2 = scrollama(); // Add this line to initialize scroller2
@@ -59,32 +60,75 @@ function loadArticleData2() {
     .catch(error => console.error('Error loading article data for scrolly2:', error));
 }
 
+// Load location data once and store it in locationData2
+function loadLocationData() {
+  return fetch('data/location.csv')
+    .then(response => response.text())
+    .then(data => {
+      const rows = data.split('\n').slice(1); // Ignore the header row
+      rows.forEach(row => {
+        const [location, lat, long, continent] = row.split(',');
+        locationData2.set(location.trim(), { lat: parseFloat(lat), long: parseFloat(long), continent: continent.trim() });
+      });
+    })
+    .catch(error => console.error('Error loading location data for scrolly2:', error));
+}
+
 // Function to add event listeners to checkboxes for scrolly2
 function addCheckboxEventListeners2() {
-  const checkboxes = document.querySelectorAll('.publication2'); // Updated to '.publication2'
+  const checkboxes = document.querySelectorAll('.publication2');
   checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', handleCheckboxChange2);
   });
 }
 
 // Function to handle checkbox changes for scrolly2
-function handleCheckboxChange2() {
-  const selectedSources = Array.from(document.querySelectorAll('.publication2:checked')).map(checkbox => checkbox.value); // Updated to '.publication2:checked'
+function handleCheckboxChange2(event) {
+  const selectedSources = Array.from(document.querySelectorAll('.publication2:checked')).map(checkbox => checkbox.value);
 
-  console.log('Selected sources:', selectedSources); // Debugging line to check selected sources
+  // Log the specific checkbox that was clicked
+  const clickedCheckbox = event.target;
+  const action = clickedCheckbox.checked ? 'Selected' : 'Deselected';
+  console.log(`${clickedCheckbox.value} was ${action}`);
+
+  // Log the currently selected sources
+  console.log('Currently selected sources:', selectedSources);
 
   // Clear the current aggregated data and markers to recalculate
   aggregatedData2 = {};
   totalMentions2 = 0; // Reset the total mentions count
 
+  let countryCountsByContinent = {}; // To keep track of the country counts per continent
+
   if (selectedSources.length > 0) {
+    // Call existing function to update aggregated data
     updateAggregatedData2(selectedSources);
+
+    // Count the countries based on their continent
+    Object.keys(aggregatedData2).forEach(country => {
+      const locData = locationData2.get(country); // Use the location data with continents
+      if (locData) {
+        const continent = locData.continent;
+        if (!countryCountsByContinent[continent]) {
+          countryCountsByContinent[continent] = 0;
+        }
+        countryCountsByContinent[continent]++; // Increment the count for the continent
+      }
+    });
+
+    // Log the total number of selected countries and the breakdown by continent
+    const totalCountries = Object.keys(aggregatedData2).length;
+    console.log(`Total selected countries: ${totalCountries}`);
+    console.log('Country counts by continent:', countryCountsByContinent);
+
+    // Call the existing function to update the map with aggregated data
     updateMapWithAggregatedData2();
   } else {
     // Remove all markers if no sources are selected
     clearMarkers2();
   }
 }
+
 
 // Function to update the aggregated data based on selected sources for scrolly2
 function updateAggregatedData2(selectedSources) {
@@ -112,51 +156,52 @@ function updateAggregatedData2(selectedSources) {
 function updateMapWithAggregatedData2() {
   clearMarkers2(); // Ensure no previous markers remain
 
-  // Load location data from CSV for scrolly2
-  fetch('data/location.csv')
-    .then(response => response.text())
-    .then(data => {
-      const locationData2 = new Map();
-      const rows = data.split('\n').slice(1);
-      rows.forEach(row => {
-        const [location, lat, long] = row.split(',');
-        locationData2.set(location.trim(), { lat: parseFloat(lat), long: parseFloat(long) });
-      });
+  let countryDataArray = []; // Array to store country, frequency, and percentage
 
-      // Add new markers based on the updated aggregated data
-      for (const [country, frequency] of Object.entries(aggregatedData2)) {
-        const locData = locationData2.get(country);
-        if (locData) {
-          // Calculate the percentage for each country
-          const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
+  // Add new markers based on the updated aggregated data
+  for (const [country, frequency] of Object.entries(aggregatedData2)) {
+    const locData = locationData2.get(country);
+    if (locData) {
+      // Calculate the percentage for each country
+      const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
 
-          // Get the circle radius based on frequency
-          const circleRadius = getCircleRadius(frequency);
+      // Push the country data to the array
+      countryDataArray.push({ country, frequency, percentage });
 
-          // Console log for debugging purposes (track frequency, percentage, and radius)
-          console.log(`Country: ${country}, Frequency: ${frequency}, Percentage: ${percentage}%, Circle Radius: ${circleRadius}`);
+      // Get the circle radius based on frequency
+      const circleRadius = getCircleRadius(frequency);
 
-          let el = document.createElement('div');
-          el.className = 'marker';
-          el.style.width = `${circleRadius * 2}px`;
-          el.style.height = `${circleRadius * 2}px`;
-          el.style.backgroundColor = '#D02D00';
-          el.style.borderRadius = '50%';
-          el.style.opacity = '0.85';
+      let el = document.createElement('div');
+      el.className = 'marker';
+      el.style.width = `${circleRadius * 2}px`;
+      el.style.height = `${circleRadius * 2}px`;
+      el.style.backgroundColor = '#D02D00';
+      el.style.borderRadius = '50%';
+      el.style.opacity = '0.85';
 
-          let marker = new mapboxgl.Marker(el)
-            .setLngLat([locData.long, locData.lat])
-            .setPopup(new mapboxgl.Popup().setHTML(`<strong>${country}</strong><br>Percentage: ${percentage}%`)) // Display percentage
-            .addTo(map2);
+      let marker = new mapboxgl.Marker(el)
+        .setLngLat([locData.long, locData.lat])
+        .setPopup(new mapboxgl.Popup().setHTML(`<strong>${country}</strong><br>Percentage: ${percentage}%`)) // Display percentage
+        .addTo(map2);
 
-          markers2.push(marker);
-        } else {
-          console.log(`Location data not found for ${country}`);
-        }
-      }
-    })
-    .catch(error => console.error('Error loading location data for scrolly2:', error));
+      markers2.push(marker);
+    } else {
+      console.log(`Location data not found for ${country}`);
+    }
+  }
+
+  // Sort the country data by percentage in descending order
+  countryDataArray.sort((a, b) => b.percentage - a.percentage);
+
+  // Get the top 5 countries and log them
+  console.log("Top 5 countries by percentage:");
+  countryDataArray.slice(0, 5).forEach((countryData, index) => {
+    console.log(
+      `${index + 1}. Country: ${countryData.country}, Frequency: ${countryData.frequency}, Percentage: ${countryData.percentage}%`
+    );
+  });
 }
+
 
 
 // Function to clear all markers from map2
@@ -186,34 +231,20 @@ function handleStepEnter2(response) {
 
   // Handle map transitions based on step index
   if (response.index === 0) {
-    // Show the "commonwealth" layer when the first step enters
     map2.setLayoutProperty('commonwealth', 'visibility', 'visible');
   } else if (response.index === 1) {
-    // Hide the "commonwealth" layer and zoom to Africa when the second step enters
     map2.setLayoutProperty('commonwealth', 'visibility', 'none');
-    map2.flyTo({
-      center: [20.0, 10.0], // Coordinates for Africa
-      zoom: 4,
-      speed: 1.2,
-      curve: 1.5
-    });
+    map2.flyTo({ center: [20.0, 10.0], zoom: 4, speed: 1.2, curve: 1.5 });
   } else if (response.index === 2) {
-    // Return to initial zoom and center when the third step enters
     map2.setLayoutProperty('commonwealth', 'visibility', 'none');
-    map2.flyTo({
-      center: initialMapState.center, // Initial center coordinates
-      zoom: initialMapState.zoom,
-      speed: 1.2,
-      curve: 1.5
-    });
+    map2.flyTo({ center: initialMapState.center, zoom: initialMapState.zoom, speed: 1.2, curve: 1.5 });
   }
 
-  // Select the corresponding publication based on the step index for scrolly2
   const publicationToSelect2 = publications2[response.index];
   const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publicationToSelect2}"]`);
 
   if (checkboxToSelect2) {
-    publications2.forEach((publication) => {
+    publications2.forEach(publication => {
       const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
         checkboxToDeselect2.checked = false;
@@ -227,62 +258,33 @@ function handleStepEnter2(response) {
     }
   }
 
-  // Update the previous step index for reference in handleStepExit2
   previousStepIndex2 = response.index;
 }
 
-// New function to handle when a step is exited
 function handleStepExit2(response) {
   console.log('Exiting step:', response.index); // Debugging line to check exit step
   console.log('Scroll direction:', response.direction); // Check scroll direction
 
-  // Revert to the previous map state if scrolling down
   if (response.direction === 'up') {
     if (response.index === 0) {
-      // If scrolling up from the first step, reset to the initial state
-      map2.flyTo({
-        center: initialMapState.center,
-        zoom: initialMapState.zoom,
-        speed: 1.2,
-        curve: 1.5
-      });
+      map2.flyTo({ center: initialMapState.center, zoom: initialMapState.zoom, speed: 1.2, curve: 1.5 });
       map2.setLayoutProperty('commonwealth', 'visibility', 'none');
-
-      // Uncheck the checkbox for the first step
       const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[0]}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
         checkboxToDeselect2.checked = false;
-        checkboxToDeselect2.dispatchEvent(new Event('change')); // Trigger the change event to remove markers
+        checkboxToDeselect2.dispatchEvent(new Event('change'));
       }
-
     } else if (response.index === 1) {
-      // If scrolling up from step 1 to 0, reset to commonwealth visibility
       map2.setLayoutProperty('commonwealth', 'visibility', 'visible');
-      map2.flyTo({
-        center: initialMapState.center,
-        zoom: initialMapState.zoom,
-        speed: 1.2,
-        curve: 1.5
-      });
-
-      // Uncheck the checkbox for step 2
+      map2.flyTo({ center: initialMapState.center, zoom: initialMapState.zoom, speed: 1.2, curve: 1.5 });
       const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[1]}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
         checkboxToDeselect2.checked = false;
         checkboxToDeselect2.dispatchEvent(new Event('change'));
       }
-
     } else if (response.index === 2) {
-      // Revert map to step 1 state
       map2.setLayoutProperty('commonwealth', 'visibility', 'none');
-      map2.flyTo({
-        center: [20.0, 10.0], // Coordinates for Africa
-        zoom: 4,
-        speed: 1.2,
-        curve: 1.5
-      });
-
-      // Uncheck the checkbox for step 3
+      map2.flyTo({ center: [20.0, 10.0], zoom: 4, speed: 1.2, curve: 1.5 });
       const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[2]}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
         checkboxToDeselect2.checked = false;
@@ -291,9 +293,8 @@ function handleStepExit2(response) {
     }
   }
 
-  // Uncheck all checkboxes when no steps are active
   if (document.querySelectorAll("#scrolly2 .step2.is-active").length === 0) {
-    publications2.forEach((publication) => {
+    publications2.forEach(publication => {
       const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
         checkboxToDeselect2.checked = false;
@@ -319,6 +320,8 @@ function init2() {
   window.addEventListener("resize", scroller2.resize);
 }
 
-// Kick things off
-createMap2();
-init2();
+// Load location data once before initializing the map and event listeners
+loadLocationData().then(() => {
+  createMap2();
+  init2();
+});
