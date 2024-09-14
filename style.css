@@ -3,16 +3,25 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary-color: #fbfbf6;
+}
+
+
 html,
 body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth; /* Ensure smooth scrolling */
+  background-color: var(--primary-color); /* Use your CSS variable */
+
 }
 
 body {
   min-height: 1280px;
   color: #3b3b3b;
+  background-color: var(--primary-color); /* Use your CSS variable */
+
 }
 
 h1,
@@ -37,6 +46,8 @@ a:hover {
   max-width: 50rem;
   margin: 1rem auto;
   text-align: center;
+  background-color: var(--primary-color); /* Use your CSS variable */
+
 }
 
 .intro__hed {
@@ -122,7 +133,7 @@ h1 {
 #scrolly,
 #scrolly2 {
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--primary-color); /* Use your CSS variable */
   padding-bottom: 10rem;
 }
 
@@ -168,7 +179,7 @@ article {
 .sticky-thing2 p {
   font-size: 8rem;
   font-weight: 900;
-  color: #fff;
+  color: ar(--primary-color);
 }
 
 /* Styles for .step and .step2 elements */
@@ -188,7 +199,7 @@ article {
 
 .step.is-active p,
 .step2.is-active p {
-  background-color: #ffffff33; /* Yellow background when active */
+  background-color: var(--primary-color); /* Use your CSS variable */
 }
 
 .step p,
@@ -200,7 +211,7 @@ article {
   font-size: 18px;
   text-align: justify;
   line-height: 1.5;
-  background-color: #ffffff7d;
+  background-color: var(--primary-color); /* Use your CSS variable */
 }
 
 /* Styles for the Leaflet map container */
@@ -236,6 +247,7 @@ article {
 
 .highchart-news-container {
   display: flex;
+  background-color: var(--primary-color); /* Use your CSS variable */
   flex-direction: column; /* Stack Highcharts and news container vertically */
   width: 550px; /* Fixed width for Highcharts */
 }
@@ -283,7 +295,7 @@ article {
   max-width: 400px; /* Set a max width for the headlines */
   color: #3b3b3b;
   padding: 10px; /* Padding around the news container */
-  background-color: #f9f9f9; /* Subtle background color */
+  background-color: var(--primary-color); /* Use your CSS variable */
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   margin-left: 40px; /* Margin for positioning */
@@ -358,7 +370,7 @@ article {
   border: 2px solid #4682b4; /* Border color */
   border-radius: 20px; /* Adjusted rounded corners */
   padding: 2px 5px; /* Reduced padding inside the box */
-  background-color: white; /* White background */
+  background-color: var(--primary-color); /* Use your CSS variable */
   max-width: 300px; /* Maximum width of the search box */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
   height: 30px; /* Reduced height for the search box */
@@ -369,6 +381,8 @@ article {
 .search-box input[type="text"],
 .compare-box input[type="text"] { /* Apply the same styles to both input fields */
   border: none; /* No border */
+  background-color: var(--primary-color); /* Use your CSS variable */
+
   outline: none; /* No outline on focus */
   width: 100%; /* Full width of the search box */
   padding: 4px 8px; /* Reduced padding inside the input */
@@ -413,6 +427,8 @@ article {
 .scroll-container {
   position: relative;
   padding-bottom: 10vh; /* To allow sticky to behave correctly */
+  background-color: var(--primary-color); /* Use your CSS variable */
+
 }
 
 .sticky-chart {
@@ -424,6 +440,8 @@ article {
   max-width: 1110px;
   margin: 0 auto;
   transform: translateX(-150px); /* This shifts the chart 150px to the left */
+  background-color: var(--primary-color); /* Use your CSS variable */
+
 }
 
 
@@ -435,6 +453,8 @@ article {
   margin: 0 auto; /* Center align the scrolly sections */
   margin-bottom: 40vh; /* Add margin to control visibility duration */
   padding: 0 0px; /* Ensure padding for mobile responsiveness */
+  background-color: var(--primary-color); /* Use your CSS variable */
+
 }
 
 .step-chart {
@@ -443,20 +463,21 @@ article {
   padding-left: 80px; /* Only left padding */
   width: 100%;
   text-align: right;
+  
   min-height: 80vh; /* Ensures sections have enough height for Scrollama triggers */
   display: flex;
   justify-content: flex-end;
-  transition: background-color 0.6s ease, padding 0.6s ease; /* Smooth transition for background and padding */
+  background-color: var(--primary-color); /* Use your CSS variable */
 }
 
 /* Active step enhancements */
 .step-chart.is-active {
-  background-color: #f0f0f0; /* Highlight active step with a subtle background change */
+  background-color: var(--primary-color); /* Use your CSS variable */
   padding: 70px 0; /* Increase padding when active to create visual separation */
   transition: background-color 0.6s ease, padding 0.6s ease; /* Smooth transition for background and padding */
 }
 
-.element0, .element1, .element2, .element3 {
+.element0, .element1, .element2, .element3, .element4 {
   opacity: 1;
   transition: opacity 0.8s ease-in-out, transform 0.8s ease-out;
   transform: translateY(100px);
@@ -469,15 +490,19 @@ article {
   width: calc(40% + 150px);
   margin-left: calc(90% - 150px);
   z-index: 2;
+  background-color: var(--primary-color); /* Use your CSS variable */
+
 }
 
-.element0.visible, .element1.visible, .element2.visible, .element3.visible {
+.element0.visible, .element1.visible, .element2.visible, .element3.visible, .element4.visible {
   opacity: 1;
+  background-color: var(--primary-color); /* Use your CSS variable */
+
   transform: translateY(0);
 }
 
 @media screen and (max-width: 768px) {
-  .element0, .element1, .element2, .element3 {
+  .element0, .element1, .element2, .element3, .element4 {
     width: 80%;
     font-size: 20px;
   }
@@ -505,7 +530,7 @@ article {
     text-align: center; /* Center text for smaller screens */
   }
 
-  .element0, .element1, .element2, .element3 {
+  .element0, .element1, .element2, .element3, .element4 {
     width: 80%;
     font-size: 20px;
   }
@@ -524,3 +549,25 @@ article {
 .highcharts-exporting-group {
   display: none;
 }
+
+
+
+
+.button-container rect {
+  fill: #7eabd0;
+  stroke: #ccc;
+  cursor: pointer;
+}
+
+.button-container rect.active {
+  fill: #ffa500;
+  stroke: #333;
+}
+
+.button-container text {
+  pointer-events: none; /* Ensures the text won't interfere with the button click */
+}
+
+
+
+
