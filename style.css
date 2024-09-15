@@ -118,25 +118,21 @@ h1 {
 
 /* TEMPORARY FOR PLAYING WITH WORLD MAP BUTTON */
 
-.tabs2 label {
-  display: inline-block;
-  background-color: #7c82a6; /* Default background color */
-  color: #000;
-  padding: 10px 20px;
-  margin: 5px;
+
+
+
+.tabs2 {
+  display: none; /* Hidden by default */
+  position: absolute;
+  bottom: 20px; /* Adjust the position from the bottom */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+  padding: 10px;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  font-family: Arial, sans-serif;
-  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Make sure it appears above other elements */
 }
-
-
-
-/* Style the label when the checkbox inside it is checked */
-
-
-/* Reset to original style when checkbox is not checked */
 
 
 

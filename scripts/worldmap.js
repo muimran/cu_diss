@@ -7,7 +7,7 @@ let map2; // This will hold the reference to the second Mapbox map
 let markers2 = []; // To store all markers added to the second map
 let aggregatedData2 = {}; // To store the aggregated data for currently selected sources in scrolly2
 let totalMentions2 = 0; // New variable to store the total number of mentions
-let publications2 = ["BBC", "CNN", "telegraph", "foxnews", "New York Times", "Guardian"]; // Define publications2 array
+let publications2 = ["Guardian", "CNN", "telegraph", "foxnews", "New York Times", "BBC"]; // Define publications2 array
 let steps2; // Define steps2 variable for scrolly steps
 let locationData2 = new Map(); // To store location and continent data
 
@@ -159,36 +159,33 @@ function updateMapWithAggregatedData2() {
   let countryDataArray = []; // Array to store country, frequency, and percentage
 
   // Add new markers based on the updated aggregated data
-  for (const [country, frequency] of Object.entries(aggregatedData2)) {
-    const locData = locationData2.get(country);
-    if (locData) {
-      // Calculate the percentage for each country
-      const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
+// In the part where you create markers for the map:
+for (const [country, frequency] of Object.entries(aggregatedData2)) {
+  const locData = locationData2.get(country);
+  if (locData) {
+    // Calculate the percentage for each country
+    const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
 
-      // Push the country data to the array
-      countryDataArray.push({ country, frequency, percentage });
+    // Get the circle radius based on percentage
+    const circleRadius = getCircleRadius(percentage);
 
-      // Get the circle radius based on frequency
-      const circleRadius = getCircleRadius(frequency);
+    let el = document.createElement('div');
+    el.className = 'marker';
+    el.style.width = `${circleRadius * 2}px`;
+    el.style.height = `${circleRadius * 2}px`;
+    el.style.backgroundColor = '#D02D00';
+    el.style.borderRadius = '50%';
+    el.style.opacity = '0.85';
 
-      let el = document.createElement('div');
-      el.className = 'marker';
-      el.style.width = `${circleRadius * 2}px`;
-      el.style.height = `${circleRadius * 2}px`;
-      el.style.backgroundColor = '#D02D00';
-      el.style.borderRadius = '50%';
-      el.style.opacity = '0.85';
+    let marker = new mapboxgl.Marker(el)
+      .setLngLat([locData.long, locData.lat])
+      .setPopup(new mapboxgl.Popup().setHTML(`<strong>${country}</strong><br>Percentage: ${percentage}%`)) // Display percentage
+      .addTo(map2);
 
-      let marker = new mapboxgl.Marker(el)
-        .setLngLat([locData.long, locData.lat])
-        .setPopup(new mapboxgl.Popup().setHTML(`<strong>${country}</strong><br>Percentage: ${percentage}%`)) // Display percentage
-        .addTo(map2);
-
-      markers2.push(marker);
-    } else {
-      console.log(`Location data not found for ${country}`);
-    }
+    markers2.push(marker);
   }
+}
+
 
   // Sort the country data by percentage in descending order
   countryDataArray.sort((a, b) => b.percentage - a.percentage);
@@ -212,12 +209,41 @@ function clearMarkers2() {
 }
 
 // Helper function to calculate the radius of a marker circle based on the frequency count
-function getCircleRadius(frequencyCount) {
-  const baseRadius = 2;
-  const scaleFactor = 0.9;
-  const radius = baseRadius + (Math.sqrt(frequencyCount) * scaleFactor);
+// Helper function to calculate the radius of a marker circle based on the percentage
+function getCircleRadius(percentage) {
+  const baseRadius = 3; // Base radius for small percentages
+  const scaleFactor = 2.5; // Adjust this to control how much the radius grows with percentage
+  const radius = baseRadius + (Math.sqrt(percentage) * scaleFactor);
   return radius;
 }
+
+// In the part where you create markers for the map:
+for (const [country, frequency] of Object.entries(aggregatedData2)) {
+  const locData = locationData2.get(country);
+  if (locData) {
+    // Calculate the percentage for each country
+    const percentage = ((frequency / totalMentions2) * 100).toFixed(2); // Calculate percentage
+
+    // Get the circle radius based on percentage
+    const circleRadius = getCircleRadius(percentage);
+
+    let el = document.createElement('div');
+    el.className = 'marker';
+    el.style.width = `${circleRadius * 2}px`;
+    el.style.height = `${circleRadius * 2}px`;
+    el.style.backgroundColor = '#D02D00';
+    el.style.borderRadius = '50%';
+    el.style.opacity = '0.85';
+
+    let marker = new mapboxgl.Marker(el)
+      .setLngLat([locData.long, locData.lat])
+      .setPopup(new mapboxgl.Popup().setHTML(`<strong>${country}</strong><br>Percentage: ${percentage}%`)) // Display percentage
+      .addTo(map2);
+
+    markers2.push(marker);
+  }
+}
+
 
 // Scrollama event handlers for scrolly2
 function handleStepEnter2(response) {
@@ -229,71 +255,99 @@ function handleStepEnter2(response) {
   steps2.forEach(step => step.classList.remove('is-active'));
   el.classList.add('is-active');
 
-  // Handle map transitions based on step index
+  // Show tabs2 only when the scroll index is 3, otherwise hide it
+  if (response.index === 3) {
+    document.querySelector('.tabs2').style.display = 'block'; // Show the publication buttons
+    
+    // Select all publications automatically when on index 3
+    publications2.forEach(publication => {
+      const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
+      if (checkboxToSelect2 && !checkboxToSelect2.checked) {
+        checkboxToSelect2.checked = true;
+        checkboxToSelect2.dispatchEvent(new Event('change')); // Trigger the change event to update the map
+      }
+    });
+  } else {
+    document.querySelector('.tabs2').style.display = 'none'; // Hide the publication buttons
+  }
+
+  // Determine the publication to select based on the step index
+  let publicationToSelect2;
   if (response.index === 0) {
-    map2.setLayoutProperty('commonwealth', 'visibility', 'visible');
+    publicationToSelect2 = "Guardian"; // Select "Guardian" for the first step
+    map2.flyTo({ center: initialMapState.center, zoom: initialMapState.zoom, speed: 1.2, curve: 1.5 });
   } else if (response.index === 1) {
-    map2.setLayoutProperty('commonwealth', 'visibility', 'none');
-    map2.flyTo({ center: [20.0, 10.0], zoom: 4, speed: 1.2, curve: 1.5 });
+    publicationToSelect2 = "Guardian"; // Select "Guardian" for the second step
+    map2.flyTo({ center: [20.0, 10.0], zoom: 3.5, speed: 1.2, curve: 1.5 });
   } else if (response.index === 2) {
-    map2.setLayoutProperty('commonwealth', 'visibility', 'none');
+    publicationToSelect2 = "CNN"; // Select "CNN" for the third step
     map2.flyTo({ center: initialMapState.center, zoom: initialMapState.zoom, speed: 1.2, curve: 1.5 });
   }
 
-  const publicationToSelect2 = publications2[response.index];
-  const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publicationToSelect2}"]`);
+  // Only select the specific publication if not on index 3
+  if (response.index !== 3) {
+    const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publicationToSelect2}"]`);
 
-  if (checkboxToSelect2) {
-    publications2.forEach(publication => {
-      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
-      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
-        checkboxToDeselect2.checked = false;
-        checkboxToDeselect2.dispatchEvent(new Event('change'));
+    if (checkboxToSelect2) {
+      // Deselect all publications first
+      publications2.forEach(publication => {
+        const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
+        if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
+          checkboxToDeselect2.checked = false;
+          checkboxToDeselect2.dispatchEvent(new Event('change')); // Trigger the change event
+        }
+      });
+
+      // Then select the correct publication
+      if (!checkboxToSelect2.checked) {
+        checkboxToSelect2.checked = true;
+        checkboxToSelect2.dispatchEvent(new Event('change')); // Trigger the change event to update the map
       }
-    });
-
-    if (!checkboxToSelect2.checked) {
-      checkboxToSelect2.checked = true;
-      checkboxToSelect2.dispatchEvent(new Event('change'));
     }
   }
 
   previousStepIndex2 = response.index;
 }
 
+
 function handleStepExit2(response) {
   console.log('Exiting step:', response.index); // Debugging line to check exit step
   console.log('Scroll direction:', response.direction); // Check scroll direction
 
+  // If exiting step 3, hide the tabs2 buttons
+  if (response.index === 3) {
+    document.querySelector('.tabs2').style.display = 'none'; // Hide the publication buttons when leaving step 3
+  }
+
+  // Handle scrolling upwards and ensure the correct publication is selected for previous steps
   if (response.direction === 'up') {
     if (response.index === 0) {
       map2.flyTo({ center: initialMapState.center, zoom: initialMapState.zoom, speed: 1.2, curve: 1.5 });
-      map2.setLayoutProperty('commonwealth', 'visibility', 'none');
-      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[0]}"]`);
-      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
-        checkboxToDeselect2.checked = false;
-        checkboxToDeselect2.dispatchEvent(new Event('change'));
+      const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="Guardian"]`);
+      if (checkboxToSelect2 && !checkboxToSelect2.checked) {
+        checkboxToSelect2.checked = true;
+        checkboxToSelect2.dispatchEvent(new Event('change'));
       }
     } else if (response.index === 1) {
-      map2.setLayoutProperty('commonwealth', 'visibility', 'visible');
       map2.flyTo({ center: initialMapState.center, zoom: initialMapState.zoom, speed: 1.2, curve: 1.5 });
-      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[1]}"]`);
-      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
-        checkboxToDeselect2.checked = false;
-        checkboxToDeselect2.dispatchEvent(new Event('change'));
+      const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="Guardian"]`);
+      if (checkboxToSelect2 && !checkboxToSelect2.checked) {
+        checkboxToSelect2.checked = true;
+        checkboxToSelect2.dispatchEvent(new Event('change'));
       }
     } else if (response.index === 2) {
       map2.setLayoutProperty('commonwealth', 'visibility', 'none');
-      map2.flyTo({ center: [20.0, 10.0], zoom: 4, speed: 1.2, curve: 1.5 });
-      const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publications2[2]}"]`);
-      if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
-        checkboxToDeselect2.checked = false;
-        checkboxToDeselect2.dispatchEvent(new Event('change'));
+      map2.flyTo({ center: [20.0, 10.0], zoom: 3.5, speed: 1.2, curve: 1.5 });
+      const checkboxToSelect2 = document.querySelector(`input[type="checkbox"].publication2[value="CNN"]`);
+      if (checkboxToSelect2 && !checkboxToSelect2.checked) {
+        checkboxToSelect2.checked = true;
+        checkboxToSelect2.dispatchEvent(new Event('change'));
       }
     }
   }
 
-  if (document.querySelectorAll("#scrolly2 .step2.is-active").length === 0) {
+  // Ensure no other publication gets selected when scrolling out of active steps
+  if (document.querySelectorAll("#scrolly2 .step2.is-active").length === 0 && response.index !== 3) {
     publications2.forEach(publication => {
       const checkboxToDeselect2 = document.querySelector(`input[type="checkbox"].publication2[value="${publication}"]`);
       if (checkboxToDeselect2 && checkboxToDeselect2.checked) {
@@ -303,6 +357,10 @@ function handleStepExit2(response) {
     });
   }
 }
+
+
+
+
 
 // Initialize scrollama for scrolly2
 function init2() {

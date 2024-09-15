@@ -1,5 +1,5 @@
 // Array of publication values corresponding to each step
-const publications = ["BBC", "foxnews", "CNN", "telegraph", "New York Times", "Guardian"];
+const publications = ["Guardian", "foxnews", "CNN", "telegraph", "New York Times", "BBC"];
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
 
 // DOM - document object model
@@ -170,10 +170,6 @@ function initializeDataAndMarkers(map) {
       console.log(`Percentage: ${percentage}, Radius: ${radius}`);
       return radius;
     }
-    
-  
-  
-  
   
 }
 
