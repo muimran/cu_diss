@@ -27,7 +27,7 @@ function createMap() {
   
   document.getElementById("map").style.backgroundColor = primaryColor;
 
-  fetch("https://cdn.glitch.global/43656fdd-7bdb-46f2-8c73-40dcd257e516/bd_districts.geojson?v=1724549232976")
+  fetch("data/bd_districts.geojson")
     .then((response) => response.json())
     .then((geojsonData) => {
       L.geoJSON(geojsonData, {
