@@ -246,6 +246,7 @@ for (const [country, frequency] of Object.entries(aggregatedData2)) {
 
 
 // Scrollama event handlers for scrolly2
+// Scrollama event handlers for scrolly2
 function handleStepEnter2(response) {
   var el = response.element;
   console.log('Entering step:', response.index); // Debugging line to check step index
@@ -257,7 +258,7 @@ function handleStepEnter2(response) {
 
   // Show tabs2 only when the scroll index is 3, otherwise hide it
   if (response.index === 3) {
-    document.querySelector('.tabs2').style.display = 'block'; // Show the publication buttons
+    document.querySelector('.tabs2').classList.add('visible'); // Show the publication buttons
     
     // Select all publications automatically when on index 3
     publications2.forEach(publication => {
@@ -268,7 +269,7 @@ function handleStepEnter2(response) {
       }
     });
   } else {
-    document.querySelector('.tabs2').style.display = 'none'; // Hide the publication buttons
+    document.querySelector('.tabs2').classList.remove('visible'); // Hide the publication buttons
   }
 
   // Determine the publication to select based on the step index
@@ -310,13 +311,14 @@ function handleStepEnter2(response) {
 }
 
 
+
 function handleStepExit2(response) {
   console.log('Exiting step:', response.index); // Debugging line to check exit step
   console.log('Scroll direction:', response.direction); // Check scroll direction
 
   // If exiting step 3, hide the tabs2 buttons
   if (response.index === 3) {
-    document.querySelector('.tabs2').style.display = 'none'; // Hide the publication buttons when leaving step 3
+    document.querySelector('.tabs2').classList.remove('visible'); // Hide the publication buttons when leaving step 3
   }
 
   // Handle scrolling upwards and ensure the correct publication is selected for previous steps
@@ -357,6 +359,7 @@ function handleStepExit2(response) {
     });
   }
 }
+
 
 
 
