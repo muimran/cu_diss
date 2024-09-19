@@ -329,8 +329,63 @@
             often mentioned, we can start to see how the media shapes our understanding of Bangladesh—and what might be missing from the bigger picture.</p>
         </section>
 
+        <!-- Horizontal line and method headline with text -->
+<!-- Horizontal line and method headline with text -->
+<section class="para-1">
+  <hr style="border: 0; height: 1px; background-color: #cccccc; width: 100%; margin: 20px 0;">
 
-        <section id="outro"></section>
+  <h2 style="font-family: 'Roboto', sans-serif; font-size: 18px; color: #666666; text-align: center; margin-bottom: 10px; font-weight: normal;">
+    METHOD
+  </h2>
+
+  <p style="font-family: 'Roboto', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
+    For this research, I pulled together news articles from six major outlets—three from the UK and three from the US. 
+    I picked these based on SimilarWeb rankings to make sure I was looking at the most visited and influential sites 
+    in both regions. The articles I focused on spanned from <strong>1 January 2012 to 30 June 2024</strong>.
+  </p>
+
+  <p style="font-family: 'Roboto', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
+    The first step was to track down all the URLs for articles that had "Bangladesh" or "Bangladeshi" in the headlines. 
+    I used a mix of methods for this: For sites like <em>The New York Times</em> and <em>The Guardian</em>, I used their APIs to easily grab the links. 
+    For other outlets, I wrote some custom scripts and used a tool called Octoparse to speed up the scraping. 
+    For BBC, where scraping was trickier, I used Google’s site search to find the relevant articles. 
+    To automate everything, I turned to <strong>Selenium</strong>, <strong>Pandas</strong>, and <strong>BeautifulSoup</strong>. 
+    All the URLs were saved in a CSV file for easy access later on.
+  </p>
+
+  <p style="font-family: 'Roboto', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
+    Getting the content from these articles wasn't always straightforward. Some sites used dynamic loading, meaning the full content only appeared 
+    after scrolling or interacting with the page. To handle this, I used <strong>Selenium</strong> to automate those actions, making sure I captured everything. 
+    Once I had the content, I saved it, along with important metadata like publication dates and author names, in <strong>JSON</strong> format. 
+    Afterward, I double-checked the data to ensure it was accurate and complete.
+  </p>
+
+  <p style="font-family: 'Roboto', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
+    With the articles in hand, I started asking some big questions: What are the main stories being told about Bangladesh? Who and what get mentioned the most? 
+    What topics, places, and adjectives keep coming up? And which other countries are linked to Bangladesh in these stories?
+  </p>
+
+  <p style="font-family: 'Roboto', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
+    To get the place names, I created a custom dictionary that included all the sub-districts, districts, and city corporations in Bangladesh, 
+    as well as major cities and countries around the world. Running this list through the article text helped me capture all the geographic mentions accurately.
+  </p>
+
+  <p style="font-family: 'Roboto', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
+    For the actual text analysis, I used a few Python tools. <strong>NLTK</strong> helped me clean up the text by removing common filler words, 
+    while <strong>spaCy</strong> was key for identifying names, places, and other important entities. 
+    <strong>Gensim</strong> allowed me to uncover the main themes using topic modeling, helping me see what subjects came up the most in the articles.
+  </p>
+
+  <p style="font-family: 'Roboto', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
+    This approach let me dive deep into the data and focus on how Bangladesh was being portrayed across the different news outlets I analyzed.
+  </p>
+</section>
+
+
+<!-- Outro section -->
+<section id="outro"></section>
+
+        
       </main>
     </div> <!-- End of content div -->
 
