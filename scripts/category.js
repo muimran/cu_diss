@@ -469,6 +469,7 @@ function showPublicationButtons() {
             .attr("height", buttonHeight)
             .attr("rx", 10)  // Rounded corners
             .attr("ry", 10)  // Rounded corners
+            .classed("active", pub === "The Guardian")  // Set 'active' class by default for The Guardian
             .on("click", function() {
                 // Toggle active state
                 const isActive = d3.select(this).classed("active");
@@ -488,7 +489,11 @@ function showPublicationButtons() {
 
         buttonX += buttonWidth + buttonSpacing;  // Move to the right for the next button
     });
+
+    // Trigger the filtering function to filter by 'The Guardian' on page load
+    filterDotsByPublication();
 }
+
 
 
 

@@ -119,16 +119,16 @@ function initializeDataAndMarkers(map) {
           console.log(`Location: ${location}, Frequency: ${frequency}, Percentage: ${percentage}%, Circle Radius: ${circleRadius}`);
     
           let markerHtmlStyles = `
-            background-color: #D02D00;
-            border-radius: 50%;
-            opacity: 0.85;
-            width: ${circleRadius * 2}px;
-            height: ${circleRadius * 2}px;
-            display: block;
-            position: relative;
-            transform-origin: 50% 50%;
-            animation: grow-shrink .75s ease-out forwards;
-          `;
+  background-color: #D02D00;
+  border-radius: 50%;
+  opacity: 0.85;
+  width: ${circleRadius * 2}px;
+  height: ${circleRadius * 2}px;
+  display: block;
+  position: relative;
+  transform-origin: 50% 50%;
+`;
+
     
           let customIcon = L.divIcon({
             className: "animated-marker",
