@@ -89,7 +89,7 @@
     <div id="content">
       <main>
         <section id="intro">
-          <h1 class="intro__hed">How is Bangladesh Painted in the West?</h1>
+          <h1 class="intro__hed">How is Bangladesh Reported in the West?</h1>
         </section>
         <!-- standfirst -->
         <section class="para-1">
@@ -261,9 +261,8 @@
                 A quarter of the countries it mentions alongside Bangladesh are African; more than any other publication. </p>
             </div>
             <div class="step2" data-step="3">
-              <p>On the flip side, CNN’s coverage of Bangladesh is much narrower. They mention only about 50 other countries in 
-                their reporting. Half of those are in Asia, with Myanmar standing out the most — not a surprise, given how much attention 
-                the Rohingya crisis has received in their reporting.</p>
+              <p>	CNN’s coverage of Bangladesh is narrower and mentions only about 50 other countries. Half of those are in Asia, 
+                with Myanmar standing out the most because of how much attention the Rohingya crisis has received in their reporting.</p>
             </div>
             <div class="step2" data-step="4">
               <p>Overall, Bangladesh's neighbours account for nearly 40% of the mentions, with India being the most prominent at 16%. 
@@ -319,10 +318,12 @@
         <br></br>
 
         <section class="para-1">
+          <p>What doesn’t get talked about in all this coverage is climate change. Despite Bangladesh's vulnerability to climate 
+            change and its pioneering climate-resilient initiatives, climate-related words don’t even crack the top 100 in media coverage.</p>
           <p>Bangladesh’s story in Western media follows a familiar pattern—focused on crises and centered mostly around Dhaka. 
             Political events, disasters, and labor issues dominate, while other stories and regions fall into the background. 
             Interestingly, despite Bangladesh's vulnerability to climate change and its pioneering climate-resilient initiatives, 
-            climate-related words don’t even crack the top 100 in media coverage. </p>
+            climate-related words don’t even crack the top 100 in media coverage.</p>
         </section>
         <section class="para-1">
           <p>These patterns give us a snapshot of how the country is framed internationally. By looking at the words and places most 
@@ -350,7 +351,7 @@
     appear after scrolling or interacting with the page. To handle this, I automated those actions using <strong>Selenium</strong>. 
     Once I had the content, I saved it along with metadata like publication dates and author names in <strong>JSON</strong> format. 
     While this process might not catch every single geographic name in the articles, it covers almost all of them. Manual checks showed no 
-    missing place names, making this approach the most reliable, as tools like <strong>spaCy</strong> don’t perform well for place names in Bangladesh.
+    missing place names, making this approach the most reliable, as tools like <strong>spaCy</strong> didn't perform well for place names in Bangladesh.
 </p>
 
 <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; color: #666666; 
@@ -370,17 +371,17 @@ text-align: left; font-weight: normal;">
   and cities, as well as country names and capital cities globally. Then I ran this dictionary against the text of the articles, 
   which returned the mentioned names along with their frequency count. I compiled the list by cross-referencing data from government 
   and open databases. This was necessary because existing named entity recognition tools, like <strong>spaCy</strong>, often overlook specific 
-  place names, especially in regions like Bangladesh. A random manual check determined that this method worked nearly 100% of the time 
-  to extract all the names mentioned.
+  place names, especially in places like Bangladesh. A random manual check determined that this method succeeded  nearly 100% of the time 
+  in extracting all the names mentioned.
 </p>
 
 
 <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
-    <strong>Frequent Words:</strong>To find the most frequent words for each publication, I used <strong>NLTK</strong>, a Python library for working with text. First, 
-    I removed common stopwords like "the," "is," and "and" to focus on words that reveal key themes in the articles. Afterward, I calculated w
-    ord frequencies. Instead of using raw counts, which can be misleading due to varying article lengths, I normalized the word frequencies per 
-    100,000 words. This provided a more accurate comparison of how often certain words appeared across different publications, regardless of the
-     number or size of the articles.
+    <strong>Frequent Words:</strong>To find the most frequent words for each publication, I used <strong>NLTK</strong>, a Python library for 
+    working with text. First, I removed common stopwords ('the', 'is', 'and' etc.) to focus on words that reveal key themes 
+    in the articles. I then calculated word frequencies. Instead of using raw counts, which can be misleading due to varying 
+    article lengths, I normalized the word frequencies per 100,000 words. This provided a more accurate comparison of how often 
+    certain words appeared across different publications, regardless of the number or size of the articles.
 </p>
 
 </section>
