@@ -226,6 +226,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 d3.select(".element4").classed("visible", true);
                 d3.select(".legend").classed("visible", true);  // Ensure the legend remains visible
                 showPublicationButtons();  // Show publication filter buttons after legend in element4
+                d3.select(".button-container").classed("visible", true);  // Make button container visible
+
             }
         } else if (type === "exit") {
             // Handle exiting steps
@@ -277,30 +279,22 @@ document.addEventListener("DOMContentLoaded", function() {
     function filterDotsForSelectedMonths() {
         g.selectAll("circle")
             .transition()
-            .duration(500)
-            .attr("fill", d => {
-                const date = new Date(d.date);
-                const year = date.getFullYear();
-                const month = date.getMonth();
-
-                if ((year === 2013 && month === 4) || (year === 2016 && (month >= 6 && month <= 9))) {
-                    return colorScale(d.category);  // Highlight selected months
-                } else {
-                    return colorScale(d.category);  // Color others by category
-                }
-            })
+            .duration(550)
+            .attr("fill", d => colorScale(d.category))  // Apply the same fill color for all
             .attr("opacity", d => {
                 const date = new Date(d.date);
                 const year = date.getFullYear();
                 const month = date.getMonth();
-
+    
+                // Adjust opacity based on the selected months
                 if ((year === 2013 && month === 4) || (year === 2016 && (month >= 6 && month <= 9))) {
                     return 1;  // Full opacity for highlighted months
                 } else {
-                    return 0.20;  // Lower opacity for unfiltered dots
+                    return 0.20;  // Lower opacity for non-highlighted months
                 }
             });
     }
+    
 
     // Function to sort dots by category frequency and add legend
     function sortByCategoryFrequency() {
