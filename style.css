@@ -540,6 +540,11 @@ article {
     width: 80%;
     font-size: 20px;
   }
+  .para-1 {
+    width: 100%; /* Make full width on mobile */
+    margin: 0 auto; /* Center align if needed */
+    padding: 0 15px; /* Add some padding to avoid the text touching the edges */
+  }
 }
 
 
