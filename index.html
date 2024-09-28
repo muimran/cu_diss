@@ -126,7 +126,7 @@
         <h2>This story is best viewed on a larger screen.</h2>
         <p>We recommend viewing this story on a tablet, laptop, or desktop for the best experience.</p>
         <div class="modal-buttons">
-          <button id="proceed-btn">Proceed on Mobile</button>
+          <button id="proceed-btn">Proceed on Mobile With Reduced Experience</button>
           <button id="exit-btn">Exit</button>
         </div>
       </div>
@@ -467,8 +467,35 @@
     <!-- JavaScript to control the loading donut progress and the loading screen -->
     <script>
       window.onload = function () {
-        // Function to show the content after loading screen or directly if already loaded
+        // Function to show the content and hide the loading screen
         function showContent() {
+          document.getElementById('loading-screen').style.display = 'none';
+          document.getElementById('content').style.opacity = '1';
+          document.getElementById('content').style.visibility = 'visible';
+        }
+    
+        // Check screen width for mobile warning
+        if (window.innerWidth <= 768) {
+          // Show the modal warning for mobile devices
+          document.getElementById('mobile-warning').style.display = 'flex';
+    
+          // Hide content and loading screen initially
+          document.getElementById('loading-screen').style.display = 'none';
+          document.getElementById('content').style.display = 'none';
+    
+          // Handle the "Proceed on Mobile" button click
+          document.getElementById('proceed-btn').onclick = function () {
+            document.getElementById('mobile-warning').style.display = 'none';
+            document.getElementById('content').style.display = 'block'; // Make sure content is displayed
+            showContent(); // Make sure content is visible after the modal is dismissed
+          };
+    
+          // Handle the "Exit" button click
+          document.getElementById('exit-btn').onclick = function () {
+            window.location.href = "https://www.google.com"; // Redirect to another page (customize link)
+          };
+        } else {
+          // Normal loading flow for non-mobile devices
           const loadingScreenShown = localStorage.getItem('loadingScreenShown');
     
           if (!loadingScreenShown) {
@@ -492,13 +519,9 @@
                 // After progress is complete, hide loading screen and show content
                 document.getElementById('loading-screen').style.opacity = '0';
                 setTimeout(() => {
-                  document.getElementById('loading-screen').style.display = 'none';
-                  document.getElementById('content').style.opacity = '1';
-                  document.getElementById('content').style.visibility = 'visible';
+                  showContent(); // Show content after loading screen is hidden
+                  localStorage.setItem('loadingScreenShown', 'true');
                 }, 500); // Allow 500ms for fade-out effect
-    
-                // Store the state in localStorage to prevent showing the loading screen again
-                localStorage.setItem('loadingScreenShown', 'true');
               }
             }
     
@@ -506,38 +529,12 @@
             requestAnimationFrame(animateProgress);
           } else {
             // If the loading screen has been shown before, skip it and show the content immediately
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('content').style.opacity = '1';
-            document.getElementById('content').style.visibility = 'visible';
+            showContent();
           }
-        }
-    
-        // Check screen width for mobile warning
-        if (window.innerWidth <= 768) {
-          // Show the modal warning for mobile devices
-          document.getElementById('mobile-warning').style.display = 'flex';
-    
-          // Hide content and loading screen initially
-          document.getElementById('loading-screen').style.display = 'none';
-          document.getElementById('content').style.display = 'none';
-    
-          // Handle the "Proceed on Mobile" button click
-          document.getElementById('proceed-btn').onclick = function () {
-            document.getElementById('mobile-warning').style.display = 'none';
-            document.getElementById('loading-screen').style.display = 'flex'; // Show loading screen again
-            showContent(); // Trigger content load after "Proceed" is clicked
-          };
-    
-          // Handle the "Exit" button click
-          document.getElementById('exit-btn').onclick = function () {
-            window.location.href = "https://www.google.com"; // Redirect to another page (customize link)
-          };
-        } else {
-          // Normal loading flow for non-mobile devices
-          showContent();
         }
       };
     </script>
+    
     
     
   </body>
