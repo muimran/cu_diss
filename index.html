@@ -467,45 +467,25 @@
     <!-- JavaScript to control the loading donut progress and the loading screen -->
     <script>
       window.onload = function () {
-        // Check screen width for mobile warning
-        if (window.innerWidth <= 768) {
-          // Show the modal warning for mobile devices
-          document.getElementById('mobile-warning').style.display = 'flex';
-
-          // Hide content and loading screen initially
-          document.getElementById('loading-screen').style.display = 'none';
-          document.getElementById('content').style.display = 'none';
-
-          // Handle the "Proceed on Mobile" button click
-          document.getElementById('proceed-btn').onclick = function () {
-            document.getElementById('mobile-warning').style.display = 'none';
-            document.getElementById('loading-screen').style.display = 'flex'; // Show loading screen again
-            document.getElementById('content').style.display = 'block'; // Show content
-          };
-
-          // Handle the "Exit" button click
-          document.getElementById('exit-btn').onclick = function () {
-            window.location.href = "https://www.google.com"; // Redirect to another page (customize link)
-          };
-        } else {
-          // Normal loading flow for non-mobile devices
+        // Function to show the content after loading screen or directly if already loaded
+        function showContent() {
           const loadingScreenShown = localStorage.getItem('loadingScreenShown');
-
+    
           if (!loadingScreenShown) {
             const progressFill = document.querySelector('.progress-fill');
             const totalProgress = 100;
             const duration = 3000; // 3 seconds
-
+    
             let startTime = null;
-
+    
             function animateProgress(timestamp) {
               if (!startTime) startTime = timestamp;
               const elapsed = timestamp - startTime;
               const progress = Math.min((elapsed / duration) * totalProgress, totalProgress);
-
+    
               // Update the stroke-dasharray of the progress circle
               progressFill.style.strokeDasharray = `${progress}, 100`;
-
+    
               if (elapsed < duration) {
                 requestAnimationFrame(animateProgress);
               } else {
@@ -516,12 +496,12 @@
                   document.getElementById('content').style.opacity = '1';
                   document.getElementById('content').style.visibility = 'visible';
                 }, 500); // Allow 500ms for fade-out effect
-
+    
                 // Store the state in localStorage to prevent showing the loading screen again
                 localStorage.setItem('loadingScreenShown', 'true');
               }
             }
-
+    
             // Start animation
             requestAnimationFrame(animateProgress);
           } else {
@@ -531,8 +511,34 @@
             document.getElementById('content').style.visibility = 'visible';
           }
         }
+    
+        // Check screen width for mobile warning
+        if (window.innerWidth <= 768) {
+          // Show the modal warning for mobile devices
+          document.getElementById('mobile-warning').style.display = 'flex';
+    
+          // Hide content and loading screen initially
+          document.getElementById('loading-screen').style.display = 'none';
+          document.getElementById('content').style.display = 'none';
+    
+          // Handle the "Proceed on Mobile" button click
+          document.getElementById('proceed-btn').onclick = function () {
+            document.getElementById('mobile-warning').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'flex'; // Show loading screen again
+            showContent(); // Trigger content load after "Proceed" is clicked
+          };
+    
+          // Handle the "Exit" button click
+          document.getElementById('exit-btn').onclick = function () {
+            window.location.href = "https://www.google.com"; // Redirect to another page (customize link)
+          };
+        } else {
+          // Normal loading flow for non-mobile devices
+          showContent();
+        }
       };
     </script>
+    
     
   </body>
 </html>
