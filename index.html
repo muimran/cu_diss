@@ -70,10 +70,68 @@
         visibility: hidden;
         transition: opacity 0.5s ease;
       }
+
+      /* Modal styles */
+      #mobile-warning {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10001;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        max-width: 300px;
+      }
+
+      .modal-content h2 {
+        margin: 0;
+        font-size: 1.2em;
+      }
+
+      .modal-content p {
+        margin: 15px 0;
+      }
+
+      .modal-buttons button {
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        background-color: #3498db;
+        color: white;
+        border-radius: 5px;
+        font-size: 1em;
+      }
+
+      .modal-buttons button#exit-btn {
+        background-color: #e74c3c;
+      }
     </style>
   </head>
 
   <body>
+    <!-- Modal for mobile warning -->
+    <div id="mobile-warning" style="display: none;">
+      <div class="modal-content">
+        <h2>This story is best viewed on a larger screen.</h2>
+        <p>We recommend viewing this story on a tablet, laptop, or desktop for the best experience.</p>
+        <div class="modal-buttons">
+          <button id="proceed-btn">Proceed on Mobile</button>
+          <button id="exit-btn">Exit</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Loading Screen -->
     <div id="loading-screen">
       <div class="progress-container">
@@ -92,61 +150,50 @@
           <h1 class="intro__hed">How is Bangladesh Reported in the West?</h1>
         </section>
 
-        
-        
-                  <!-- standfirst -->
+        <!-- standfirst -->
         <section class="para-1">
           <p style="font-weight: bold;">Analysis of thousands of news articles about Bangladesh identifies 
             familiar topics, but climate change isn’t found among them.</p>
-          </section>
+        </section>
 
-          <section class="para-1">
-            <p style="text-align: right;">
-              <span style="font-weight: normal;">By </span>
-              <span style="font-weight: bold;"><a href="https://www.muhammadimran.com">Muhammad Imran</a></span> 
-              <span style="font-family: 'Roboto', sans-serif; font-weight: small; font-size: 0.8em; color:#666666">SEPTEMBER 20 2024</span>
-            </p>
-          </section>
+        <section class="para-1">
+          <p style="text-align: right;">
+            <span style="font-weight: normal;">By </span>
+            <span style="font-weight: bold;"><a href="https://www.muhammadimran.com">Muhammad Imran</a></span> 
+            <span style="font-family: 'Roboto', sans-serif; font-weight: small; font-size: 0.8em; color:#666666">SEPTEMBER 20 2024</span>
+          </p>
+        </section>
           
-          <section class="para-1">
-            <p>This summer, Bangladesh has once again found itself in the global spotlight. 
-              Student-led protests began in early July 2024 with demands to reform how government jobs are allocated, 
-              and culminated in the resignation of Prime Minister Sheikh Hasina on August 5. She fled the country, but not 
-              before her security forces had allegedly killed hundreds of student protesters across Bangladesh. Western media 
-              outlets scrambled to cover the dramatic turn of events, with striking photos of protesters storming the Prime Minister's 
-              residence dominating the homepages of major news outlets. While these moments of intense coverage are often crisis-driven, 
-              they also raise a broader question: What do Western media outlets talk about when they talk about Bangladesh?</p>
-          </section>
+        <section class="para-1">
+          <p>This summer, Bangladesh has once again found itself in the global spotlight. 
+            Student-led protests began in early July 2024 with demands to reform how government jobs are allocated, 
+            and culminated in the resignation of Prime Minister Sheikh Hasina on August 5. She fled the country, but not 
+            before her security forces had allegedly killed hundreds of student protesters across Bangladesh. Western media 
+            outlets scrambled to cover the dramatic turn of events, with striking photos of protesters storming the Prime Minister's 
+            residence dominating the homepages of major news outlets. While these moments of intense coverage are often crisis-driven, 
+            they also raise a broader question: What do Western media outlets talk about when they talk about Bangladesh?</p>
+        </section>
 
-          <section class="para-1">
-            <p>Outlets like BBC, CNN, Fox, The Telegraph, The Guardian, and The New York Times follow a pretty familiar pattern when 
-              it comes to Bangladesh. Coverage tends to spike during big disasters—think the Rana Plaza collapse or the Rohingya crisis. 
-              But what about when there's no major crisis? To dig deeper, I analyzed nearly 2,000 articles from 2012 to 2024 to spot the 
-              recurring themes that show how the world sees this country.</p>
-          </section>
+        <section class="para-1">
+          <p>Outlets like BBC, CNN, Fox, The Telegraph, The Guardian, and The New York Times follow a pretty familiar pattern when 
+            it comes to Bangladesh. Coverage tends to spike during big disasters—think the Rana Plaza collapse or the Rohingya crisis. 
+            But what about when there's no major crisis? To dig deeper, I analyzed nearly 2,000 articles from 2012 to 2024 to spot the 
+            recurring themes that show how the world sees this country.</p>
+        </section>
 
-          <section class="para-1">
-            <p>I focused on six major news outlets from the US and UK, selected for being the most-visited, according 
-              to <a href="https://www.similarweb.com">SimilarWeb</a>, which ranks sites by how much traffic they get. 
-              They reach millions of readers and by looking at how they cover Bangladesh, we get a glimpse of how the country 
-              is framed for audiences in two of the world’s biggest media markets. Using "Bangladesh" as my keyword, I pulled articles 
-              from 2012 to June 2024 to see how these media giants are shaping the conversation.</p>
-          </section>
+        <br></br>
 
+        <section id="subhead">
+          <h2>Negative Narratives </h2>
+        </section>
+        <br></br>
 
-          <br></br>
-
-          <section id="subhead">
-            <h2>Negative Narratives </h2>
-          </section>
-          <br></br>
-
-          <section class="para-1">
-            <p>I analyzed nearly 2,000 articles and categorized these stories into themes such as politics, natural disasters, 
-              refugee crises, and labor issues. These categories reveal not just what makes the news, but also how the narratives 
-              are shaped. Moments of heightened media attention—such as the Rohingya refugee crisis or the Rana Plaza collapse—tend 
-              to drive coverage, while stories outside of these crises often reflect broader, ongoing issues that define how Bangladesh 
-              is portrayed globally. </p>
+        <section class="para-1">
+          <p>I analyzed nearly 2,000 articles and categorized these stories into themes such as politics, natural disasters, 
+            refugee crises, and labor issues. These categories reveal not just what makes the news, but also how the narratives 
+            are shaped. Moments of heightened media attention—such as the Rohingya refugee crisis or the Rana Plaza collapse—tend 
+            to drive coverage, while stories outside of these crises often reflect broader, ongoing issues that define how Bangladesh 
+            is portrayed globally. </p>
         </section>
 
         <!-- Wrap the visualization and scrolly steps in a container to control sticky behavior -->
@@ -365,8 +412,8 @@
     missing place names, making this approach the most reliable, as tools like <strong>spaCy</strong> didn't perform well for place names in Bangladesh.
 </p>
 
-<p style="font-family: 'Montserrat', sans-serif; font-size: 14px; color: #666666; 
-text-align: left; font-weight: normal;">
+
+<p style="font-family: 'Montserrat', sans-serif; font-size: 14px; color: #666666; text-align: left; font-weight: normal;">
   <strong>Category:</strong> When I collected the articles, very few of them had 
   pre-assigned categories from the publications. Even when they did, 
   the categories weren’t consistent since they came from different 
@@ -420,48 +467,69 @@ text-align: left; font-weight: normal;">
     <!-- JavaScript to control the loading donut progress and the loading screen -->
     <script>
       window.onload = function () {
-        // Check if the loading screen has already been shown by checking localStorage
-        const loadingScreenShown = localStorage.getItem('loadingScreenShown');
-    
-        if (!loadingScreenShown) {
-          // If not shown before, proceed with showing the loading screen and animation
-          const progressFill = document.querySelector('.progress-fill');
-          const totalProgress = 100;
-          const duration = 3000; // 3 seconds
-    
-          let startTime = null;
-    
-          function animateProgress(timestamp) {
-            if (!startTime) startTime = timestamp;
-            const elapsed = timestamp - startTime;
-            const progress = Math.min((elapsed / duration) * totalProgress, totalProgress);
-    
-            // Update the stroke-dasharray of the progress circle
-            progressFill.style.strokeDasharray = `${progress}, 100`;
-    
-            if (elapsed < duration) {
-              requestAnimationFrame(animateProgress);
-            } else {
-              // After progress is complete, hide loading screen and show content
-              document.getElementById('loading-screen').style.opacity = '0';
-              setTimeout(() => {
-                document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('content').style.opacity = '1';
-                document.getElementById('content').style.visibility = 'visible';
-              }, 500); // Allow 500ms for fade-out effect
-    
-              // Store the state in localStorage to prevent showing the loading screen again
-              localStorage.setItem('loadingScreenShown', 'true');
-            }
-          }
-    
-          // Start animation
-          requestAnimationFrame(animateProgress);
-        } else {
-          // If the loading screen has been shown before, skip it and show the content immediately
+        // Check screen width for mobile warning
+        if (window.innerWidth <= 768) {
+          // Show the modal warning for mobile devices
+          document.getElementById('mobile-warning').style.display = 'flex';
+
+          // Hide content and loading screen initially
           document.getElementById('loading-screen').style.display = 'none';
-          document.getElementById('content').style.opacity = '1';
-          document.getElementById('content').style.visibility = 'visible';
+          document.getElementById('content').style.display = 'none';
+
+          // Handle the "Proceed on Mobile" button click
+          document.getElementById('proceed-btn').onclick = function () {
+            document.getElementById('mobile-warning').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'flex'; // Show loading screen again
+            document.getElementById('content').style.display = 'block'; // Show content
+          };
+
+          // Handle the "Exit" button click
+          document.getElementById('exit-btn').onclick = function () {
+            window.location.href = "https://www.google.com"; // Redirect to another page (customize link)
+          };
+        } else {
+          // Normal loading flow for non-mobile devices
+          const loadingScreenShown = localStorage.getItem('loadingScreenShown');
+
+          if (!loadingScreenShown) {
+            const progressFill = document.querySelector('.progress-fill');
+            const totalProgress = 100;
+            const duration = 3000; // 3 seconds
+
+            let startTime = null;
+
+            function animateProgress(timestamp) {
+              if (!startTime) startTime = timestamp;
+              const elapsed = timestamp - startTime;
+              const progress = Math.min((elapsed / duration) * totalProgress, totalProgress);
+
+              // Update the stroke-dasharray of the progress circle
+              progressFill.style.strokeDasharray = `${progress}, 100`;
+
+              if (elapsed < duration) {
+                requestAnimationFrame(animateProgress);
+              } else {
+                // After progress is complete, hide loading screen and show content
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                  document.getElementById('loading-screen').style.display = 'none';
+                  document.getElementById('content').style.opacity = '1';
+                  document.getElementById('content').style.visibility = 'visible';
+                }, 500); // Allow 500ms for fade-out effect
+
+                // Store the state in localStorage to prevent showing the loading screen again
+                localStorage.setItem('loadingScreenShown', 'true');
+              }
+            }
+
+            // Start animation
+            requestAnimationFrame(animateProgress);
+          } else {
+            // If the loading screen has been shown before, skip it and show the content immediately
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('content').style.opacity = '1';
+            document.getElementById('content').style.visibility = 'visible';
+          }
         }
       };
     </script>
