@@ -5,14 +5,16 @@ document.addEventListener("DOMContentLoaded", function() {
     let isGreyState = true;  // Flag to track if chart is in grey state
     let isLegendCreated = false;  // Flag to check if the legend has already been created
 
-    const width = 1110;
-    const height = 900;
-    const margin = 40;
-    const lineSpacing = 12;
-    const radius = 4;
-    const dotSpacing = 8;
-    const numCols = Math.floor((width - 2 * margin) / (radius * 2 + dotSpacing));
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
+    // Get responsive dimensions
+    const dims = getResponsiveDimensions();
+    const numCols = Math.floor((dims.width - 2 * dims.margin) / (dims.radius * 2 + dims.dotSpacing));
+
+    // Update SVG dimensions
+    svg = d3.select("#visualization")
+        .append("svg")
+        .attr("width", dims.width)
+        .attr("height", dims.height)
+        .attr("viewBox", `0 0 ${dims.width} ${dims.height}`);
 
     // Inject the tooltip CSS dynamically to avoid conflicts
     const style = document.createElement('style');
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to visualize the data using D3.js
     function visualizeData(data) {
         svg = d3.select("#canvas")
-            .attr("viewBox", [0, 0, width, height])
+            .attr("viewBox", [0, 0, dims.width, dims.height])
             .style("background-color", primaryColor);  // Set background color
 
         g = svg.append("g");
@@ -87,25 +89,28 @@ document.addEventListener("DOMContentLoaded", function() {
             .domain(categories)
             .range(d3.quantize(d3.interpolateRainbow, categories.length));
 
-        drawDotsByYear(data, years, colorScale, true);
+        drawDotsByYear(data, years, colorScale, isGreyState);
     }
 
     // Function to draw dots grouped by year
-    function drawDotsByYear(data, years, colorScale, initialState) {
+    function drawDotsByYear(data, years, colorScale, isGrey) {
+        const dims = getResponsiveDimensions();
+        const numCols = Math.floor((dims.width - 2 * dims.margin) / (dims.radius * 2 + dims.dotSpacing));
+        
         g.selectAll("*").remove();
 
-        let yPosition = margin;
+        let yPosition = dims.margin;
         const xScale = d3.scaleLinear()
             .domain([0, numCols - 1])
-            .range([margin, width - margin]);
+            .range([dims.margin, dims.width - dims.margin]);
 
         years.forEach(year => {
             const yearData = data.filter(d => d.year === year);
 
             g.append("line")
                 .attr("class", "year-line")
-                .attr("x1", margin)
-                .attr("x2", width - margin)
+                .attr("x1", dims.margin)
+                .attr("x2", dims.width - dims.margin)
                 .attr("y1", yPosition)
                 .attr("y2", yPosition)
                 .attr("stroke", "#686666")
@@ -113,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             g.append("text")
                 .attr("class", "year-label")
-                .attr("x", margin + 5)
+                .attr("x", dims.margin + 5)
                 .attr("y", yPosition - 5)
                 .attr("text-anchor", "start")
                 .attr("font-size", "14px")
@@ -122,17 +127,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 .attr("fill", "#666")
                 .text(year);
 
-            yPosition += lineSpacing;
+            yPosition += dims.lineSpacing;
 
             g.selectAll(`.dot-${year}`)
                 .data(yearData, d => d.serial)
                 .enter()
                 .append("circle")
                 .attr("class", `dot-${year}`)
-                .attr("cx", (d, i) => xScale(i % numCols))
-                .attr("cy", (d, i) => yPosition + Math.floor(i / numCols) * (radius * 2 + dotSpacing))
-                .attr("r", radius)  // All dots have the same size
-                .attr("fill", initialState ? "#686666" : d => colorScale(d.category))
+                .attr("cx", (d, i) => {
+                    const col = i % numCols;
+                    return dims.margin + col * (dims.radius * 2 + dims.dotSpacing) + dims.radius;
+                })
+                .attr("cy", (d, i) => {
+                    const row = Math.floor(i / numCols);
+                    return dims.margin + row * (dims.radius * 2 + dims.dotSpacing) + dims.radius;
+                })
+                .attr("r", dims.radius)
+                .attr("fill", isGrey ? "#686666" : d => colorScale(d.category))
                 .on("mouseover", function(event, d) {
                     if (!isGreyState) {  // Only show the tooltip if not in grey state
                         tooltip.style("opacity", 1)
@@ -173,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
 
-            yPosition += Math.ceil(yearData.length / numCols) * (radius * 2 + dotSpacing) + lineSpacing;
+            yPosition += Math.ceil(yearData.length / numCols) * (dims.radius * 2 + dims.dotSpacing) + dims.lineSpacing;
         });
     }
 
@@ -272,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .transition()
             .duration(500)
             .attr("fill", "#686666")  // Set dots to grey
-            .attr("r", radius);  // Reset size to original radius
+            .attr("r", dims.radius);  // Reset size to original radius
     }
 
     // Function to filter dots for selected months and set opacity for unfiltered dots
@@ -311,16 +322,16 @@ document.addEventListener("DOMContentLoaded", function() {
         articleDetails.sort((a, b) => sortedCategories.indexOf(a.category) - sortedCategories.indexOf(b.category));
 
         const categoryPositions = {};
-        let currentX = margin;
-        let currentY = margin;
+        let currentX = dims.margin;
+        let currentY = dims.margin;
 
         sortedCategories.forEach(category => {
             const categoryData = articleDetails.filter(d => d.category === category);
 
             categoryData.forEach((d, i) => {
-                if (currentX > width - margin) {
-                    currentX = margin;
-                    currentY += (radius * 2 + dotSpacing);
+                if (currentX > dims.width - dims.margin) {
+                    currentX = dims.margin;
+                    currentY += (dims.radius * 2 + dims.dotSpacing);
                 }
 
                 categoryPositions[d.serial] = {
@@ -328,10 +339,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     y: currentY
                 };
 
-                currentX += (radius * 2 + dotSpacing);
+                currentX += (dims.radius * 2 + dims.dotSpacing);
             });
 
-            currentX += dotSpacing;
+            currentX += dims.dotSpacing;
         });
 
         g.selectAll(".year-line, .year-label")
@@ -352,12 +363,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const topCategories = sortedCategories.slice(0, 17);
         const legend = svg.append("g")
             .attr("class", "legend")
-            .attr("transform", `translate(${margin}, ${currentY + 40})`);
+            .attr("transform", `translate(${dims.margin}, ${currentY + 40})`);
 
         let currentLegendX = 0;
         let currentLegendY = 0;
         const legendLineHeight = 25;
-        const maxLegendWidth = width - 2 * margin;
+        const maxLegendWidth = dims.width - 2 * dims.margin;
         const initialDelay = 1000;
 
         topCategories.forEach((category, i) => {
@@ -402,14 +413,14 @@ document.addEventListener("DOMContentLoaded", function() {
             .transition()
             .duration(500)
             .attr("fill", d => colorScale(d.category))  // Reset to category color
-            .attr("r", radius)  // Reset size to original radius
+            .attr("r", dims.radius)  // Reset size to original radius
             .attr("opacity", 1);  // Reset opacity to full (1) for all dots
     }
 
     // Function to revert dots from sorted state (Step 2) to filtered state (Step 1)
     function revertToFilteredState() {
         articleDetails.sort((a, b) => d3.ascending(a.year, b.year) || d3.ascending(new Date(a.date), new Date(b.date)));
-        drawDotsByYear(articleDetails, [...new Set(articleDetails.map(d => d.year))], colorScale, false);
+        drawDotsByYear(articleDetails, [...new Set(articleDetails.map(d => d.year))], colorScale, true);
         filterDotsForSelectedMonths();
     }
 
@@ -443,7 +454,7 @@ function showPublicationButtons() {
     const totalButtonWidth = sortedPublications.length * (buttonWidth + buttonSpacing) - buttonSpacing; // Total width of all buttons
 
     // Calculate the X offset to center the buttons
-    const offsetX = (width - totalButtonWidth) / 2;  // Center the button container based on the SVG width
+    const offsetX = (dims.width - totalButtonWidth) / 2;  // Center the button container based on the SVG width
 
     // Create a button container inside the chart after the legend, centered horizontally
     const buttonContainer = svg.append("g")
@@ -530,13 +541,13 @@ function filterDotsByPublication() {
 
     // Re-arrange the dots in the SVG
     const categoryPositions = {};
-    let currentX = margin;
-    let currentY = margin;
+    let currentX = dims.margin;
+    let currentY = dims.margin;
 
     sortedArticleDetails.forEach((d, i) => {
-        if (currentX > width - margin) {
-            currentX = margin;
-            currentY += (radius * 2 + dotSpacing);
+        if (currentX > dims.width - dims.margin) {
+            currentX = dims.margin;
+            currentY += (dims.radius * 2 + dims.dotSpacing);
         }
 
         categoryPositions[d.serial] = {
@@ -544,7 +555,7 @@ function filterDotsByPublication() {
             y: currentY
         };
 
-        currentX += (radius * 2 + dotSpacing);
+        currentX += (dims.radius * 2 + dims.dotSpacing);
     });
 
     // Transition the dots to their new positions
@@ -597,8 +608,8 @@ function updateLegend(selectedDots) {
     let currentLegendX = 0;
     let currentLegendY = 0;
     const legendLineHeight = 25;  // Space between lines in the legend
-    const canvasRightSpace = width * 0.15;  // Reserve 10% of the canvas on the right side
-    const maxLegendWidth = width - 2 * margin - canvasRightSpace;  // Max width for the legend row, considering the right space
+    const canvasRightSpace = dims.width * 0.15;  // Reserve 10% of the canvas on the right side
+    const maxLegendWidth = dims.width - 2 * dims.margin - canvasRightSpace;  // Max width for the legend row, considering the right space
 
     // Iterate over sorted categories and create new legend items dynamically
     sortedCategories.forEach((category, i) => {
@@ -632,10 +643,40 @@ function updateLegend(selectedDots) {
     });
 }
 
+// Add window resize handler
+window.addEventListener('resize', () => {
+    const newDims = getResponsiveDimensions();
+    svg.attr("width", newDims.width)
+       .attr("height", newDims.height)
+       .attr("viewBox", `0 0 ${newDims.width} ${newDims.height}`);
+    
+    // Recalculate positions and update dots
+    const newNumCols = Math.floor((newDims.width - 2 * newDims.margin) / (newDims.radius * 2 + newDims.dotSpacing));
+    // Redraw dots with new dimensions
+    drawDotsByYear(articleDetails, [...new Set(articleDetails.map(d => d.year))], colorScale, isGreyState);
+});
 
-
-
-
-
+// Add responsive dimensions
+const getResponsiveDimensions = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth <= 480) {  // Mobile breakpoint
+        return {
+            width: screenWidth - 40, // Account for margins
+            height: 600,
+            margin: 20,
+            radius: 2,  // Smaller dots for mobile
+            dotSpacing: 4,  // Reduced spacing
+            lineSpacing: 8
+        };
+    }
+    return {
+        width: 1110,
+        height: 900,
+        margin: 40,
+        radius: 4,
+        dotSpacing: 8,
+        lineSpacing: 12
+    };
+};
 
 });
