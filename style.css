@@ -602,6 +602,7 @@ article {
   width: 100%;
   padding: 0 10px;
   margin: 0 auto;
+  transform-origin: center center; /* Ensure scaling happens from center */
 }
 
 .button-container rect {
@@ -626,30 +627,25 @@ article {
 /* Responsive styles for buttons */
 @media screen and (max-width: 768px) {
   .button-container {
-    gap: 5px;
-    max-width: 90vw; /* Use viewport width */
+    transform: scale(0.5); /* Scale down more aggressively */
+    width: 200%; /* Make container wider to compensate for scale */
+    margin-left: -50%; /* Center the scaled content */
   }
 
   .button-container rect {
-    transform: scale(0.8);
+    transform: scale(1); /* Reset individual rect scaling */
   }
 
   .button-container text {
-    font-size: 10px;
+    font-size: 12px; /* Keep text size consistent */
   }
 }
 
 @media screen and (max-width: 480px) {
   .button-container {
-    max-width: 95vw;
-  }
-
-  .button-container rect {
-    transform: scale(0.6);
-  }
-
-  .button-container text {
-    font-size: 8px;
+    transform: scale(0.35); /* Even more aggressive scaling for smaller phones */
+    width: 285%; /* Wider container to compensate */
+    margin-left: -92.5%; /* Center the scaled content */
   }
 }
 
