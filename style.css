@@ -1,7 +1,6 @@
 /* Global styles */
 * {
   box-sizing: border-box;
-
 }
 
 :root {
@@ -595,10 +594,21 @@ article {
 
 
 
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
 .button-container rect {
   fill: #7eabd0;
   stroke: #ccc;
   cursor: pointer;
+  transform-origin: center;
 }
 
 .button-container rect.active {
@@ -607,7 +617,40 @@ article {
 }
 
 .button-container text {
-  pointer-events: none; /* Ensures the text won't interfere with the button click */
+  pointer-events: none;
+  font-size: 12px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* Responsive styles for buttons */
+@media screen and (max-width: 768px) {
+  .button-container {
+    gap: 5px;
+    max-width: 90vw; /* Use viewport width */
+  }
+
+  .button-container rect {
+    transform: scale(0.8);
+  }
+
+  .button-container text {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button-container {
+    max-width: 95vw;
+  }
+
+  .button-container rect {
+    transform: scale(0.6);
+  }
+
+  .button-container text {
+    font-size: 8px;
+  }
 }
 
 
