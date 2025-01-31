@@ -10,11 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const numCols = Math.floor((dims.width - 2 * dims.margin) / (dims.radius * 2 + dims.dotSpacing));
 
     // Update SVG dimensions
-    svg = d3.select("#visualization")
-        .append("svg")
+    svg = d3.select("#canvas")
         .attr("width", dims.width)
-        .attr("height", dims.height)
-        .attr("viewBox", `0 0 ${dims.width} ${dims.height}`);
+        .attr("height", dims.height);
 
     // Inject the tooltip CSS dynamically to avoid conflicts
     const style = document.createElement('style');
