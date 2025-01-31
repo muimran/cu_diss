@@ -627,25 +627,25 @@ article {
 /* Responsive styles for buttons */
 @media screen and (max-width: 768px) {
   .button-container {
-    transform: scale(0.5); /* Scale down more aggressively */
-    width: 200%; /* Make container wider to compensate for scale */
-    margin-left: -50%; /* Center the scaled content */
+    transform: scale(0.5);
+    width: 200%;
+    margin-left: -50%;
   }
 
   .button-container rect {
-    transform: scale(1); /* Reset individual rect scaling */
+    transform: scale(1);
   }
 
   .button-container text {
-    font-size: 12px; /* Keep text size consistent */
+    font-size: 12px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .button-container {
-    transform: scale(0.35); /* Even more aggressive scaling for smaller phones */
-    width: 285%; /* Wider container to compensate */
-    margin-left: -92.5%; /* Center the scaled content */
+    transform: scale(0.35);
+    width: 285%;
+    margin-left: -92.5%;
   }
 }
 
