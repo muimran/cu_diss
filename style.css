@@ -610,6 +610,36 @@ article {
   pointer-events: none; /* Ensures the text won't interfere with the button click */
 }
 
+/* Base styles for dots and labels */
+.button-container text {
+  pointer-events: none;
+  font-size: 12px;
+  fill: #333;
+}
+
+/* Media queries for mobile devices */
+@media screen and (max-width: 768px) {
+  .button-container text {
+    font-size: 10px; /* Slightly smaller font size */
+    transform: rotate(-45deg); /* Rotate text to prevent overlap */
+    transform-origin: 10px 10px; /* Adjust the rotation point */
+  }
+  
+  /* Ensure text is visible */
+  .button-container text {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* For very small screens */
+@media screen and (max-width: 480px) {
+  .button-container text {
+    font-size: 8px; /* Even smaller font size */
+  }
+}
+
 
 
 
