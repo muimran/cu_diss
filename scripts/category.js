@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     return dims.margin + row * (dims.radius * 2 + dims.dotSpacing) + dims.radius;
                 })
                 .attr("r", dims.radius)
-                .attr("fill", isGrey ? "#686666" : d => colorScale(d.category))
+                .attr("fill", d => isGrey ? "#ccc" : colorScale(d.category))
                 .on("mouseover", function(event, d) {
                     if (!isGreyState) {  // Only show the tooltip if not in grey state
                         tooltip.style("opacity", 1)
@@ -647,13 +647,11 @@ function updateLegend(selectedDots) {
 window.addEventListener('resize', () => {
     const newDims = getResponsiveDimensions();
     svg.attr("width", newDims.width)
-       .attr("height", newDims.height)
-       .attr("viewBox", `0 0 ${newDims.width} ${newDims.height}`);
+       .attr("height", newDims.height);
     
-    // Recalculate positions and update dots
-    const newNumCols = Math.floor((newDims.width - 2 * newDims.margin) / (newDims.radius * 2 + newDims.dotSpacing));
     // Redraw dots with new dimensions
-    drawDotsByYear(articleDetails, [...new Set(articleDetails.map(d => d.year))], colorScale, isGreyState);
+    const years = [...new Set(articleDetails.map(d => d.year))];
+    drawDotsByYear(articleDetails, years, colorScale, isGreyState);
 });
 
 // Add responsive dimensions
@@ -661,11 +659,11 @@ const getResponsiveDimensions = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth <= 480) {  // Mobile breakpoint
         return {
-            width: screenWidth - 40, // Account for margins
+            width: screenWidth - 40,
             height: 600,
             margin: 20,
-            radius: 2,  // Smaller dots for mobile
-            dotSpacing: 4,  // Reduced spacing
+            radius: 2,
+            dotSpacing: 4,
             lineSpacing: 8
         };
     }
