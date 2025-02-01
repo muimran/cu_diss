@@ -657,17 +657,17 @@ const getResponsiveDimensions = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth <= 480) {  // Mobile breakpoint
         return {
-            width: screenWidth - 40,
-            height: 600,
-            margin: 20,
-            radius: 2,
-            dotSpacing: 4,
-            lineSpacing: 8
+            width: screenWidth - 60,  // Increase margin
+            height: screenWidth * 1.5,  // Adjust height dynamically
+            margin: 30,  // Increase margin
+            radius: 1.5,  // Further reduce dot size
+            dotSpacing: 3,  // Adjust spacing
+            lineSpacing: 6  // Adjust line spacing
         };
     }
     return {
-        width: 1110,
-        height: 900,
+        width: Math.min(1110, screenWidth - 80),  // Adjust width dynamically
+        height: Math.min(900, screenWidth * 0.8),  // Adjust height dynamically
         margin: 40,
         radius: 4,
         dotSpacing: 8,
